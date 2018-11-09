@@ -1,12 +1,12 @@
 /*
  * Copyright 2015 Robin Stumm (serverkorken@gmail.com, http://dermetfan.net)
- * <p>
+ * <br>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <br>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <br>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,8 +19,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
@@ -39,15 +37,6 @@ import java.lang.annotation.*;
 public class AnnotationAssetManager extends AssetManager {
 
     public AnnotationAssetManager() {
-        this(new InternalFileHandleResolver(), true);
-    }
-
-    public AnnotationAssetManager(final FileHandleResolver resolver) {
-        this(resolver, true);
-    }
-
-    public AnnotationAssetManager(final FileHandleResolver resolver, final boolean defaultLoaders) {
-        super(resolver, defaultLoaders);
         // TODO: 07 Nov 2018 siD
         // super.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(new InternalFileHandleResolver()))
     }

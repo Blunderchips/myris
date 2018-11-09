@@ -67,7 +67,7 @@ public class BaseEngine extends ApplicationAdapter {
         }
         this.screen = screen;
         Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(this.screen));
-        Gdx.app.log("Screen shown", this.screen.toString());
+        Gdx.app.log("Screen shown", this.screen.getName());
         this.screen.show(assetManager);
     }
 }

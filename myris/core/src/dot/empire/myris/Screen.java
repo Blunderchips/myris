@@ -39,10 +39,10 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
         return !mngr.update();
     }
 
-    @Override
-    public String toString() {
-        return String.format("Screen[%s]", getName());
-    }
+    // @Override
+    // public String toString() {
+    //    return String.format("Screen[%s]", getName());
+    // }
 
     public String getName() {
         return getClass().getSimpleName();

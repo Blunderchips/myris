@@ -22,28 +22,28 @@ public class SimpleDirectionGestureDetector extends GestureDetector {
 
     private static class DirectionGestureListener extends GestureAdapter {
 
-        DirectionListener directionListener;
+        DirectionListener listener;
 
         public DirectionGestureListener(DirectionListener listener) {
-            this.directionListener = listener;
+            this.listener = listener;
         }
 
         @Override
         public boolean fling(float xvel, float yvel, int btn) {
             if (Math.abs(xvel) > Math.abs(yvel)) {
                 if (xvel > 0) {
-                    directionListener.onRight();
+                    listener.onRight();
                 } else {
-                    directionListener.onLeft();
+                    listener.onLeft();
                 }
             } else {
                 if (yvel > 0) {
-                    directionListener.onDown();
+                    listener.onDown();
                 } else {
-                    directionListener.onUp();
+                    listener.onUp();
                 }
             }
-            return super.fling(xvel, yvel, btn);
+            return true;
         }
     }
 }

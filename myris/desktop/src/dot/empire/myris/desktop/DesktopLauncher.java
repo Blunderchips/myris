@@ -29,8 +29,8 @@ public final class DesktopLauncher {
         cfg.samples = 16;
         cfg.resizable = false;
 
-        cfg.width = 360;
-        cfg.height = 640;
+        cfg.width = 480;
+        cfg.height = 800;
 
         cfg.r = 24;
         cfg.g = 24;
