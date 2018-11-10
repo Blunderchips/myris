@@ -1,7 +1,6 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -16,10 +15,6 @@ public final class ScreenMenuMain extends Screen {
     public void show(AnnotationAssetManager mngr) {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
-    }
-
-    @Override
-    public void render(ShapeRenderer renderer) {
     }
 
     @Override

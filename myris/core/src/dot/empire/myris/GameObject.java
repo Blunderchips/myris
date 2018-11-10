@@ -1,6 +1,7 @@
 package dot.empire.myris;
 
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -22,5 +23,5 @@ public interface GameObject extends Disposable {
      * @param renderer used to render shapes to the screen
      * @see dot.empire.myris.BaseEngine#renderer
      */
-    void render(final ShapeRenderer renderer);
+    void render(final ShapeRenderer renderer, final SpriteBatch batch);
 }

@@ -1,34 +1,42 @@
 package dot.empire.myris.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dot.empire.myris.GifDecoder;
 import dot.empire.myris.Screen;
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 public final class ScreenLoading extends Screen {
 
-    private final Screen parent;
+    private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
-    public ScreenLoading(Screen parent) {
-        this.parent = parent;
+    private Animation<TextureRegion> loadGif;
+    private float elasped;
+
+    public ScreenLoading() {
+        this.elasped = 0;
+        this.loadGif = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
+                Gdx.files.internal(LOADING_GIF).read());
     }
 
     @Override
     public void update(float dt) {
-        super.update(dt);
+        this.elasped += dt;
     }
 
     @Override
-    public void render(ShapeRenderer renderer) {
-        super.render(renderer);
+    public void render(ShapeRenderer renderer, SpriteBatch batch) {
+        TextureRegion tex = loadGif.getKeyFrame(elasped, true);
+        batch.draw(tex,
+                (Gdx.graphics.getWidth() - tex.getRegionWidth()) / 2f,
+                (Gdx.graphics.getHeight() - tex.getRegionHeight()) / 2f
+        );
     }
 
-    @Override
-    public boolean load(AnnotationAssetManager mngr) {
-        return false;
-    }
-
-    @Override
-    public String getName() {
-        return String.format("Loading => %s", parent.getName());
-    }
+//    @Override
+//    public String getName() {
+//        return String.format("Loading => %s", parent.getName());
+//    }
 }

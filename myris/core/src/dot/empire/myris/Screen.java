@@ -1,6 +1,7 @@
 package dot.empire.myris;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -23,7 +24,7 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
     }
 
     @Override
-    public void render(final ShapeRenderer renderer) {
+    public void render(ShapeRenderer renderer, SpriteBatch batch) {
     }
 
     /**
@@ -33,10 +34,6 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
      */
     @Override
     public void dispose() {
-    }
-
-    public boolean load(AnnotationAssetManager mngr) {
-        return !mngr.update();
     }
 
     // @Override
