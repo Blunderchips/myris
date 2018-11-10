@@ -13,16 +13,20 @@ public final class ScreenGame extends Screen {
     public static final int BLOCK_SIZE = 80;
 
     private static final Color[] COLOURS = {
-            Color.SKY, Color.CHARTREUSE, Color.GOLD,
-            Color.TAN, Color.SCARLET, Color.VIOLET
+            Color.SKY, /*Color.CHARTREUSE,*/ Color.GOLD,
+            /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
 
+    private float alpha;
     private int[][] blocks;
+    private int[][] _blocks;
     private SequenceGenerator seqn;
 
     public ScreenGame() {
+        this.alpha = 1f;
         this.seqn = new SequenceGenerator(COLOURS.length);
         this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
+
         Gdx.app.log("Blocks", String.format("%dx%d", blocks.length, blocks[0].length));
 
         for (int x = 0; x < blocks.length; x++) {
@@ -45,7 +49,7 @@ public final class ScreenGame extends Screen {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
                     renderer.setColor(COLOURS[blocks[x][y]]);
-                    renderer.rect(BLOCK_SIZE * x, BLOCK_SIZE * y, BLOCK_SIZE, BLOCK_SIZE);
+                    renderer.rect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE * alpha, BLOCK_SIZE * alpha);
                 }
             }
         }
@@ -61,7 +65,6 @@ public final class ScreenGame extends Screen {
             }
         }
         check();
-        add();
     }
 
     @Override
@@ -74,7 +77,6 @@ public final class ScreenGame extends Screen {
             }
         }
         check();
-        add();
     }
 
     @Override
@@ -87,7 +89,6 @@ public final class ScreenGame extends Screen {
             }
         }
         check();
-        add();
     }
 
     @Override
@@ -100,46 +101,57 @@ public final class ScreenGame extends Screen {
             }
         }
         check();
-        add();
     }
 
     private void up(int colour, int x, int y) {
-        if (y == blocks[0].length - 1 || blocks[x][y + 1] != -1) {
+        this.blocks[x][y] = -1;
+        if (y != blocks[0].length - 1 && blocks[x][y + 1] == colour) {
+            return;
+        } else if (y == blocks[0].length - 1 || blocks[x][y + 1] != -1) {
             this.blocks[x][y] = colour;
             return;
         }
-        this.blocks[x][y] = -1;
         up(colour, x, y + 1);
     }
 
     private void down(int colour, int x, int y) {
-        if (y == 0 || blocks[x][y - 1] != -1) {
+        this.blocks[x][y] = -1;
+        if (y != 0 && blocks[x][y - 1] == colour) {
+            return;
+        } else if (y == 0 || blocks[x][y - 1] != -1) {
             this.blocks[x][y] = colour;
             return;
         }
-        this.blocks[x][y] = -1;
         down(colour, x, y - 1);
     }
 
     private void left(int colour, int x, int y) {
-        if (x == 0 || blocks[x - 1][y] != -1) {
+        this.blocks[x][y] = -1;
+        if (x != 0 && blocks[x - 1][y] == colour) {
+            return;
+        } else if (x == 0 || blocks[x - 1][y] != -1) {
             this.blocks[x][y] = colour;
             return;
         }
-        this.blocks[x][y] = -1;
         left(colour, x - 1, y);
     }
 
     private void right(int colour, int x, int y) {
-        if (x == blocks.length - 1 || blocks[x + 1][y] != -1) {
+        this.blocks[x][y] = -1;
+        if (x != blocks.length - 1 && blocks[x + 1][y] == colour) {
+            return;
+        } else if (x == blocks.length - 1 || blocks[x + 1][y] != -1) {
             this.blocks[x][y] = colour;
             return;
         }
-        this.blocks[x][y] = -1;
         right(colour, x + 1, y);
     }
 
     private void add() {
+        if (isFull()) {
+            Gdx.app.log(getName(), "GAME OVER!");
+            return;
+        }
         int x, y;
         do {
             x = MathUtils.random(blocks.length - 1);
@@ -149,12 +161,38 @@ public final class ScreenGame extends Screen {
     }
 
     private void check() {
-
+        int current = getSize(blocks);
+        // Gdx.app.debug("Last size", Integer.toString(last));
+        // Gdx.app.debug("Current size", Integer.toString(getSize()));
+        add();
     }
 
-    boolean check(int x, int y) {
 
-        return false;
+    private boolean isFull() {
+        for (int x = 0; x < blocks.length; x++) {
+            for (int y = 0; y < blocks[x].length; y++) {
+                if (blocks[x][y] == -1) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private int getSize(int[][] blocks) {
+        int size = 0;
+        for (int x = 0; x < blocks.length; x++) {
+            for (int y = 0; y < blocks[x].length; y++) {
+                if (blocks[x][y] != -1) {
+                    size++;
+                }
+            }
+        }
+        return size;
+    }
+
+    private void setAlpha(float alpha) {
+        this.alpha = MathUtils.clamp(alpha, 0, 1);
     }
 }
 
