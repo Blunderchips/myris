@@ -3,7 +3,7 @@ package dot.empire.myris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dot.empire.myris.screens.ScreenTransisiotn;
+import dot.empire.myris.screens.ScreenTransition;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 /**
@@ -77,7 +77,7 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
 
             @Override
             public void run() {
-                Screen.this.engine.setScreen(new ScreenTransisiotn(next, engine));
+                Screen.this.engine.setScreen(new ScreenTransition(next, engine));
             }
         });
     }

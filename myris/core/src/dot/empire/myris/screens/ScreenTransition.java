@@ -4,12 +4,12 @@ import com.badlogic.gdx.Gdx;
 import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 
-public final class ScreenTransisiotn extends Screen {
+public final class ScreenTransition extends Screen {
 
     private float elapsed;
     private Class<? extends Screen> target;
 
-    public ScreenTransisiotn(Class<? extends Screen> target, BaseEngine engine) {
+    public ScreenTransition(Class<? extends Screen> target, BaseEngine engine) {
         super(engine);
         this.elapsed = 0;
         this.target = target;
