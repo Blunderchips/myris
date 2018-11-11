@@ -1,6 +1,8 @@
 package dot.empire.myris.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -11,10 +13,21 @@ public final class ScreenMenuMain extends Screen {
 
     private Music bgMusic;
 
+    public ScreenMenuMain(BaseEngine engine) {
+        super(engine);
+    }
+
     @Override
     public void show(AnnotationAssetManager mngr) {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
+    }
+
+    @Override
+    public void update(float dt) {
+        if (Gdx.input.isTouched()) {
+            changeScreen(ScreenGame.class);
+        }
     }
 
     @Override

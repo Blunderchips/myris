@@ -3,14 +3,17 @@ package dot.empire.myris;
 import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import org.jetbrains.annotations.Nullable;
 
 /**
+ * Android Launcher.
+ *
  * @author Matthew 'siD' Van der Bijl
  */
 public final class AndroidLauncher extends AndroidApplication {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final AndroidApplicationConfiguration cfg

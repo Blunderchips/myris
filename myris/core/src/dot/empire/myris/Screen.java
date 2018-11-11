@@ -3,6 +3,7 @@ package dot.empire.myris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dot.empire.myris.screens.ScreenTransisiotn;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 /**
@@ -10,7 +11,13 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
  */
 public class Screen implements GameObject, SimpleDirectionGestureDetector.DirectionListener {
 
-    public Screen() {
+    /**
+     * Main game engine.
+     */
+    private final BaseEngine engine;
+
+    public Screen(BaseEngine engine) {
+        this.engine = engine;
     }
 
     public void show(AnnotationAssetManager mngr) {
@@ -47,21 +54,35 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
 
     @Override
     public void onLeft() {
-        Gdx.app.debug("DirectionListener", "LEFT");
+        Gdx.app.debug("Direction Listener", "LEFT");
     }
 
     @Override
     public void onRight() {
-        Gdx.app.debug("DirectionListener", "RIGHT");
+        Gdx.app.debug("Direction Listener", "RIGHT");
     }
 
     @Override
     public void onUp() {
-        Gdx.app.debug("DirectionListener", "UP");
+        Gdx.app.debug("Direction Listener", "UP");
     }
 
     @Override
     public void onDown() {
-        Gdx.app.debug("DirectionListener", "DOWN");
+        Gdx.app.debug("Direction Listener", "DOWN");
+    }
+
+    public void changeScreen(final Class<? extends Screen> next) {
+        Gdx.app.postRunnable(new Runnable() {
+
+            @Override
+            public void run() {
+                Screen.this.engine.setScreen(new ScreenTransisiotn(next, engine));
+            }
+        });
+    }
+
+    public BaseEngine getEngine() {
+        return this.engine;
     }
 }

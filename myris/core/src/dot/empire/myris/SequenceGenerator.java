@@ -66,7 +66,7 @@ public final class SequenceGenerator {
         return arr;
     }
 
-    // TODO: 08 Nov 2018 Give propper name
+    // TODO: 08 Nov 2018 Give proper name
     private int ham() {
         int[] frequency = new int[sequences[0].length];
         for (int[] sequence : sequences) {
@@ -89,7 +89,7 @@ public final class SequenceGenerator {
         return nums.get(MathUtils.random.nextInt(nums.size()));
     }
 
-    // TODO: 08 Nov 2018 Give propper name
+    // TODO: 08 Nov 2018 Give proper name
     private boolean tuna() {
         int[] frequency = new int[sequences[0].length];
         for (int[] sequence : sequences) {

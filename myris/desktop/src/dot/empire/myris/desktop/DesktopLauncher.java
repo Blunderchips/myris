@@ -26,7 +26,7 @@ public final class DesktopLauncher {
 
         cfg.title = "myris";
 
-        cfg.samples = 16;
+        cfg.samples = 8;
         cfg.resizable = false;
 
         cfg.width = 480;

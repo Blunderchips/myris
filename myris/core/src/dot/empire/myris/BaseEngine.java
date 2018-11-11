@@ -3,9 +3,9 @@ package dot.empire.myris;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dot.empire.myris.screens.ScreenLoading;
+import com.kotcrab.vis.ui.VisUI;
+import dot.empire.myris.screens.ScreenMenuMain;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
@@ -17,25 +17,32 @@ import static com.badlogic.gdx.Application.LOG_DEBUG;
  */
 public class BaseEngine extends ApplicationAdapter {
 
+    /**
+     *
+     */
+    public static final String TAG = "myris";
+
     private Screen screen;
     private ShapeRenderer renderer;
-    private SpriteBatch batch;
+    private ShaderBatch batch;
     private AnnotationAssetManager assetManager;
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(LOG_DEBUG);
 
+        VisUI.load();
+
         this.renderer = new ShapeRenderer();
         this.renderer.setAutoShapeType(true);
         // this.renderer.setColor(Color.BLACK);
 
-        this.batch = new SpriteBatch();
+        this.batch = new ShaderBatch(1);
 
         this.assetManager = new AnnotationAssetManager();
 
         // Do last
-        this.setScreen(new ScreenLoading());
+        this.setScreen(new ScreenMenuMain(this));
     }
 
     @Override
@@ -51,7 +58,7 @@ public class BaseEngine extends ApplicationAdapter {
         );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        this.batch.begin();
+        this.batch.begin(false);
         this.renderer.begin(ShapeRenderer.ShapeType.Filled);
         {
             this.screen.render(renderer, batch);
@@ -69,6 +76,8 @@ public class BaseEngine extends ApplicationAdapter {
         this.assetManager.dispose();
         this.renderer.dispose();
         this.batch.dispose();
+
+        VisUI.dispose();
     }
 
     public void setScreen(Screen screen) {
@@ -79,7 +88,7 @@ public class BaseEngine extends ApplicationAdapter {
         }
         this.screen = screen;
         Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(this.screen));
-        Gdx.app.log("Screen shown", this.screen.getName());
+        Gdx.app.log(BaseEngine.TAG, "Screen = " + this.screen.getName());
         this.screen.show(assetManager);
     }
 }

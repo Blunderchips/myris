@@ -1,10 +1,12 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -19,20 +21,32 @@ public final class ScreenGame extends Screen {
      * Block colours.
      */
     private static final Color[] COLOURS = {
-            Color.SKY, /*Color.CHARTREUSE,*/ Color.GOLD,
+            Color.SKY, Color.CHARTREUSE, Color.GOLD,
             /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
+    /**
+     * Sound effect to be played when a block is collected.
+     */
+    @AnnotationAssetManager.Asset(Sound.class)
+    private static final String SFX_COLLECT = "sfx/170147__timgormly__8-bit-coin.ogg";
+    @AnnotationAssetManager.Asset(Sound.class)
+    private static final String SFX_DEATH = "sfx/death.mp3";
+
 
     private int[][] blocks;
     private int[][] _blocks;
     private SequenceGenerator seqn;
+    private Sound sfxCollect;
+    private Sound sfxDeath;
 
-    public ScreenGame() {
+
+    public ScreenGame(BaseEngine engine) {
+        super(engine);
         this.seqn = new SequenceGenerator(COLOURS.length);
         this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
         this._blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
 
-        Gdx.app.log("Blocks", String.format("%dx%d", blocks.length, blocks[0].length));
+        Gdx.app.log(BaseEngine.TAG, String.format("Blocks = %dx%d", blocks.length, blocks[0].length));
 
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
@@ -46,7 +60,8 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void show(AnnotationAssetManager mngr) {
-        super.show(mngr);
+        this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
+        this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
     }
 
     @Override
@@ -116,6 +131,9 @@ public final class ScreenGame extends Screen {
     private void up(int colour, int x, int y) {
         this.blocks[x][y] = -1;
         if (y != blocks[0].length - 1 && blocks[x][y + 1] == colour) {
+            if (blocks[x][y + 1] == colour) {
+                collect();
+            }
             return;
         } else if (y == blocks[0].length - 1 || blocks[x][y + 1] != -1) {
             this.blocks[x][y] = colour;
@@ -127,6 +145,9 @@ public final class ScreenGame extends Screen {
     private void down(int colour, int x, int y) {
         this.blocks[x][y] = -1;
         if (y != 0 && blocks[x][y - 1] == colour) {
+            if (blocks[x][y - 1] == colour) {
+                collect();
+            }
             return;
         } else if (y == 0 || blocks[x][y - 1] != -1) {
             this.blocks[x][y] = colour;
@@ -138,6 +159,9 @@ public final class ScreenGame extends Screen {
     private void left(int colour, int x, int y) {
         this.blocks[x][y] = -1;
         if (x != 0 && blocks[x - 1][y] == colour) {
+            if (blocks[x - 1][y] == colour) {
+                collect();
+            }
             return;
         } else if (x == 0 || blocks[x - 1][y] != -1) {
             this.blocks[x][y] = colour;
@@ -149,6 +173,9 @@ public final class ScreenGame extends Screen {
     private void right(int colour, int x, int y) {
         this.blocks[x][y] = -1;
         if (x != blocks.length - 1 && blocks[x + 1][y] == colour) {
+            if (blocks[x + 1][y] == colour) {
+                collect();
+            }
             return;
         } else if (x == blocks.length - 1 || blocks[x + 1][y] != -1) {
             this.blocks[x][y] = colour;
@@ -159,7 +186,6 @@ public final class ScreenGame extends Screen {
 
     private void add() {
         if (isFull()) {
-            Gdx.app.log(getName(), "GAME OVER!");
             return;
         }
         int x, y;
@@ -186,6 +212,10 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
+
+        Gdx.app.log(BaseEngine.TAG, "GAME OVER!");
+        this.sfxDeath.play();
+
         return true;
     }
 
@@ -203,6 +233,16 @@ public final class ScreenGame extends Screen {
             }
         }
         return size;
+    }
+
+    @Override
+    public void dispose() {
+        this.sfxCollect.dispose(); // TODO: 11 Nov 2018 Check if needed
+        this.sfxDeath.dispose();
+    }
+
+    private void collect() {
+        this.sfxCollect.play();
     }
 }
 

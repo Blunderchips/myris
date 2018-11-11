@@ -1,11 +1,13 @@
 package dot.empire.myris;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 /**
  *
  */
+// https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast
 public final class ShaderBatch extends SpriteBatch {
 
     private static final String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n" //
@@ -44,7 +46,6 @@ public final class ShaderBatch extends SpriteBatch {
             + "}";
 
     public final boolean isCompiled;
-    public final String log;
     public float brightness;
     public float contrast;
     protected int brightnessLoc = -1, contrastLoc = -1;
@@ -57,12 +58,12 @@ public final class ShaderBatch extends SpriteBatch {
         this.brightness = 0;
 
         ShaderProgram.pedantic = false;
-        shader = new ShaderProgram(vertexShader, fragmentShader);
-        isCompiled = shader.isCompiled();
-        log = shader.getLog();
+
+        this.shader = new ShaderProgram(vertexShader, fragmentShader);
+        this.isCompiled = shader.isCompiled();
 
         if (isCompiled) {
-            setShader(shader);
+            super.setShader(shader);
             {
                 this.shader.begin();
                 this.brightnessLoc = shader.getUniformLocation("brightness");
@@ -70,12 +71,14 @@ public final class ShaderBatch extends SpriteBatch {
             }
             this.shader.end();
         }
+
+        Gdx.app.debug("Shader batch", "Compiled = " + Boolean.toString(isCompiled));
+        Gdx.app.debug("Shader batch", "Log = " + shader.getLog());
     }
 
-    @Override
-    public void begin() {
+    public void begin(boolean useShader) {
         super.begin();
-        if (shader != null) {
+        if (useShader && shader != null) {
             if (brightnessLoc != -1) {
                 this.shader.setUniformf(brightnessLoc, brightness);
             }
@@ -83,6 +86,12 @@ public final class ShaderBatch extends SpriteBatch {
                 this.shader.setUniformf(contrastLoc, contrast);
             }
         }
+    }
+
+    @Override
+    @Deprecated
+    public void begin() {
+        this.begin(true);
     }
 
     public float getBrightness() {

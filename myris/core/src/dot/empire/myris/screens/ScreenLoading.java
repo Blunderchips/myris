@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import dot.empire.myris.BaseEngine;
 import dot.empire.myris.GifDecoder;
 import dot.empire.myris.Screen;
 
@@ -13,9 +14,10 @@ public final class ScreenLoading extends Screen {
     private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
     private Animation<TextureRegion> loadGif;
-    private float elasped;
+    private float elasped; // TODO: 11 Nov 2018 Clamp/reset
 
-    public ScreenLoading() {
+    public ScreenLoading(BaseEngine engine) {
+        super(engine);
         this.elasped = 0;
         this.loadGif = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
                 Gdx.files.internal(LOADING_GIF).read());

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public interface GameObject extends Disposable {
 
+    // TODO: 11 Nov 2018 Pull generic dt definition
     /**
      * @param dt Delta time
      * @see Graphics#getDeltaTime()
@@ -22,6 +23,7 @@ public interface GameObject extends Disposable {
     /**
      * @param renderer used to render shapes to the screen
      * @see dot.empire.myris.BaseEngine#renderer
+     * @see dot.empire.myris.BaseEngine#batch
      */
     void render(final ShapeRenderer renderer, final SpriteBatch batch);
 }
