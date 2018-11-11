@@ -2,6 +2,9 @@ package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -28,6 +31,12 @@ public final class ScreenMenuMain extends Screen {
         if (Gdx.input.isTouched()) {
             changeScreen(ScreenGame.class);
         }
+    }
+
+    @Override
+    public void render(ShapeRenderer renderer, SpriteBatch batch) {
+        renderer.setColor(Color.RED);
+        renderer.rect(100, 100, 100, 100);
     }
 
     @Override
