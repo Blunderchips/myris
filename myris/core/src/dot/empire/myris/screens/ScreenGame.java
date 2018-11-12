@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
+import dot.empire.myris.gui.Score;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +28,7 @@ public final class ScreenGame extends Screen {
      */
     private static final Color[] COLOURS = {
             Color.SKY, Color.CHARTREUSE, Color.GOLD,
-            /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
+            Color.TAN, Color.SCARLET, Color.VIOLET
     };
     /**
      * Sound effect to be played when a block is collected.
@@ -46,6 +47,7 @@ public final class ScreenGame extends Screen {
     private Sound sfxDeath;
     private Sound sfxClick;
     private AtomicInteger numCollected;
+    private Score score;
 
     public ScreenGame() {
         this.numCollected = new AtomicInteger();
@@ -70,6 +72,8 @@ public final class ScreenGame extends Screen {
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
+
+        getEngine().getUILayer().addActor(score = new Score());
     }
 
     @Override
@@ -249,6 +253,7 @@ public final class ScreenGame extends Screen {
 
     private void collect() {
         this.numCollected.addAndGet(2);
+        this.score.updateScore(1);
     }
 }
 

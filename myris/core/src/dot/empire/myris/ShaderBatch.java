@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 // https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast
 public final class ShaderBatch extends SpriteBatch {
 
-    private static final String vertexShader = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
+    private static final String VERTEX_SHADER = "attribute vec4 " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
             + "attribute vec4 " + ShaderProgram.COLOR_ATTRIBUTE + ";\n"
             + "attribute vec2 " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n"
             + "uniform mat4 u_projTrans;\n"
@@ -25,7 +25,7 @@ public final class ShaderBatch extends SpriteBatch {
             + "   gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
             + "}\n";
 
-    private static final String fragmentShader = "#ifdef GL_ES\n"
+    private static final String FRAGMENT_SHADER = "#ifdef GL_ES\n"
             + "#define LOWP lowp\n"
             + "precision mediump float;\n"
             + "#else\n"
@@ -60,7 +60,7 @@ public final class ShaderBatch extends SpriteBatch {
 
         ShaderProgram.pedantic = false;
 
-        this.shader = new ShaderProgram(vertexShader, fragmentShader);
+        this.shader = new ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER);
         this.isCompiled = shader.isCompiled();
 
         if (isCompiled) {
