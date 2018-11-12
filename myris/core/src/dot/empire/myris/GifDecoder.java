@@ -113,9 +113,9 @@ public class GifDecoder {
      * Creates new frame image from current data (and previous frames as specified by their disposition codes).
      */
     private void setPixels() {
-        // expose destination image's pixels as int array
+        // expose destination image'display pixels as int array
         int[] dest = new int[width * height];
-        // fill in starting image contents based on last image's dispose code
+        // fill in starting image contents based on last image'display dispose code
         if (lastDispose > 0) {
             if (lastDispose == 3) {
                 // use image before last
@@ -237,7 +237,7 @@ public class GifDecoder {
     }
 
     /**
-     * Decodes LZW image data into pixel array. Adapted from John Cristy's BitmapMagick.
+     * Decodes LZW image data into pixel array. Adapted from John Cristy'display BitmapMagick.
      */
     private void decodeBitmapData() {
         int nullCode = -1;

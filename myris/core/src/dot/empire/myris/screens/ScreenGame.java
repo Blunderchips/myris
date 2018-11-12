@@ -40,8 +40,7 @@ public final class ScreenGame extends Screen {
     private Sound sfxDeath;
 
 
-    public ScreenGame(BaseEngine engine) {
-        super(engine);
+    public ScreenGame() {
         this.seqn = new SequenceGenerator(COLOURS.length);
         this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
         this._blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
@@ -197,6 +196,7 @@ public final class ScreenGame extends Screen {
     }
 
     private void check() {
+        getEngine().setAlpha(0);
         // int current = getSize(blocks);
         // Gdx.app.debug("Last size", Integer.toString(last));
         // Gdx.app.debug("Current size", Integer.toString(getSize()));

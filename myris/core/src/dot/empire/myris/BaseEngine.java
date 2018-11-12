@@ -2,16 +2,18 @@ package dot.empire.myris;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.kotcrab.vis.ui.VisUI;
+import dot.empire.myris.screens.ScreenLoading;
 import dot.empire.myris.screens.ScreenMenuMain;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
+import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
 
 /**
  * Main game file. Created 07/11/2018.
@@ -31,13 +33,15 @@ public class BaseEngine extends ApplicationAdapter {
     private AnnotationAssetManager assetManager;
 
     private FrameBuffer fbo;
-    private TextureRegion fboRegion;
+    private Sprite display;
+    private float alpha;
 
     @Override
     public void create() {
         Gdx.app.setLogLevel(LOG_DEBUG);
 
         VisUI.load();
+        this.assetManager = new AnnotationAssetManager();
 
         this.renderer = new ShapeRenderer();
         this.renderer.setAutoShapeType(true);
@@ -45,21 +49,22 @@ public class BaseEngine extends ApplicationAdapter {
 
         this.batch = new ShaderBatch(1);
 
-        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, Gdx.graphics.getWidth(),
-                Gdx.graphics.getHeight(), false);
-        this.fboRegion = new TextureRegion(fbo.getColorBufferTexture(), 0, 0,
-                Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        this.fboRegion.flip(false, true);
+        final int width = Gdx.graphics.getWidth();
+        final int height = Gdx.graphics.getHeight();
 
-        this.assetManager = new AnnotationAssetManager();
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+        this.display = new Sprite(fbo.getColorBufferTexture());
+        this.display.flip(false, true);
 
         // Do last
-        this.setScreen(new ScreenMenuMain(this));
+        this.setScreen(new ScreenMenuMain());
     }
 
     @Override
     public void render() {
-        this.screen.update(Gdx.graphics.getDeltaTime());
+        final float dt = Gdx.graphics.getDeltaTime();
+        this.screen.update(dt);
+        this.setAlpha(alpha + (dt * 10));
 
         this.fbo.begin();
         {
@@ -70,7 +75,7 @@ public class BaseEngine extends ApplicationAdapter {
                     251 / 255f,
                     1
             );
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
             this.batch.begin(false);
             this.renderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -82,10 +87,10 @@ public class BaseEngine extends ApplicationAdapter {
         }
         this.fbo.end();
 
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
         this.batch.begin(true);
         {
-            this.batch.draw(fboRegion, 0, 0);
+            this.display.draw(batch, alpha);
         }
         this.batch.end();
     }
@@ -96,7 +101,7 @@ public class BaseEngine extends ApplicationAdapter {
     @Override
     public void dispose() {
         this.fbo.dispose();
-        this.fboRegion.getTexture().dispose();
+        this.display.getTexture().dispose();
 
         this.screen.dispose();
         this.assetManager.dispose();
@@ -104,11 +109,19 @@ public class BaseEngine extends ApplicationAdapter {
         this.batch.dispose();
 
         VisUI.dispose();
+        Gdx.app.log(BaseEngine.TAG, "Goodbye(:");
     }
 
     public void setScreen(Screen screen) {
+        this.setAlpha(0);
+        screen.setEngine(this);
         this.assetManager.load(screen);
-        this.assetManager.finishLoading(); // TODO: 08 Nov 2018 Loading screen
+
+        if (!assetManager.update() && !(screen instanceof ScreenLoading)) {
+            this.assetManager.finishLoading();
+            setScreen(new ScreenLoading(screen, assetManager));
+            return;
+        }
         if (this.screen != null) {
             this.screen.dispose();
         }
@@ -118,7 +131,7 @@ public class BaseEngine extends ApplicationAdapter {
         this.screen.show(assetManager);
     }
 
-    // public void setAlpha(float alpha) {
-    //     this.alpha = 1 - MathUtils.clamp(alpha, 0, 1);
-    // }
+    public void setAlpha(float alpha) {
+        this.alpha = MathUtils.clamp(alpha, 0, 1);
+    }
 }

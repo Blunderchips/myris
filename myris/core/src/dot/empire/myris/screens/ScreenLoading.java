@@ -1,6 +1,7 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -13,12 +14,16 @@ public final class ScreenLoading extends Screen {
 
     private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
+    private Screen target;
+    private AssetManager mngr;
     private Animation<TextureRegion> loadGif;
     private float elasped; // TODO: 11 Nov 2018 Clamp/reset
 
-    public ScreenLoading(BaseEngine engine) {
-        super(engine);
+    public ScreenLoading(Screen target, AssetManager mngr) {
+        this.mngr = mngr;
         this.elasped = 0;
+        this.target = target;
+
         this.loadGif = GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
                 Gdx.files.internal(LOADING_GIF).read());
     }
@@ -26,6 +31,10 @@ public final class ScreenLoading extends Screen {
     @Override
     public void update(float dt) {
         this.elasped += dt;
+        Gdx.app.log(BaseEngine.TAG, String.format("Loading %.2f", mngr.getProgress() * 100) + "%");
+        if (mngr.update()) {
+            changeScreen(target);
+        }
     }
 
     @Override
@@ -37,8 +46,8 @@ public final class ScreenLoading extends Screen {
         );
     }
 
-//    @Override
-//    public String getName() {
-//        return String.format("Loading => %s", parent.getName());
-//    }
+    @Override
+    public String getName() {
+        return String.format("Loading => %s", target.getName());
+    }
 }

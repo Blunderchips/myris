@@ -25,6 +25,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.Method;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import dot.empire.myris.BaseEngine;
 
 import java.lang.annotation.*;
 
@@ -112,8 +113,9 @@ public class AnnotationAssetManager extends AssetManager {
      * @return the type of the specified asset
      */
     private static Class getAssetType(Asset asset, Object pathObj) {
-        if (pathObj instanceof AssetDescriptor)
+        if (pathObj instanceof AssetDescriptor) {
             return ((AssetDescriptor<?>) pathObj).type;
+        }
         return asset.value();
     }
 
@@ -123,11 +125,13 @@ public class AnnotationAssetManager extends AssetManager {
      * @param container An instance of the field's or method's declaring class. May be null if it's static.
      * @return the AssetLoaderParameters associated with the specified asset
      */
-    private static AssetLoaderParameters getAssetLoaderParameters(Asset asset, Object pathObj, Class containerType, Object container) {
-        if (pathObj instanceof AssetDescriptor)
+    private static AssetLoaderParameters getAssetLoaderParameters(Asset asset, Object pathObj,
+                                                                  Class containerType, Object container) {
+        if (pathObj instanceof AssetDescriptor) {
             return ((AssetDescriptor) pathObj).params;
-        if (asset.param().length() == 0)
+        } else if (asset.param().length() == 0) {
             return null;
+        }
 
         String location = asset.param();
         boolean method = location.endsWith("()"); // if a method contains the AssetLoaderParameters
@@ -139,7 +143,7 @@ public class AnnotationAssetManager extends AssetManager {
             name = location.substring(end + 1, method ? location.lastIndexOf("()") : 0);
             try {
                 clazz = ClassReflection.forName(className);
-            } catch (ReflectionException e) {
+            } catch (ReflectionException re) {
                 throw new IllegalArgumentException("Failed to load AssetLoaderParameters from " + location + ": class " + className + " does not exist");
             }
         } else { // in container class
@@ -153,19 +157,21 @@ public class AnnotationAssetManager extends AssetManager {
             try {
                 m = ClassReflection.getDeclaredMethod(clazz, name, Class.class, String.class, Object.class);
                 withParams = true;
-            } catch (ReflectionException e) {
+            } catch (ReflectionException re0) {
                 try {
                     m = ClassReflection.getDeclaredMethod(clazz, name);
                     withParams = false;
-                } catch (ReflectionException e1) {
-                    throw new GdxRuntimeException("failed to access method " + name, e1);
+                } catch (ReflectionException re1) {
+                    throw new GdxRuntimeException("failed to access method " + name, re1);
                 }
             }
-            if (!ClassReflection.isAssignableFrom(AssetLoaderParameters.class, m.getReturnType()))
+            if (!ClassReflection.isAssignableFrom(AssetLoaderParameters.class, m.getReturnType())) {
                 throw new IllegalArgumentException("AssetLoaderParameters supplier method does not return AssetLoaderParameters: " + m.getReturnType());
-            if (withParams)
+            } else if (withParams) {
                 return (AssetLoaderParameters) invoke(m, container, getAssetType(asset, pathObj), getAssetPath(pathObj), pathObj);
-            return (AssetLoaderParameters) invoke(m, container);
+            } else {
+                return (AssetLoaderParameters) invoke(m, container);
+            }
         } else {
             try {
                 Field f = ClassReflection.getDeclaredField(clazz, name);
@@ -249,7 +255,8 @@ public class AnnotationAssetManager extends AssetManager {
      */
     public static AssetLoaderParameters getAssetLoaderParameters(Field field, Object container) {
         return getAssetLoaderParameters(field.isAnnotationPresent(Asset.class) ?
-                field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null, get(field, container), field.getDeclaringClass(), container);
+                        field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null, get(field, container),
+                field.getDeclaringClass(), container);
     }
 
     /**
@@ -266,7 +273,8 @@ public class AnnotationAssetManager extends AssetManager {
      */
     public static AssetLoaderParameters getAssetLoaderParameters(Method method, Object container) {
         return getAssetLoaderParameters(method.isAnnotationPresent(Asset.class) ?
-                method.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null, invoke(method, container), method.getDeclaringClass(), container);
+                        method.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null,
+                invoke(method, container), method.getDeclaringClass(), container);
     }
 
     /**
@@ -281,7 +289,7 @@ public class AnnotationAssetManager extends AssetManager {
      * @param container An instance of the field's declaring class. May be null if it's static.
      * @return a new AssetDescriptor created from the given field
      */
-    public static <T> AssetDescriptor<T> createAssetDescriptor(Field field, Object container) {
+    public static <T> AssetDescriptor<T> createAssetDescriptor(Field field, Object container) throws IllegalArgumentException {
         Object pathObj = get(field, container);
         if (pathObj instanceof AssetDescriptor) {
             return (AssetDescriptor<T>) pathObj;
@@ -289,7 +297,8 @@ public class AnnotationAssetManager extends AssetManager {
             throw new IllegalArgumentException("cannot create an AssetDescriptor from a field not annotated with @Asset");
         }
         Asset asset = field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class);
-        return new AssetDescriptor<T>(getAssetPath(pathObj), getAssetType(asset, pathObj), getAssetLoaderParameters(asset, pathObj, field.getDeclaringClass(), container));
+        return new AssetDescriptor<T>(getAssetPath(pathObj), getAssetType(asset, pathObj),
+                getAssetLoaderParameters(asset, pathObj, field.getDeclaringClass(), container));
     }
 
     /**
@@ -312,7 +321,8 @@ public class AnnotationAssetManager extends AssetManager {
             throw new IllegalArgumentException("cannot create an AssetDescriptor from a method not annotated with @Asset");
         }
         Asset asset = method.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class);
-        return new AssetDescriptor<T>(getAssetPath(pathObj), getAssetType(asset, pathObj), getAssetLoaderParameters(asset, pathObj, method.getDeclaringClass(), container));
+        return new AssetDescriptor<T>(getAssetPath(pathObj), getAssetType(asset, pathObj),
+                getAssetLoaderParameters(asset, pathObj, method.getDeclaringClass(), container));
     }
 
     /**
@@ -335,7 +345,8 @@ public class AnnotationAssetManager extends AssetManager {
                 load(asset, path, containerType, container);
             }
         } else {
-            load(getAssetPath(pathObj), getAssetType(asset, pathObj), getAssetLoaderParameters(asset, pathObj, containerType, container));
+            load(getAssetPath(pathObj), getAssetType(asset, pathObj),
+                    getAssetLoaderParameters(asset, pathObj, containerType, container));
         }
     }
 
@@ -384,7 +395,8 @@ public class AnnotationAssetManager extends AssetManager {
      * @param container An instance of the field's declaring class. May be null if it's static.
      */
     public void load(Field field, Object container) {
-        load(field.isAnnotationPresent(Asset.class) ? field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null, get(field, container), field.getDeclaringClass(), container);
+        load(field.isAnnotationPresent(Asset.class) ? field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class)
+                : null, get(field, container), field.getDeclaringClass(), container);
     }
 
     /**
@@ -404,8 +416,8 @@ public class AnnotationAssetManager extends AssetManager {
         } else if (method.getReturnType().isPrimitive()) {
             throw new IllegalArgumentException(method.getName() + " returns " + method.getReturnType() + ". Methods that return primitives are not supported.");
         }
-        load(method.isAnnotationPresent(Asset.class) ?
-                method.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class) : null, invoke(method, container), method.getDeclaringClass(), container);
+        load(method.isAnnotationPresent(Asset.class) ? method.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class)
+                : null, invoke(method, container), method.getDeclaringClass(), container);
     }
 
     /**
@@ -416,13 +428,13 @@ public class AnnotationAssetManager extends AssetManager {
     }
 
     public synchronized <T> void load(String fileName, Class<T> type, AssetLoaderParameters<T> parameter) {
-        Gdx.app.debug("Loading " + type.getSimpleName(), fileName);
+        Gdx.app.debug(BaseEngine.TAG, String.format("Loading %s = %s", type.getSimpleName(), fileName));
         super.load(fileName, type, parameter);
     }
 
     @Override
     public synchronized <T> T get(String fileName, Class<T> type) {
-        Gdx.app.debug("Getting " + type.getSimpleName(), fileName);
+        Gdx.app.debug(BaseEngine.TAG, String.format("Getting %s = %s", type.getSimpleName(), fileName));
         return super.get(fileName, type);
     }
 

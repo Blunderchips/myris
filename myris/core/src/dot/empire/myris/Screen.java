@@ -3,7 +3,6 @@ package dot.empire.myris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dot.empire.myris.screens.ScreenTransition;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 /**
@@ -14,10 +13,9 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
     /**
      * Main game engine.
      */
-    private final BaseEngine engine;
+    private BaseEngine engine;
 
-    public Screen(BaseEngine engine) {
-        this.engine = engine;
+    public Screen() {
     }
 
     public void show(AnnotationAssetManager mngr) {
@@ -45,7 +43,7 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
 
     // @Override
     // public String toString() {
-    //    return String.format("Screen[%s]", getName());
+    //    return String.format("Screen[%display]", getName());
     // }
 
     public String getName() {
@@ -72,17 +70,29 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
         Gdx.app.debug("Direction Listener", "DOWN");
     }
 
-    public void changeScreen(final Class<? extends Screen> next) {
+    public void changeScreen(final Screen screen) {
         Gdx.app.postRunnable(new Runnable() {
 
             @Override
             public void run() {
-                Screen.this.engine.setScreen(new ScreenTransition(next, engine));
+                getEngine().setScreen(screen);
             }
         });
     }
 
+    public void changeScreen(Class<? extends Screen> screen) {
+        try {
+            changeScreen(screen.getConstructor().newInstance());
+        } catch (Exception ex) { // TODO: 11 Nov 2018 Get specific exceptions
+            Gdx.app.error(BaseEngine.TAG, "Cannot change next", ex);
+        }
+    }
+
     public BaseEngine getEngine() {
         return this.engine;
+    }
+
+    public void setEngine(BaseEngine engine) {
+        this.engine = engine;
     }
 }
