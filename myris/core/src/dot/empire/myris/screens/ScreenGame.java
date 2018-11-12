@@ -22,7 +22,7 @@ public final class ScreenGame extends Screen {
     /**
      * Default block size.
      */
-    private static final int BLOCK_SIZE = 80;
+    private static final int BLOCK_SIZE = 120;
     /**
      * Block colours.
      */
@@ -57,14 +57,7 @@ public final class ScreenGame extends Screen {
 
         Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
 
-        for (int x = 0; x < blocks.length; x++) {
-            for (int y = 0; y < blocks[x].length; y++) {
-                this.blocks[x][y] = -1;
-            }
-        }
-
-        add();
-        add();
+        reset_();
     }
 
     @Override
@@ -73,7 +66,7 @@ public final class ScreenGame extends Screen {
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
 
-        getEngine().getUILayer().addActor(score = new Score());
+        addActor(score = new Score());
     }
 
     @Override
@@ -209,7 +202,7 @@ public final class ScreenGame extends Screen {
     /**
      * Add new block to the game world.
      */
-    private void add() {
+    private void addBlock() {
         if (isFull()) {
             return;
         }
@@ -224,7 +217,7 @@ public final class ScreenGame extends Screen {
     private void check() {
         getEngine().setAlpha(0);
         this.sfxClick.play();
-        add();
+        addBlock();
     }
 
 
@@ -240,6 +233,8 @@ public final class ScreenGame extends Screen {
         Gdx.app.log(BaseEngine.TAG, "GAME OVER!");
         this.sfxDeath.play();
 
+        reset_();
+
         return true;
     }
 
@@ -249,11 +244,23 @@ public final class ScreenGame extends Screen {
         this.sfxCollect.dispose();
         this.sfxDeath.dispose();
         this.sfxClick.dispose();
+        super.dispose();
     }
 
     private void collect() {
         this.numCollected.addAndGet(2);
         this.score.updateScore(1);
+    }
+
+    private void reset_() {
+        // this.score.reset();
+        for (int x = 0; x < blocks.length; x++) {
+            for (int y = 0; y < blocks[x].length; y++) {
+                this.blocks[x][y] = -1;
+            }
+        }
+        addBlock();
+        addBlock();
     }
 }
 

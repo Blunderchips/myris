@@ -1,14 +1,18 @@
 package dot.empire.myris;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Disposable;
+import com.kotcrab.vis.ui.widget.VisTable;
 
 /**
  * @author Matthew 'siD' Van der Bijl
  */
-public class Screen implements GameObject, SimpleDirectionGestureDetector.DirectionListener {
+public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener {
 
     /**
      * Main game engine.
@@ -16,19 +20,32 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
     private BaseEngine engine;
 
     public Screen() {
+        super(true);
+        super.setFillParent(true);
+        super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
+        super.setVisible(true);
     }
 
     public void show(AssetManager mngr) {
     }
 
     /**
-     * @param dt Delta time
+     * @param dt Delta Time is the time it takes for the computer to go through all the
+     *           processing/rendering for a single frame. It is dynamically updated, so it
+     *           can fluctuate depending on what level of processing the last frame
+     *           required
+     *
+     * @see Graphics#getDeltaTime()
      */
-    @Override
-    public void update(final float dt) {
+    public void update(float dt) {
     }
 
-    @Override
+    /**
+     * @param renderer Used to render shapes to the screen
+     * @param batch    Used to render textures to the screen
+     * @see dot.empire.myris.BaseEngine#renderer
+     * @see dot.empire.myris.BaseEngine#batch
+     */
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
     }
 
@@ -39,6 +56,7 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
      */
     @Override
     public void dispose() {
+        super.remove();
     }
 
     // @Override

@@ -27,8 +27,10 @@ import com.badlogic.gdx.utils.reflect.Method;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import dot.empire.myris.BaseEngine;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.*;
+
 
 /**
  * An AssetManager that loads assets from annotated fields and methods using reflection.
@@ -126,6 +128,7 @@ public class AnnotationAssetManager extends AssetManager {
      * @param container An instance of the field's or method's declaring class. May be null if it's static.
      * @return the AssetLoaderParameters associated with the specified asset
      */
+    @Nullable
     private static AssetLoaderParameters getAssetLoaderParameters(Asset asset, Object pathObj,
                                                                   Class containerType, Object container) {
         if (pathObj instanceof AssetDescriptor) {
@@ -256,8 +259,10 @@ public class AnnotationAssetManager extends AssetManager {
     }
 
     public synchronized <T> void load(String fileName, Class<T> type, AssetLoaderParameters<T> parameter) {
-        Gdx.app.debug(BaseEngine.TAG, String.format("Loading %s = %s", type.getSimpleName(), fileName));
-        super.load(fileName, type, parameter);
+        if (!isLoaded(fileName, type)) {
+            Gdx.app.debug(BaseEngine.TAG, String.format("Loading %s = %s", type.getSimpleName(), fileName));
+            super.load(fileName, type, parameter);
+        }
     }
 
     @Override

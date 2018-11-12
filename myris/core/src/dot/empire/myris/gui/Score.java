@@ -33,4 +33,9 @@ public class Score extends VisTable {
         this.score.addAndGet(delta);
         this.lblScore.setText(score.toString());
     }
+
+    public void reset() {
+        this.score.set(0);
+        this.lblScore.setText("");
+    }
 }

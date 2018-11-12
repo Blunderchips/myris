@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.utils.Align;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +23,8 @@ public final class ScreenMenuMain extends Screen {
     public void show(@NotNull AssetManager mngr) {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
+
+        align(Align.center).add(new VisLabel("~ myris ~", Color.BLACK));
     }
 
     @Override
@@ -39,5 +43,6 @@ public final class ScreenMenuMain extends Screen {
     @Override
     public void dispose() {
         this.bgMusic.stop();
+        super.dispose();
     }
 }

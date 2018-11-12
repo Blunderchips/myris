@@ -23,7 +23,7 @@ public final class ShaderBatch extends SpriteBatch {
             + "   v_color = " + ShaderProgram.COLOR_ATTRIBUTE + ";\n"
             + "   v_texCoords = " + ShaderProgram.TEXCOORD_ATTRIBUTE + "0;\n"
             + "   gl_Position =  u_projTrans * " + ShaderProgram.POSITION_ATTRIBUTE + ";\n"
-            + "}\n";
+            + "}";
 
     private static final String FRAGMENT_SHADER = "#ifdef GL_ES\n"
             + "#define LOWP lowp\n"
@@ -46,11 +46,10 @@ public final class ShaderBatch extends SpriteBatch {
             + "  gl_FragColor = color;\n"
             + "}";
 
-    public final boolean isCompiled;
-    public float brightness;
-    public float contrast;
-    protected int brightnessLoc = -1, contrastLoc = -1;
-    ShaderProgram shader;
+    private float brightness;
+    private float contrast;
+    private int brightnessLoc = -1, contrastLoc = -1;
+    private ShaderProgram shader;
 
     public ShaderBatch(int size) {
         super(size);
@@ -61,7 +60,7 @@ public final class ShaderBatch extends SpriteBatch {
         ShaderProgram.pedantic = false;
 
         this.shader = new ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER);
-        this.isCompiled = shader.isCompiled();
+        boolean isCompiled = shader.isCompiled();
 
         if (isCompiled) {
             super.setShader(shader);
@@ -73,7 +72,7 @@ public final class ShaderBatch extends SpriteBatch {
             this.shader.end();
         }
 
-        Gdx.app.debug("Shader batch", "Compiled = " + Boolean.toString(isCompiled));
+        Gdx.app.debug(BaseEngine.TAG, "Shader batch Compiled = " + Boolean.toString(isCompiled));
         String log = shader.getLog().trim();
         if (!log.isEmpty()) {
             Gdx.app.debug(BaseEngine.TAG, "Shader batch Log = " + log);
