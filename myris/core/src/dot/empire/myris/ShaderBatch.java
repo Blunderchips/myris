@@ -74,8 +74,12 @@ public final class ShaderBatch extends SpriteBatch {
         }
 
         Gdx.app.debug("Shader batch", "Compiled = " + Boolean.toString(isCompiled));
-        Gdx.app.debug("Shader batch", "Log = " + shader.getLog());
+        String log = shader.getLog().trim();
+        if (!log.isEmpty()) {
+            Gdx.app.debug(BaseEngine.TAG, "Shader batch Log = " + log);
+        }
     }
+
 
     public void begin(boolean useShader) {
         super.begin();

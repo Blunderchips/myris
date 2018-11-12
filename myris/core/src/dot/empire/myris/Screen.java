@@ -1,9 +1,9 @@
 package dot.empire.myris;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 /**
  * @author Matthew 'siD' Van der Bijl
@@ -18,7 +18,7 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
     public Screen() {
     }
 
-    public void show(AnnotationAssetManager mngr) {
+    public void show(AssetManager mngr) {
     }
 
     /**
@@ -80,6 +80,9 @@ public class Screen implements GameObject, SimpleDirectionGestureDetector.Direct
         });
     }
 
+    /**
+     * @param screen The {@link Screen} to change to
+     */
     public void changeScreen(Class<? extends Screen> screen) {
         try {
             changeScreen(screen.getConstructor().newInstance());

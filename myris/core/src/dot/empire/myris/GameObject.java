@@ -13,17 +13,22 @@ import com.badlogic.gdx.utils.Disposable;
  */
 public interface GameObject extends Disposable {
 
-    // TODO: 11 Nov 2018 Pull generic dt definition
     /**
-     * @param dt Delta time
+     * @param dt Delta Time is the time it takes for the computer to go through all the
+     *           processing/rendering for a single frame. It is dynamically updated, so it
+     *           can fluctuate depending on what level of processing the last frame
+     *           required
+     *
      * @see Graphics#getDeltaTime()
      */
     void update(final float dt);
 
     /**
-     * @param renderer used to render shapes to the screen
+     * @param renderer Used to render shapes to the screen
+     * @param batch    Used to render textures to the screen
+     *
      * @see dot.empire.myris.BaseEngine#renderer
      * @see dot.empire.myris.BaseEngine#batch
      */
-    void render(final ShapeRenderer renderer, final SpriteBatch batch);
+    void render(ShapeRenderer renderer, SpriteBatch batch);
 }

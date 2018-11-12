@@ -1,6 +1,7 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,13 +11,17 @@ import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public final class ScreenGame extends Screen {
 
     /**
      * Default block size.
      */
-    public static final int BLOCK_SIZE = 80;
+    private static final int BLOCK_SIZE = 80;
     /**
      * Block colours.
      */
@@ -31,21 +36,24 @@ public final class ScreenGame extends Screen {
     private static final String SFX_COLLECT = "sfx/170147__timgormly__8-bit-coin.ogg";
     @AnnotationAssetManager.Asset(Sound.class)
     private static final String SFX_DEATH = "sfx/death.mp3";
-
+    @AnnotationAssetManager.Asset(Sound.class)
+    private static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
 
     private int[][] blocks;
     private int[][] _blocks;
     private SequenceGenerator seqn;
     private Sound sfxCollect;
     private Sound sfxDeath;
-
+    private Sound sfxClick;
+    private AtomicInteger numCollected;
 
     public ScreenGame() {
+        this.numCollected = new AtomicInteger();
         this.seqn = new SequenceGenerator(COLOURS.length);
         this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
         this._blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
 
-        Gdx.app.log(BaseEngine.TAG, String.format("Blocks = %dx%d", blocks.length, blocks[0].length));
+        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
 
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
@@ -58,9 +66,20 @@ public final class ScreenGame extends Screen {
     }
 
     @Override
-    public void show(AnnotationAssetManager mngr) {
+    public void show(@NotNull AssetManager mngr) {
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
+        this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
+    }
+
+    @Override
+    public void update(float dt) {
+        if (numCollected.get() != 0) {
+            this.numCollected.decrementAndGet();
+            if (numCollected.get() % 2 == 0) {
+                this.sfxCollect.play();
+            }
+        }
     }
 
     @Override
@@ -183,6 +202,9 @@ public final class ScreenGame extends Screen {
         right(colour, x + 1, y);
     }
 
+    /**
+     * Add new block to the game world.
+     */
     private void add() {
         if (isFull()) {
             return;
@@ -197,9 +219,7 @@ public final class ScreenGame extends Screen {
 
     private void check() {
         getEngine().setAlpha(0);
-        // int current = getSize(blocks);
-        // Gdx.app.debug("Last size", Integer.toString(last));
-        // Gdx.app.debug("Current size", Integer.toString(getSize()));
+        this.sfxClick.play();
         add();
     }
 
@@ -219,30 +239,16 @@ public final class ScreenGame extends Screen {
         return true;
     }
 
-    /**
-     * @param blocks the array to be tested
-     * @return the number of active blocks
-     */
-    private int getSize(int[][] blocks) {
-        int size = 0;
-        for (int x = 0; x < blocks.length; x++) {
-            for (int y = 0; y < blocks[x].length; y++) {
-                if (blocks[x][y] != -1) {
-                    size++;
-                }
-            }
-        }
-        return size;
-    }
-
     @Override
     public void dispose() {
-        this.sfxCollect.dispose(); // TODO: 11 Nov 2018 Check if needed
+        // TODO: 11 Nov 2018 Check if needed
+        this.sfxCollect.dispose();
         this.sfxDeath.dispose();
+        this.sfxClick.dispose();
     }
 
     private void collect() {
-        this.sfxCollect.play();
+        this.numCollected.addAndGet(2);
     }
 }
 

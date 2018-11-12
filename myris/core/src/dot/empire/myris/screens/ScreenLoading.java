@@ -10,6 +10,8 @@ import dot.empire.myris.BaseEngine;
 import dot.empire.myris.GifDecoder;
 import dot.empire.myris.Screen;
 
+import java.util.Locale;
+
 public final class ScreenLoading extends Screen {
 
     private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
@@ -31,7 +33,7 @@ public final class ScreenLoading extends Screen {
     @Override
     public void update(float dt) {
         this.elasped += dt;
-        Gdx.app.log(BaseEngine.TAG, String.format("Loading %.2f", mngr.getProgress() * 100) + "%");
+        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Loading %.2f", mngr.getProgress() * 100) + "%");
         if (mngr.update()) {
             changeScreen(target);
         }
