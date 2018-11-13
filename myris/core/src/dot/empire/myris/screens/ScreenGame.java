@@ -12,7 +12,6 @@ import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import dot.empire.myris.gfx.Score;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -59,7 +58,7 @@ public final class ScreenGame extends Screen {
     }
 
     @Override
-    public void show(@NotNull AssetManager mngr) {
+    public void show(AssetManager mngr) {
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);

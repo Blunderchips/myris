@@ -14,7 +14,6 @@ import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
-import org.jetbrains.annotations.NotNull;
 
 public final class ScreenMenuMain extends Screen {
 
@@ -32,7 +31,7 @@ public final class ScreenMenuMain extends Screen {
     private Music bgMusic;
 
     @Override
-    public void show(@NotNull AssetManager mngr) {
+    public void show(AssetManager mngr) {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
 
@@ -48,7 +47,7 @@ public final class ScreenMenuMain extends Screen {
         createButton(ICO_INFO, new BtnInfo(), mngr);
     }
 
-    private void createButton(String img, ChangeListener listener, @NotNull AssetManager mngr) {
+    private void createButton(String img, ChangeListener listener, AssetManager mngr) {
         VisImageButton btn = new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(img, Texture.class))));
         btn.addListener(listener);
         super.add(btn);

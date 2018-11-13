@@ -26,8 +26,6 @@ import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.Method;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import dot.empire.myris.BaseEngine;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.annotation.*;
 
@@ -128,7 +126,6 @@ public class AnnotationAssetManager extends AssetManager {
      * @param container An instance of the field's or method's declaring class. May be null if it's static.
      * @return the AssetLoaderParameters associated with the specified asset
      */
-    @Nullable
     private static AssetLoaderParameters getAssetLoaderParameters(Asset asset, Object pathObj,
                                                                   Class containerType, Object container) {
         if (pathObj instanceof AssetDescriptor) {
@@ -239,7 +236,7 @@ public class AnnotationAssetManager extends AssetManager {
      * @param field     the field which value to load
      * @param container An instance of the field's declaring class. May be null if it's static.
      */
-    private void load(@NotNull Field field, Object container) {
+    private void load(Field field, Object container) {
         load(field.isAnnotationPresent(Asset.class) ? field.getDeclaredAnnotation(Asset.class).getAnnotation(Asset.class)
                 : null, get(field, container), field.getDeclaringClass(), container);
     }
@@ -248,7 +245,7 @@ public class AnnotationAssetManager extends AssetManager {
      * @param method    the method which return value to load
      * @param container An instance of the method's declaring class. May be null if it's static.
      */
-    private void load(@NotNull Method method, Object container) throws IllegalArgumentException {
+    private void load(Method method, Object container) throws IllegalArgumentException {
         if (method.getParameterTypes().length != 0) {
             throw new IllegalArgumentException(method.getName() + " takes parameters. Methods that take parameters are not supported.");
         } else if (method.getReturnType().isPrimitive()) {
