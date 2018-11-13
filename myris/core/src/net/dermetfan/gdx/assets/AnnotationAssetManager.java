@@ -133,7 +133,7 @@ public class AnnotationAssetManager extends AssetManager {
                                                                   Class containerType, Object container) {
         if (pathObj instanceof AssetDescriptor) {
             return ((AssetDescriptor) pathObj).params;
-        } else if (asset.param().length() == 0) {
+        } else if (asset.param().isEmpty()) {
             return null;
         }
 

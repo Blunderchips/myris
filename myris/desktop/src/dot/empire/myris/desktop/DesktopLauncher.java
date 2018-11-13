@@ -14,12 +14,14 @@ public final class DesktopLauncher {
     /**
      * Prevent instatitation.
      */
+    @Deprecated
     private DesktopLauncher() {
     }
 
     /**
      * @param args Arguments from the command line
      */
+    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     public static void main(String[] args) {
         final LwjglApplicationConfiguration cfg
                 = new LwjglApplicationConfiguration();

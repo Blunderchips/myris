@@ -4,9 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -16,6 +18,8 @@ public final class ScreenMenuMain extends Screen {
 
     @AnnotationAssetManager.Asset(Music.class)
     private static final String BG_MUSIC = "Kai_Engel_-_01_-_Brand_New_World.mp3";
+    @AnnotationAssetManager.Asset(Texture.class)
+    private static final String ICO_PLAY = "gfx/speaker.png";
 
     private Music bgMusic;
 
@@ -24,7 +28,16 @@ public final class ScreenMenuMain extends Screen {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
 
-        align(Align.center).add(new VisLabel("~ myris ~", Color.BLACK));
+        VisLabel lbl = new VisLabel("~ myris ~", Color.BLACK);
+        add(lbl).align(Align.center).row();
+
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
+
+        row();
+
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
     }
 
     @Override
@@ -32,12 +45,6 @@ public final class ScreenMenuMain extends Screen {
         if (Gdx.input.isTouched()) {
             changeScreen(ScreenGame.class);
         }
-    }
-
-    @Override
-    public void render(ShapeRenderer renderer, SpriteBatch batch) {
-        renderer.setColor(Color.RED);
-        renderer.rect(100, 100, 100, 100);
     }
 
     @Override

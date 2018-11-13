@@ -22,7 +22,7 @@ public class SimpleDirectionGestureDetector extends GestureDetector {
 
     private static class DirectionGestureListener extends GestureAdapter {
 
-        DirectionListener listener;
+        final DirectionListener listener;
 
         public DirectionGestureListener(DirectionListener listener) {
             this.listener = listener;

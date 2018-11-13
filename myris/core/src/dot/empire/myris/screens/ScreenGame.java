@@ -71,6 +71,7 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void update(float dt) {
+        this.score.act(dt);
         if (numCollected.get() != 0) {
             this.numCollected.decrementAndGet();
             if (numCollected.get() % 2 == 0) {

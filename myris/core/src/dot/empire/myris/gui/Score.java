@@ -1,7 +1,5 @@
 package dot.empire.myris.gui;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisLabel;
@@ -11,13 +9,13 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class Score extends VisTable {
 
-    private AtomicLong score;
-    private VisLabel lblScore;
+    private final AtomicLong score;
+    private final VisLabel lblScore;
+    private boolean bool;
 
     public Score() {
         super(true);
         super.setFillParent(true);
-        super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
 
         this.score = new AtomicLong(0);
 
@@ -29,9 +27,24 @@ public class Score extends VisTable {
         super.setVisible(true);
     }
 
+    /**
+     * Update.
+     *
+     * @param dt Delta time
+     */
+    @Override
+    public void act(float dt) {
+        long tmp = Long.parseLong(lblScore.getText().toString());
+        if (tmp != score.get()) {
+            if (bool = !bool) {
+                this.lblScore.setText(Long.toString(tmp + 1));
+            }
+        }
+        super.act(dt);
+    }
+
     public void updateScore(int delta) {
         this.score.addAndGet(delta);
-        this.lblScore.setText(score.toString());
     }
 
     public void reset() {

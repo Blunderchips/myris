@@ -16,9 +16,9 @@ public final class ScreenLoading extends Screen {
 
     private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
-    private Screen target;
-    private AssetManager mngr;
-    private Animation<TextureRegion> loadGif;
+    private final Screen target;
+    private final AssetManager mngr;
+    private final Animation<TextureRegion> loadGif;
     private float elasped; // TODO: 11 Nov 2018 Clamp/reset
 
     public ScreenLoading(Screen target, AssetManager mngr) {

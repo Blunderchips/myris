@@ -49,7 +49,7 @@ public final class ShaderBatch extends SpriteBatch {
     private float brightness;
     private float contrast;
     private int brightnessLoc = -1, contrastLoc = -1;
-    private ShaderProgram shader;
+    private final ShaderProgram shader;
 
     public ShaderBatch(int size) {
         super(size);

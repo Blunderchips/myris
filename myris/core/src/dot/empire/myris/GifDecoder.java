@@ -600,13 +600,6 @@ public class GifDecoder {
     private void readNetscapeExt() {
         do {
             readBlock();
-            if (block[0] == 1) {
-                // loop count sub-block
-                int b1 = ((int) block[1]) & 0xff;
-                int b2 = ((int) block[2]) & 0xff;
-                // iterations; 0 = repeat forever
-                int loopCount = (b2 << 8) | b1;
-            }
         } while ((blockSize > 0) && !err());
     }
 

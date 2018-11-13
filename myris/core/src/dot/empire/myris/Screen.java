@@ -43,6 +43,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * @param renderer Used to render shapes to the screen
      * @param batch    Used to render textures to the screen
+     *
      * @see dot.empire.myris.BaseEngine#renderer
      * @see dot.empire.myris.BaseEngine#batch
      */
