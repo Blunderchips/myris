@@ -19,7 +19,13 @@ public final class ScreenMenuMain extends Screen {
     @AnnotationAssetManager.Asset(Music.class)
     private static final String BG_MUSIC = "Kai_Engel_-_01_-_Brand_New_World.mp3";
     @AnnotationAssetManager.Asset(Texture.class)
-    private static final String ICO_PLAY = "gfx/speaker.png";
+    private static final String ICO_PLAY = "gfx/play-button.png";
+    @AnnotationAssetManager.Asset(Texture.class)
+    private static final String ICO_SCORE = "gfx/trophy-cup.png";
+    @AnnotationAssetManager.Asset(Texture.class)
+    private static final String ICO_SETTINGS = "gfx/cog.png";
+    @AnnotationAssetManager.Asset(Texture.class)
+    private static final String ICO_INFO = "gfx/info.png";
 
     private Music bgMusic;
 
@@ -32,12 +38,12 @@ public final class ScreenMenuMain extends Screen {
         add(lbl).align(Align.center).row();
 
         add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_SCORE, Texture.class)))));
 
         row();
 
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_SETTINGS, Texture.class)))));
+        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_INFO, Texture.class)))));
     }
 
     @Override

@@ -8,6 +8,7 @@ import dot.empire.myris.BaseEngine;
  * For testing. Created 07/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
+ * @see dot.empire.myris.BaseEngine
  */
 public final class DesktopLauncher {
 

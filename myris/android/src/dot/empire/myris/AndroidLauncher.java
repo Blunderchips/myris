@@ -9,6 +9,7 @@ import org.jetbrains.annotations.Nullable;
  * Android Launcher.
  *
  * @author Matthew 'siD' Van der Bijl
+ * @see dot.empire.myris.BaseEngine
  */
 public final class AndroidLauncher extends AndroidApplication {
 

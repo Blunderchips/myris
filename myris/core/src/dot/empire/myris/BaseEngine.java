@@ -14,7 +14,7 @@ import dot.empire.myris.screens.ScreenMenuMain;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
-import static com.badlogic.gdx.graphics.GL20.GL_COLOR_BUFFER_BIT;
+import static com.badlogic.gdx.graphics.GL20.*;
 
 /**
  * Main game file. Created 07/11/2018.
@@ -52,6 +52,8 @@ public class BaseEngine extends ApplicationAdapter {
         // this.renderer.setColor(Color.BLACK);
 
         this.batch = new ShaderBatch(1);
+        this.batch.enableBlending();
+        this.batch.setBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         final int width = Gdx.graphics.getWidth();
         final int height = Gdx.graphics.getHeight();
@@ -72,13 +74,8 @@ public class BaseEngine extends ApplicationAdapter {
 
         this.fbo.begin();
         {
-            // https://www.color-hex.com/color/fbfbfb
-            Gdx.gl.glClearColor(
-                    251 / 255f,
-                    251 / 255f,
-                    251 / 255f,
-                    1
-            );
+            // Gdx.gl.glEnable(GL_BLEND);
+            setClearColour();
             Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
             this.batch.begin(false);
@@ -94,6 +91,7 @@ public class BaseEngine extends ApplicationAdapter {
         this.fbo.end();
 
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        setClearColour();
         this.batch.begin(true);
         {
             this.display.draw(batch, alpha);
@@ -145,5 +143,15 @@ public class BaseEngine extends ApplicationAdapter {
 
     public Stage getUILayer() {
         return this.uiLayer;
+    }
+
+    private void setClearColour(){
+        // https://www.color-hex.com/color/fbfbfb
+        Gdx.gl.glClearColor(
+                251 / 255f,
+                251 / 255f,
+                251 / 255f,
+                1
+        );
     }
 }
