@@ -1,9 +1,10 @@
-package dot.empire.myris;
+package dot.empire.myris.gfx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
+import dot.empire.myris.BaseEngine;
 
 /**
  *

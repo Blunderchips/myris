@@ -1,4 +1,4 @@
-package dot.empire.myris.gui;
+package dot.empire.myris.gfx;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Align;
@@ -24,7 +24,7 @@ public class Score extends VisTable {
 
         super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
 
-        super.setVisible(true);
+        super.setVisible(true); // TODO: 13 Nov 2018 Really needed?
     }
 
     /**
@@ -49,6 +49,6 @@ public class Score extends VisTable {
 
     public void reset() {
         this.score.set(0);
-        this.lblScore.setText("");
+        this.lblScore.setText(0 + "");
     }
 }

@@ -1,6 +1,5 @@
 package dot.empire.myris;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.AssetManager;
@@ -22,7 +21,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     public Screen() {
         super(true);
         super.setFillParent(true);
-        super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
+        // super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
         super.setVisible(true);
     }
 

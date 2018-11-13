@@ -10,7 +10,7 @@ import com.badlogic.gdx.math.MathUtils;
 import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
-import dot.empire.myris.gui.Score;
+import dot.empire.myris.gfx.Score;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,8 +56,6 @@ public final class ScreenGame extends Screen {
         this._blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
 
         Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
-
-        reset_();
     }
 
     @Override
@@ -67,11 +65,11 @@ public final class ScreenGame extends Screen {
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
 
         addActor(score = new Score());
+        reset_();
     }
 
     @Override
     public void update(float dt) {
-        this.score.act(dt);
         if (numCollected.get() != 0) {
             this.numCollected.decrementAndGet();
             if (numCollected.get() % 2 == 0) {
@@ -231,6 +229,7 @@ public final class ScreenGame extends Screen {
             }
         }
 
+        getEngine().setAlpha(0);
         Gdx.app.log(BaseEngine.TAG, "GAME OVER!");
         this.sfxDeath.play();
 
@@ -254,7 +253,7 @@ public final class ScreenGame extends Screen {
     }
 
     private void reset_() {
-        // this.score.reset();
+        this.score.reset();
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 this.blocks[x][y] = -1;

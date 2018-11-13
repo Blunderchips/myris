@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dot.empire.myris.BaseEngine;
-import dot.empire.myris.GifDecoder;
 import dot.empire.myris.Screen;
+import dot.empire.myris.gfx.GifDecoder;
 
 import java.util.Locale;
 

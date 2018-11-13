@@ -2,6 +2,7 @@ package dot.empire.myris;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kotcrab.vis.ui.VisUI;
+import dot.empire.myris.gfx.ShaderBatch;
 import dot.empire.myris.screens.ScreenLoading;
 import dot.empire.myris.screens.ScreenMenuMain;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
@@ -30,6 +32,7 @@ public class BaseEngine extends ApplicationAdapter {
 
     private Stage uiLayer;
     private Screen screen;
+    private InputMultiplexer input;
 
     private ShapeRenderer renderer;
     private ShaderBatch batch;
@@ -46,6 +49,9 @@ public class BaseEngine extends ApplicationAdapter {
         VisUI.load(VisUI.SkinScale.X2);
         this.uiLayer = new Stage(); // TODO: 12 Nov 2018 Set constructor values
         this.assetManager = new AnnotationAssetManager();
+
+        this.input = new InputMultiplexer();
+        Gdx.input.setInputProcessor(input);
 
         this.renderer = new ShapeRenderer();
         this.renderer.setAutoShapeType(true);
@@ -69,13 +75,18 @@ public class BaseEngine extends ApplicationAdapter {
     @Override
     public void render() {
         final float dt = Gdx.graphics.getDeltaTime();
+        this.uiLayer.act(dt);
         this.screen.update(dt);
-        this.setAlpha(alpha + (dt * 10));
+        this.setAlpha(alpha + (dt * 8));
 
         this.fbo.begin();
         {
-            // Gdx.gl.glEnable(GL_BLEND);
-            setClearColour();
+            Gdx.gl.glClearColor(
+                    245 / 255f,
+                    245 / 255f,
+                    245 / 255f,
+                    1
+            );
             Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
             this.batch.begin(false);
@@ -91,7 +102,6 @@ public class BaseEngine extends ApplicationAdapter {
         this.fbo.end();
 
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
-        setClearColour();
         this.batch.begin(true);
         {
             this.display.draw(batch, alpha);
@@ -128,11 +138,15 @@ public class BaseEngine extends ApplicationAdapter {
             return;
         }
         if (this.screen != null) {
+            this.input.clear();
             this.screen.dispose();
         }
         this.getUILayer().addActor(screen);
         this.screen = screen;
-        Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(this.screen));
+
+        this.input.addProcessor(uiLayer);
+        this.input.addProcessor(new SimpleDirectionGestureDetector(this.screen));
+
         Gdx.app.log(BaseEngine.TAG, "Screen = " + this.screen.getName());
         this.screen.show(assetManager);
     }
@@ -143,15 +157,5 @@ public class BaseEngine extends ApplicationAdapter {
 
     public Stage getUILayer() {
         return this.uiLayer;
-    }
-
-    private void setClearColour(){
-        // https://www.color-hex.com/color/fbfbfb
-        Gdx.gl.glClearColor(
-                251 / 255f,
-                251 / 255f,
-                251 / 255f,
-                1
-        );
     }
 }

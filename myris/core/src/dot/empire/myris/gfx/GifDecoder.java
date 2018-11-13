@@ -2,7 +2,7 @@
 /* LibGdx conversion 2014 by Anton Persson */
 /* Released under Apache 2.0 */
 /* https://code.google.com/p/animated-gifs-in-android/ */
-package dot.empire.myris;
+package dot.empire.myris.gfx;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;

@@ -6,6 +6,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisImageButton;
@@ -37,25 +39,65 @@ public final class ScreenMenuMain extends Screen {
         VisLabel lbl = new VisLabel("~ myris ~", Color.BLACK);
         add(lbl).align(Align.center).row();
 
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_PLAY, Texture.class)))));
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_SCORE, Texture.class)))));
+        createButton(ICO_PLAY, new BtnPlay(), mngr);
+        createButton(ICO_SCORE, new BtnScore(), mngr);
 
         row();
 
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_SETTINGS, Texture.class)))));
-        add(new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(ICO_INFO, Texture.class)))));
+        createButton(ICO_SETTINGS, new BtnSettings(), mngr);
+        createButton(ICO_INFO, new BtnInfo(), mngr);
     }
+
+    private void createButton(String img, ChangeListener listener, @NotNull AssetManager mngr) {
+        VisImageButton btn = new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(img, Texture.class))));
+        btn.addListener(listener);
+        super.add(btn);
+    }
+
 
     @Override
     public void update(float dt) {
         if (Gdx.input.isTouched()) {
-            changeScreen(ScreenGame.class);
+//            changeScreen(ScreenGame.class);
         }
     }
+
 
     @Override
     public void dispose() {
         this.bgMusic.stop();
         super.dispose();
+    }
+
+    private class BtnPlay extends ChangeListener {
+
+        @Override
+        public void changed(ChangeEvent evt, Actor actor) {
+            changeScreen(ScreenGame.class);
+        }
+    }
+
+    private class BtnSettings extends ChangeListener {
+
+        @Override
+        public void changed(ChangeEvent evt, Actor actor) {
+
+        }
+    }
+
+    private class BtnScore extends ChangeListener {
+
+        @Override
+        public void changed(ChangeEvent evt, Actor actor) {
+
+        }
+    }
+
+    private class BtnInfo extends ChangeListener {
+
+        @Override
+        public void changed(ChangeEvent evt, Actor actor) {
+
+        }
     }
 }
