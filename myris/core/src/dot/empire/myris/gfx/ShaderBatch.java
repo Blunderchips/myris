@@ -46,11 +46,10 @@ public final class ShaderBatch extends SpriteBatch {
             + "  color.rgb *= color.a;\n"                                       //return alpha
             + "  gl_FragColor = color;\n"
             + "}";
-
+    private final ShaderProgram shader;
     private float brightness;
     private float contrast;
     private int brightnessLoc = -1, contrastLoc = -1;
-    private final ShaderProgram shader;
 
     public ShaderBatch(int size) {
         super(size);

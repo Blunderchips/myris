@@ -1,22 +1,27 @@
 package dot.empire.myris;
 
+import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
+import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
-import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
-import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import dot.empire.myris.BaseEngine;
+/**
+ * Created 13/11/2018.
+ */
+public final class IOSLauncher extends IOSApplication.Delegate {
 
-public class IOSLauncher extends IOSApplication.Delegate {
+    /**
+     * @param args Arguments from the command line
+     */
+    public static void main(String[] args) {
+        NSAutoreleasePool pool = new NSAutoreleasePool();
+        UIApplication.main(args, null, IOSLauncher.class);
+        pool.close();
+    }
+
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
         return new IOSApplication(new BaseEngine(), config);
-    }
-
-    public static void main(String[] argv) {
-        NSAutoreleasePool pool = new NSAutoreleasePool();
-        UIApplication.main(argv, null, IOSLauncher.class);
-        pool.close();
     }
 }
