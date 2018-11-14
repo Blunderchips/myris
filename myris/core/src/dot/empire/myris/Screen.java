@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 /**
  * @author Matthew 'siD' Van der Bijl
+ * @see com.badlogic.gdx.Screen
  */
 public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener {
 
@@ -23,8 +24,13 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         super.setFillParent(true);
         // super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
         super.setVisible(true);
+        super.center();
     }
 
+    /**
+     * @param mngr {@link BaseEngine#assetManager}
+     * @see net.dermetfan.gdx.assets.AnnotationAssetManager
+     */
     public void show(AssetManager mngr) {
     }
 
@@ -33,6 +39,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      *           processing/rendering for a single frame. It is dynamically updated, so it
      *           can fluctuate depending on what level of processing the last frame
      *           required
+     *
      * @see Graphics#getDeltaTime()
      */
     public void update(float dt) {
@@ -41,6 +48,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * @param renderer Used to render shapes to the screen
      * @param batch    Used to render textures to the screen
+     *
      * @see dot.empire.myris.BaseEngine#renderer
      * @see dot.empire.myris.BaseEngine#batch
      */
@@ -48,9 +56,9 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     }
 
     /**
-     * Releases all resources of this object.
+     * Removes {@link VisTable} from the UI layer.
      *
-     * @see com.badlogic.gdx.utils.Disposable
+     * @see BaseEngine#uiLayer
      */
     @Override
     public void dispose() {
@@ -86,6 +94,9 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         Gdx.app.debug("Direction Listener", "DOWN");
     }
 
+    /**
+     * @param screen The {@link Screen} to change to
+     */
     public void changeScreen(final Screen screen) {
         Gdx.app.postRunnable(new Runnable() {
 

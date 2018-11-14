@@ -6,7 +6,7 @@ import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
 /**
- * Created 13/11/2018.
+ * Apple launcher. Created 13/11/2018.
  */
 public final class IOSLauncher extends IOSApplication.Delegate {
 
@@ -21,7 +21,12 @@ public final class IOSLauncher extends IOSApplication.Delegate {
 
     @Override
     protected IOSApplication createApplication() {
-        IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new BaseEngine(), config);
+        final IOSApplicationConfiguration cfg
+                = new IOSApplicationConfiguration();
+
+        cfg.useCompass = false;
+        cfg.useAccelerometer = false;
+
+        return new IOSApplication(new BaseEngine(), cfg);
     }
 }

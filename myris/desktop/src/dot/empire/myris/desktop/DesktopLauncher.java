@@ -3,6 +3,9 @@ package dot.empire.myris.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import dot.empire.myris.BaseEngine;
+import org.oxbow.swingbits.dialog.task.TaskDialogs;
+
+import java.awt.*;
 
 /**
  * For testing. Created 07/11/2018.
@@ -40,6 +43,12 @@ public final class DesktopLauncher {
         cfg.b = 24;
         cfg.a = 24;
 
-        new LwjglApplication(new BaseEngine(), cfg);
+        try {
+            new LwjglApplication(new BaseEngine(), cfg);
+        } catch (Throwable t) {
+            t.printStackTrace(System.err);
+            Toolkit.getDefaultToolkit().beep();
+            TaskDialogs.showException(t);
+        }
     }
 }

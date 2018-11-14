@@ -32,6 +32,9 @@ public class SimpleDirectionGestureDetector extends GestureDetector {
         void onDown();
     }
 
+    /**
+     * Detects screen swipes.
+     */
     private static class DirectionGestureListener extends GestureAdapter {
 
         final DirectionListener listener;

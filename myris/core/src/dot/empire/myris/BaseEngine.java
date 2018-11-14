@@ -3,6 +3,7 @@ package dot.empire.myris;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -12,8 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kotcrab.vis.ui.VisUI;
 import dot.empire.myris.gfx.ShaderBatch;
 import dot.empire.myris.screens.ScreenLoading;
-import dot.empire.myris.screens.ScreenMenuMain;
+import dot.empire.myris.screens.ScreenSplash;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import java.util.Locale;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
 import static com.badlogic.gdx.graphics.GL20.*;
@@ -40,6 +43,7 @@ public class BaseEngine extends ApplicationAdapter {
     private ShapeRenderer renderer;
     private ShaderBatch batch;
     private AnnotationAssetManager assetManager;
+    private Preferences preferences;
 
     private FrameBuffer fbo;
     private Sprite display;
@@ -52,6 +56,7 @@ public class BaseEngine extends ApplicationAdapter {
         VisUI.load(VisUI.SkinScale.X2);
         this.uiLayer = new Stage(); // TODO: 12 Nov 2018 Set constructor values
         this.assetManager = new AnnotationAssetManager();
+        this.preferences = Gdx.app.getPreferences(BaseEngine.TAG);
 
         this.input = new InputMultiplexer();
         Gdx.input.setInputProcessor(input);
@@ -63,6 +68,8 @@ public class BaseEngine extends ApplicationAdapter {
         this.batch = new ShaderBatch(1);
         this.batch.enableBlending();
         this.batch.setBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        this.setBrightness(preferences.getFloat("brightness", 0));
+        this.setContrast(preferences.getFloat("contrast", 1));
 
         final int width = Gdx.graphics.getWidth();
         final int height = Gdx.graphics.getHeight();
@@ -75,7 +82,7 @@ public class BaseEngine extends ApplicationAdapter {
         // this.assetManager.load(ScreenGame.class);
 
         // Do last
-        this.setScreen(new ScreenMenuMain());
+        this.setScreen(new ScreenSplash());
     }
 
     @Override
@@ -120,6 +127,8 @@ public class BaseEngine extends ApplicationAdapter {
      */
     @Override
     public void dispose() {
+        this.preferences.flush(); // just to be safe
+
         this.fbo.dispose();
         this.display.getTexture().dispose();
 
@@ -163,5 +172,27 @@ public class BaseEngine extends ApplicationAdapter {
 
     public Stage getUILayer() {
         return this.uiLayer;
+    }
+
+    public void setContrast(float contrast) {
+        contrast /= 100;
+
+        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Contrast = %.2f", contrast));
+        this.batch.setContrast(contrast);
+        this.preferences.putFloat("contrast", batch.getContrast());
+        this.preferences.flush();
+    }
+
+    public void setBrightness(float brightness) {
+        brightness /= 100;
+
+        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Brightness = %.2f", brightness));
+        this.batch.setBrightness(brightness);
+        this.preferences.putFloat("brightness", batch.getBrightness());
+        this.preferences.flush();
+    }
+
+    public Preferences getPreferences() {
+        return this.preferences;
     }
 }

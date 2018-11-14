@@ -3,15 +3,15 @@ package dot.empire.myris.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisImageButton;
-import com.kotcrab.vis.ui.widget.VisLabel;
+import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
@@ -27,6 +27,8 @@ public final class ScreenMenuMain extends Screen {
     private static final String ICO_SETTINGS = "gfx/cog.png";
     @AnnotationAssetManager.Asset(Texture.class)
     private static final String ICO_INFO = "gfx/info.png";
+    @AnnotationAssetManager.Asset(Texture.class)
+    private static final String IMG_TITLE = "gfx/title.png";
 
     private Music bgMusic;
 
@@ -35,22 +37,25 @@ public final class ScreenMenuMain extends Screen {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
 
-        VisLabel lbl = new VisLabel("~ myris ~", Color.BLACK);
-        add(lbl).align(Align.center).row();
+        align(Align.center).add(new VisImage(mngr.get(IMG_TITLE, Texture.class))).fillX().row();
 
-        createButton(ICO_PLAY, new BtnPlay(), mngr);
-        createButton(ICO_SCORE, new BtnScore(), mngr);
+        VisTable tblButtons = new VisTable(true);
 
-        row();
+        createButton(ICO_PLAY, new BtnPlay(), mngr, tblButtons);
+        createButton(ICO_SCORE, new BtnScore(), mngr, tblButtons);
 
-        createButton(ICO_SETTINGS, new BtnSettings(), mngr);
-        createButton(ICO_INFO, new BtnInfo(), mngr);
+        tblButtons.row();
+
+        createButton(ICO_SETTINGS, new BtnSettings(), mngr, tblButtons);
+        createButton(ICO_INFO, new BtnInfo(), mngr, tblButtons);
+
+        super.add(tblButtons);
     }
 
-    private void createButton(String img, ChangeListener listener, AssetManager mngr) {
+    private void createButton(String img, ChangeListener listener, AssetManager mngr, VisTable tbl) {
         VisImageButton btn = new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(img, Texture.class))));
         btn.addListener(listener);
-        super.add(btn);
+        tbl.add(btn);
     }
 
 
@@ -80,7 +85,7 @@ public final class ScreenMenuMain extends Screen {
 
         @Override
         public void changed(ChangeEvent evt, Actor actor) {
-
+            changeScreen(ScreenSettings.class);
         }
     }
 
@@ -92,6 +97,9 @@ public final class ScreenMenuMain extends Screen {
         }
     }
 
+    /**
+     * Open GitHub repo page.
+     */
     private class BtnInfo extends ChangeListener {
 
         @Override

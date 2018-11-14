@@ -46,6 +46,7 @@ public final class ShaderBatch extends SpriteBatch {
             + "  color.rgb *= color.a;\n"                                       //return alpha
             + "  gl_FragColor = color;\n"
             + "}";
+
     private final ShaderProgram shader;
     private float brightness;
     private float contrast;
@@ -111,6 +112,6 @@ public final class ShaderBatch extends SpriteBatch {
     }
 
     public void setContrast(float contrast) {
-        this.contrast = Math.max(contrast, 0);
+        this.contrast = Math.max(contrast, 0.1f);
     }
 }

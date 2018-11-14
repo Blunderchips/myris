@@ -727,6 +727,10 @@ public class GifDecoder {
         final DixieMap image;
         final int delay;
 
+        /**
+         * @param img Image
+         * @param del Delay
+         */
         GifFrame(DixieMap img, int del) {
             this.image = img;
             this.delay = del;

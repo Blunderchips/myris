@@ -22,7 +22,7 @@ public class Score extends VisTable {
         this.lblScore = new VisLabel(score.toString(), Color.BLACK);
         super.align(Align.center).add(lblScore).row();
 
-        super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
+        // super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
 
         super.setVisible(true); // TODO: 13 Nov 2018 Really needed?
     }
