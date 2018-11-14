@@ -25,6 +25,9 @@ import static com.badlogic.gdx.graphics.GL20.*;
  */
 public class BaseEngine extends ApplicationAdapter {
 
+    public static final int AD_SHOW = 0x0;
+    public static final int AD_HIDE = 0x1;
+
     /**
      *
      */
@@ -67,6 +70,9 @@ public class BaseEngine extends ApplicationAdapter {
         this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
         this.display = new Sprite(fbo.getColorBufferTexture());
         this.display.flip(false, true);
+
+        // this.assetManager.load(ScreenMenuMain.class);
+        // this.assetManager.load(ScreenGame.class);
 
         // Do last
         this.setScreen(new ScreenMenuMain());

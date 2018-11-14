@@ -5,18 +5,30 @@ import com.badlogic.gdx.input.GestureDetector;
 // https://stackoverflow.com/questions/15185799/libgdx-get-swipe-up-or-swipe-right-etc
 public class SimpleDirectionGestureDetector extends GestureDetector {
 
-    public SimpleDirectionGestureDetector(DirectionListener directionListener) {
-        super(new DirectionGestureListener(directionListener));
+    public SimpleDirectionGestureDetector(DirectionListener listener) {
+        super(new DirectionGestureListener(listener));
     }
 
     public interface DirectionListener {
 
+        /**
+         * Invoked when a lift swipe is detected.
+         */
         void onLeft();
 
+        /**
+         * Invoked when a right swipe is detected.
+         */
         void onRight();
 
+        /**
+         * Invoked when a up swipe is detected.
+         */
         void onUp();
 
+        /**
+         * Invoked when a down swipe is detected.
+         */
         void onDown();
     }
 
