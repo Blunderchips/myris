@@ -7,8 +7,8 @@ import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import static dot.empire.myris.BaseEngine.AD_HIDE;
-import static dot.empire.myris.BaseEngine.AD_SHOW;
+import static dot.empire.myris.Defines.Messages.AD_HIDE;
+import static dot.empire.myris.Defines.Messages.AD_SHOW;
 
 /**
  * Android Launcher. Should be the main {@link android.app.Activity}.
