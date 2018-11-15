@@ -93,3 +93,7 @@ project(":core") {
 tasks.eclipse.doLast {
     delete ".project"
 }
+
+//dependencyCheck {
+//    skipConfigurations = ["apiElements", "implementation", "runtimeElements", "runtimeOnly", "testImplementation", "testRuntimeOnly"]
+//}

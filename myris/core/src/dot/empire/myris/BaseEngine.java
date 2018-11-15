@@ -1,3 +1,10 @@
+/*                       _
+ *  _ __ ___  _   _ _ __(_)___
+ * | '_ ` _ \| | | | '__| / __|
+ * | | | | | | |_| | |  | \__ \
+ * |_| |_| |_|\__, |_|  |_|___/
+ *            |___/
+ */
 package dot.empire.myris;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -26,10 +33,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public class BaseEngine extends ApplicationAdapter {
-
-    public static final int AD_SHOW = 0x0;
-    public static final int AD_HIDE = 0x1;
+public final class BaseEngine extends ApplicationAdapter {
 
     /**
      *

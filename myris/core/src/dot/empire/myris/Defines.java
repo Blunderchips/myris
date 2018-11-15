@@ -10,7 +10,15 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public class Defines {
+public final class Defines {
+
+    /**
+     * @see com.badlogic.gdx.ai.msg.MessageManager
+     */
+    public interface Messages {
+        int AD_SHOW = 0x0;
+        int AD_HIDE = 0x1;
+    }
 
     public static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 

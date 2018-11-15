@@ -40,10 +40,10 @@ public final class ShaderBatch extends SpriteBatch {
             + "void main(void)\n"
             + "{\n"
             + "  vec4 color = v_color * texture2D(u_texture, v_texCoords);\n"
-            + "  color.rgb /= color.a;\n"                                       //ignore alpha
-            + "  color.rgb = ((color.rgb - 0.5) * max(contrast, 0.0)) + 0.5;\n" //apply contrast
-            + "  color.rgb += brightness;\n"                                    //apply brightness
-            + "  color.rgb *= color.a;\n"                                       //return alpha
+            + "  color.rgb /= color.a;\n"                                       // ignore alpha
+            + "  color.rgb = ((color.rgb - 0.5) * max(contrast, 0.0)) + 0.5;\n" // apply contrast
+            + "  color.rgb += brightness;\n"                                    // apply brightness
+            + "  color.rgb *= color.a;\n"                                       // return alpha
             + "  gl_FragColor = color;\n"
             + "}";
 
@@ -53,7 +53,7 @@ public final class ShaderBatch extends SpriteBatch {
     private int brightnessLoc = -1, contrastLoc = -1;
 
     public ShaderBatch(int size) {
-        super(size);
+        super(Math.min(size, 8191));
 
         this.contrast = 1f;
         this.brightness = 0;
