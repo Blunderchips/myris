@@ -11,7 +11,7 @@ import static dot.empire.myris.BaseEngine.AD_HIDE;
 import static dot.empire.myris.BaseEngine.AD_SHOW;
 
 /**
- * Android Launcher.
+ * Android Launcher. Should be the main {@link android.app.Activity}.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see dot.empire.myris.BaseEngine

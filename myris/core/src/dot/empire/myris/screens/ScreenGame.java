@@ -11,10 +11,11 @@ import dot.empire.myris.BaseEngine;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import dot.empire.myris.gfx.Score;
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static dot.empire.myris.Defines.*;
 
 public final class ScreenGame extends Screen {
 
@@ -29,15 +30,6 @@ public final class ScreenGame extends Screen {
             Color.SKY, Color.CHARTREUSE, /*Color.GOLD,*/
             /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
-    /**
-     * Sound effect to be played when a block is collected.
-     */
-    @AnnotationAssetManager.Asset(Sound.class)
-    private static final String SFX_COLLECT = "sfx/170147__timgormly__8-bit-coin.ogg";
-    @AnnotationAssetManager.Asset(Sound.class)
-    private static final String SFX_DEATH = "sfx/death.mp3";
-    @AnnotationAssetManager.Asset(Sound.class)
-    private static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
 
     private int[][] blocks;
     private int[][] _blocks;

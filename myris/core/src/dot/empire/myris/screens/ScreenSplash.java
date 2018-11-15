@@ -6,7 +6,9 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.kotcrab.vis.ui.widget.VisImage;
 import dot.empire.myris.Screen;
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import static dot.empire.myris.Defines.IMG_LOGO;
+import static dot.empire.myris.Defines.SFX_INTRO;
 
 /**
  * Screen shown on start up. Created 14/11/2018.
@@ -14,11 +16,6 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
  * @author Matthew 'siD' Van der Bijl
  */
 public final class ScreenSplash extends Screen {
-
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String IMG_LOGO = "gfx/logo.png";
-    @AnnotationAssetManager.Asset(Music.class)
-    private static final String SFX_INTRO = "sfx/intro.ogg";
 
     /**
      * @see Music#isPlaying()

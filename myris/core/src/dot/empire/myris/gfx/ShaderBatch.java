@@ -114,4 +114,13 @@ public final class ShaderBatch extends SpriteBatch {
     public void setContrast(float contrast) {
         this.contrast = Math.max(contrast, 0.1f);
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ShaderBatch{");
+        sb.append("brightness=").append(brightness);
+        sb.append(", contrast=").append(contrast);
+        sb.append('}');
+        return sb.toString();
+    }
 }

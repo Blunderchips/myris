@@ -13,22 +13,10 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
-import net.dermetfan.gdx.assets.AnnotationAssetManager;
+
+import static dot.empire.myris.Defines.*;
 
 public final class ScreenMenuMain extends Screen {
-
-    @AnnotationAssetManager.Asset(Music.class)
-    private static final String BG_MUSIC = "Kai_Engel_-_01_-_Brand_New_World.mp3";
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String ICO_PLAY = "gfx/play-button.png";
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String ICO_SCORE = "gfx/trophy-cup.png";
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String ICO_SETTINGS = "gfx/cog.png";
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String ICO_INFO = "gfx/info.png";
-    @AnnotationAssetManager.Asset(Texture.class)
-    private static final String IMG_TITLE = "gfx/title.png";
 
     private Music bgMusic;
 

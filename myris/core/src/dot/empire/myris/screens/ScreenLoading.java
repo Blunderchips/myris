@@ -12,9 +12,9 @@ import dot.empire.myris.gfx.GifDecoder;
 
 import java.util.Locale;
 
-public final class ScreenLoading extends Screen {
+import static dot.empire.myris.Defines.LOADING_GIF;
 
-    private static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
+public final class ScreenLoading extends Screen {
 
     private final Screen target;
     private final AssetManager mngr;

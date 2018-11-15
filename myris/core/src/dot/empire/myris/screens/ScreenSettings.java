@@ -35,7 +35,7 @@ public final class ScreenSettings extends Screen {
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
                 if (flag) {
-                    getEngine().setContrast(sldContrast.getValue());
+                    //getEngine().setContrast(sldContrast.getValue());
                 }
             }
         });
@@ -47,7 +47,7 @@ public final class ScreenSettings extends Screen {
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
                 if (flag) {
-                    getEngine().setBrightness(sldBrightness.getValue());
+                    //getEngine().setBrightness(sldBrightness.getValue());
                 }
             }
         });
