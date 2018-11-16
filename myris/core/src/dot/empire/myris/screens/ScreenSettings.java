@@ -26,29 +26,23 @@ public final class ScreenSettings extends Screen {
 
     @Override
     public void show(AssetManager mngr) {
-        flag = false;
-
-        this.sldContrast = new VisSlider(0, 100, 1, false);
-        this.sldContrast.setValue(getEngine().getPreferences().getFloat("contrast"));
+        this.sldContrast = new VisSlider(0, 5, 1, false);
+        this.sldContrast.setValue(getEngine().getPreferences().getContrast());
         this.sldContrast.addListener(new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
-                if (flag) {
-                    //getEngine().setContrast(sldContrast.getValue());
-                }
+                getEngine().setContrast(sldContrast.getValue() * 100);
             }
         });
 
-        this.sldBrightness = new VisSlider(0, 100, 1, false);
-        this.sldBrightness.setValue(getEngine().getPreferences().getFloat("brightness"));
+        this.sldBrightness = new VisSlider(0, 1, 0.1f, false);
+        this.sldBrightness.setValue(getEngine().getPreferences().getBrightness());
         this.sldBrightness.addListener(new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
-                if (flag) {
-                    //getEngine().setBrightness(sldBrightness.getValue());
-                }
+                getEngine().setBrightness(sldBrightness.getValue() * 100);
             }
         });
 
@@ -59,7 +53,5 @@ public final class ScreenSettings extends Screen {
 
         add(new VisLabel("Brightness", Color.BLACK));
         add(sldBrightness).row();
-
-        flag = true;
     }
 }

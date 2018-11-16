@@ -13,7 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import java.io.InputStream;
-import java.util.Vector;
+import java.util.LinkedList;
+import java.util.List;
 
 // FIXME: 11 Nov 2018 Clean up, get block comments from source, check all collections
 public class GifDecoder {
@@ -48,15 +49,42 @@ public class GifDecoder {
      * Full image height.
      */
     private int height;
-    private boolean gctFlag; // global colour table used
-    private int gctSize; // size of global colour table
-    private int[] gct; // global colour table
-    private int[] lct; // local colour table
-    private int[] act; // active colour table
-    private int bgIndex; // background colour index
-    private int bgColour; // background colour
-    private int lastBgColour; // previous bg colour
-    private boolean interlace; // interlace flag
+    /**
+     * Global colour table used.
+     */
+    private boolean gctFlag;
+    /**
+     * Size of global colour table.
+     */
+    private int gctSize;
+    /**
+     * Global colour table.
+     */
+    private int[] gct;
+    /**
+     * Local colour table.
+     */
+    private int[] lct;
+    /**
+     * Active colour table.
+     */
+    private int[] act;
+    /**
+     * Background colour index.
+     */
+    private int bgIndex;
+    /**
+     * Background colour.
+     */
+    private int bgColour;
+    /**
+     * Previous background colour.
+     */
+    private int lastBgColour;
+    /**
+     * Interlace flag.
+     */
+    private boolean interlace;
     private int ix;
     private int iy;
     private int iw;
@@ -65,9 +93,18 @@ public class GifDecoder {
     private int lry;
     private int lrw;
     private int lrh;
-    private DixieMap image; // current frame
-    private DixieMap lastPixmap; // previous frame
-    private int blockSize = 0; // block size last graphic control extension info
+    /**
+     * Current frame.
+     */
+    private DixieMap image;
+    /**
+     * Previous frame.
+     */
+    private DixieMap lastPixmap;
+    /**
+     * Block size last graphic control extension info.
+     */
+    private int blockSize = 0;
     private int dispose = 0; // 0=no action; 1=leave in place; 2=restore to bg; 3=restore to prev
     private int lastDispose = 0;
     private boolean transparency = false; // use transparent colour
@@ -78,8 +115,14 @@ public class GifDecoder {
     private byte[] suffix;
     private byte[] pixelStack;
     private byte[] pixels;
-    private Vector<GifFrame> frames; // frames read from current file
-    private int frameCount;
+    /**
+     * Frames read from current file.
+     */
+    private List<GifFrame> frames;
+    /**
+     * Frame count.
+     */
+    private int frameCnt;
 
     public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode, InputStream is) {
         GifDecoder gdec = new GifDecoder();
@@ -88,14 +131,25 @@ public class GifDecoder {
     }
 
     /**
+     * Initializes.
+     */
+    public GifDecoder() {
+        this.status = STATUS_OK;
+        this.frameCnt = 0;
+        this.frames = new LinkedList<GifFrame>();
+        this.gct = null;
+        this.lct = null;
+    }
+
+    /**
      * Gets display duration for specified frame.
      *
      * @return delay in milliseconds
      */
     private int getDelay() {
-        delay = -1;
-        if ((0 < frameCount)) {
-            delay = frames.elementAt(0).delay;
+        this.delay = -1;
+        if ((0 < frameCnt)) {
+            this.delay = frames.get(0).delay;
         }
         return delay;
     }
@@ -105,8 +159,9 @@ public class GifDecoder {
      *
      * @return frame count
      */
+    // FIXME: 16 Nov 2018 Remove
     private int getFrameCount() {
-        return this.frameCount;
+        return this.frameCnt;
     }
 
     /**
@@ -119,7 +174,7 @@ public class GifDecoder {
         if (lastDispose > 0) {
             if (lastDispose == 3) {
                 // use image before last
-                int n = frameCount - 2;
+                int n = frameCnt - 2;
                 if (n > 0) {
                     lastPixmap = getFrame(n - 1);
                 } else {
@@ -203,10 +258,10 @@ public class GifDecoder {
      * @return BufferedPixmap representation of frame, or null if n is invalid.
      */
     private DixieMap getFrame(int n) {
-        if (frameCount <= 0)
+        if (frameCnt <= 0)
             return null;
-        n = n % frameCount;
-        return frames.elementAt(n).image;
+        n = n % frameCnt;
+        return frames.get(n).image;
     }
 
     /**
@@ -215,13 +270,12 @@ public class GifDecoder {
      * @param is containing GIF file.
      */
     private void read(InputStream is) {
-        init();
         if (is != null) {
             in = is;
             readHeader();
             if (!err()) {
                 readContents();
-                if (frameCount < 0) {
+                if (frameCnt < 0) {
                     status = STATUS_FORMAT_ERROR;
                 }
             }
@@ -351,17 +405,6 @@ public class GifDecoder {
      */
     private boolean err() {
         return status != STATUS_OK;
-    }
-
-    /**
-     * Initializes or re-initializes reader.
-     */
-    private void init() {
-        status = STATUS_OK;
-        frameCount = 0;
-        frames = new Vector<GifFrame>();
-        gct = null;
-        lct = null;
     }
 
     /**
@@ -564,11 +607,11 @@ public class GifDecoder {
         if (err()) {
             return;
         }
-        frameCount++;
+        frameCnt++;
         // create new image to receive frame data
         image = new DixieMap(width, height);
         setPixels(); // transfer pixel data to image
-        frames.addElement(new GifFrame(image, delay)); // add image to frame
+        frames.add(new GifFrame(image, delay)); // add image to frame
         // list
         if (transparency) {
             act[transIndex] = save;
@@ -615,17 +658,17 @@ public class GifDecoder {
      * Resets frame state for reading next image.
      */
     private void resetFrame() {
-        lastDispose = dispose;
-        lrx = ix;
-        lry = iy;
-        lrw = iw;
-        lrh = ih;
-        lastPixmap = image;
-        lastBgColour = bgColour;
-        dispose = 0;
-        transparency = false;
-        delay = 0;
-        lct = null;
+        this.lastDispose = dispose;
+        this.lrx = ix;
+        this.lry = iy;
+        this.lrw = iw;
+        this.lrh = ih;
+        this.lastPixmap = image;
+        this.lastBgColour = bgColour;
+        this.dispose = 0;
+        this.transparency = false;
+        this.delay = 0;
+        this.lct = null;
     }
 
     /**

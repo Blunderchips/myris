@@ -10,7 +10,6 @@ package dot.empire.myris;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -47,7 +46,7 @@ public final class BaseEngine extends ApplicationAdapter {
     private ShapeRenderer renderer;
     private ShaderBatch batch;
     private AnnotationAssetManager assetManager;
-    private Preferences preferences;
+    private Settings preferences;
 
     private FrameBuffer fbo;
     private Sprite display;
@@ -60,7 +59,7 @@ public final class BaseEngine extends ApplicationAdapter {
         VisUI.load(VisUI.SkinScale.X2);
         this.uiLayer = new Stage(); // TODO: 12 Nov 2018 Set constructor values
         this.assetManager = new AnnotationAssetManager();
-        this.preferences = Gdx.app.getPreferences(BaseEngine.TAG);
+        this.preferences = new Settings();
 
         this.input = new InputMultiplexer();
         Gdx.input.setInputProcessor(input);
@@ -72,8 +71,8 @@ public final class BaseEngine extends ApplicationAdapter {
         this.batch = new ShaderBatch(1);
         this.batch.enableBlending();
         this.batch.setBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        this.setBrightness(preferences.getFloat("brightness", 0));
-        this.setContrast(preferences.getFloat("contrast", 1));
+        this.batch.setBrightness(preferences.getBrightness());
+        this.batch.setContrast(preferences.getContrast());
         Gdx.app.debug(BaseEngine.TAG, "Sprite batch = " + batch.toString());
 
         final int width = Gdx.graphics.getWidth();
@@ -133,8 +132,6 @@ public final class BaseEngine extends ApplicationAdapter {
      */
     @Override
     public void dispose() {
-        this.preferences.flush(); // just to be safe
-
         this.fbo.dispose();
         this.display.getTexture().dispose();
 
@@ -181,24 +178,26 @@ public final class BaseEngine extends ApplicationAdapter {
     }
 
     public void setContrast(float contrast) {
-        contrast /= 100;
+        if (contrast > 1) {
+            contrast /= 100;
+        }
 
         Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Contrast = %.2f", contrast));
-        //this.batch.setContrast(contrast);
-        this.preferences.putFloat("contrast", batch.getContrast());
-        this.preferences.flush();
+        this.batch.setContrast(contrast);
+        this.preferences.setContrast(batch.getContrast());
     }
 
     public void setBrightness(float brightness) {
-        brightness /= 100;
+        if (brightness > 1) {
+            brightness /= 100;
+        }
 
         Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Brightness = %.2f", brightness));
-        //this.batch.setBrightness(brightness);
-        this.preferences.putFloat("brightness", batch.getBrightness());
-        this.preferences.flush();
+        this.batch.setBrightness(brightness);
+        this.preferences.setBrightness(batch.getBrightness());
     }
 
-    public Preferences getPreferences() {
+    public Settings getPreferences() {
         return this.preferences;
     }
 }

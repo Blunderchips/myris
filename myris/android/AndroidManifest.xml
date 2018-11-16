@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="dot.empire.myris">
 
+    <!-- FIXME -->
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="28"/>
 
     <application
