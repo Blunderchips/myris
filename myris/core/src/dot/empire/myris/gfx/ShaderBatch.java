@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import dot.empire.myris.BaseEngine;
 
 /**
- *  Brightness/Contrast {@link SpriteBatch}. Modify the brightness/contrast of sprites and images rendered in libGDX.
+ * Brightness/Contrast {@link SpriteBatch}. Modify the brightness/contrast of sprites and images rendered in libGDX.
  */
 // https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast
 public final class ShaderBatch extends SpriteBatch {

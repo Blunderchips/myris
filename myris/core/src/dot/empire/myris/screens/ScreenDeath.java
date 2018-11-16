@@ -21,20 +21,4 @@ public final class ScreenDeath extends Screen {
     public void show(AssetManager mngr) {
         // add(new VisImageButton(new SpriteDrawable()));
     }
-
-    private class BtnPlay extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-            changeScreen(ScreenMenuMain.class);
-        }
-    }
-
-    private class BtnBack extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-            changeScreen(ScreenGame.class);
-        }
-    }
 }

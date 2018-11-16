@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import dot.empire.myris.Screen;
+import dot.empire.myris.buttons.BtnToMain;
 
 /**
  * @author Matthew 'siD' Van der Bijl
@@ -22,11 +23,9 @@ public final class ScreenSettings extends Screen {
      */
     private VisSlider sldBrightness;
 
-    private boolean flag = false;
-
     @Override
     public void show(AssetManager mngr) {
-        this.sldContrast = new VisSlider(0, 5, 1, false);
+        this.sldContrast = new VisSlider(0, 2, 0.25f, false);
         this.sldContrast.setValue(getEngine().getPreferences().getContrast());
         this.sldContrast.addListener(new ChangeListener() {
 
@@ -53,5 +52,7 @@ public final class ScreenSettings extends Screen {
 
         add(new VisLabel("Brightness", Color.BLACK));
         add(sldBrightness).row();
+
+        add(new BtnToMain(mngr, this));
     }
 }

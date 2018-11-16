@@ -34,6 +34,8 @@ public final class Defines {
     public static final String ICO_INFO = "gfx/info.png";
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String IMG_TITLE = "gfx/title.png";
+    @AnnotationAssetManager.Asset(Texture.class)
+    public static final String ICO_BTN_BACK = "gfx/anticlockwise-rotation.png";
 
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String IMG_LOGO = "gfx/logo.png";

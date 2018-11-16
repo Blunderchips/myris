@@ -10,14 +10,19 @@ import java.util.concurrent.atomic.AtomicLong;
 public class Score extends VisTable {
 
     private final AtomicLong score;
+    private final AtomicLong tmp;
     private final VisLabel lblScore;
     private boolean bool;
+    private boolean valid;
 
     public Score() {
         super(true);
         super.setFillParent(true);
 
+        // They default to 1
+        this.tmp = new AtomicLong(0);
         this.score = new AtomicLong(0);
+        // --
 
         this.lblScore = new VisLabel(score.toString(), Color.BLACK);
         super.align(Align.center).add(lblScore).row();
@@ -34,6 +39,11 @@ public class Score extends VisTable {
      */
     @Override
     public void act(float dt) {
+        if (!valid) {
+            this.score.addAndGet((long) Math.pow(2, tmp.get()));
+            this.tmp.set(0);
+            this.valid = true;
+        }
         long tmp = Long.parseLong(lblScore.getText().toString());
         if (tmp != score.get()) {
             if (bool = !bool) {
@@ -44,10 +54,13 @@ public class Score extends VisTable {
     }
 
     public void updateScore(int delta) {
+        // this.tmp.addAndGet(delta);
+        // this.valid = false;
         this.score.addAndGet(delta);
     }
 
     public void reset() {
+        this.tmp.set(0);
         this.score.set(0);
         this.lblScore.setText(0 + "");
     }

@@ -13,6 +13,7 @@ public final class Settings {
 
     private static String BRIGHTNESS = "brightness";
     private static String CONTRAST = "contrast";
+    private static String IS_MUTED = "muted";
 
     private final Preferences preferences;
 
@@ -41,5 +42,9 @@ public final class Settings {
     private void flush() {
         // Gdx.app.debug(BaseEngine.TAG, "saving preferences");
         this.preferences.flush();
+    }
+
+    public boolean isMuted() {
+        return preferences.getBoolean(IS_MUTED, false);
     }
 }
