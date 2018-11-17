@@ -29,6 +29,7 @@ public class Score extends VisTable {
 
         // super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
 
+        reset();
         super.setVisible(true); // TODO: 13 Nov 2018 Really needed?
     }
 

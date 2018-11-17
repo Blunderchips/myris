@@ -117,10 +117,9 @@ public final class ShaderBatch extends SpriteBatch {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ShaderBatch{");
-        sb.append("brightness=").append(brightness);
-        sb.append(", contrast=").append(contrast);
-        sb.append('}');
-        return sb.toString();
+        String sb = "ShaderBatch{" + "brightness=" + brightness +
+                ", contrast=" + contrast +
+                '}';
+        return sb;
     }
 }

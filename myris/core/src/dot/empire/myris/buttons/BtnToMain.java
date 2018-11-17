@@ -9,6 +9,12 @@ import dot.empire.myris.screens.ScreenMenuMain;
 
 import static dot.empire.myris.Defines.ICO_BTN_BACK;
 
+/**
+ * Button to the {@link ScreenMenuMain}.
+ *
+ * @author Matthew 'siD' Van der Bijl
+ * @see dot.empire.myris.screens.ScreenMenuMain
+ */
 public class BtnToMain extends Button {
 
     public BtnToMain(AssetManager mngr, final Screen parent) {

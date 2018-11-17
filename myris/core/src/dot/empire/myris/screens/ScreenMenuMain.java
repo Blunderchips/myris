@@ -1,6 +1,5 @@
 package dot.empire.myris.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +12,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
+import dot.empire.myris.buttons.BtnPlay;
 
 import static dot.empire.myris.Defines.*;
 
@@ -29,7 +29,7 @@ public final class ScreenMenuMain extends Screen {
 
         VisTable tblButtons = new VisTable(true);
 
-        createButton(ICO_PLAY, new BtnPlay(), mngr, tblButtons);
+        tblButtons.add(new BtnPlay(mngr, this));
         createButton(ICO_SCORE, new BtnScore(), mngr, tblButtons);
 
         tblButtons.row();
@@ -47,26 +47,18 @@ public final class ScreenMenuMain extends Screen {
     }
 
 
-    @Override
-    public void update(float dt) {
-        if (Gdx.input.isTouched()) {
+//    @Override
+//    public void update(float dt) {
+//        if (Gdx.input.isTouched()) {
 //            changeScreen(ScreenGame.class);
-        }
-    }
+//        }
+//    }
 
 
     @Override
     public void dispose() {
         this.bgMusic.stop();
         super.dispose();
-    }
-
-    private class BtnPlay extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-            changeScreen(ScreenGame.class);
-        }
     }
 
     private class BtnSettings extends ChangeListener {
@@ -85,9 +77,6 @@ public final class ScreenMenuMain extends Screen {
         }
     }
 
-    /**
-     * Open GitHub repo page.
-     */
     private class BtnInfo extends ChangeListener {
 
         @Override

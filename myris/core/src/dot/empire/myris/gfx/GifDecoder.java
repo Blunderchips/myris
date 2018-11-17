@@ -16,6 +16,9 @@ import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Graphical Interchange Format decoder for libGDX.
+ */
 // FIXME: 11 Nov 2018 Clean up, get block comments from source, check all collections
 public class GifDecoder {
 
