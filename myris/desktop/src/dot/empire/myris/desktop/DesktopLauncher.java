@@ -2,7 +2,7 @@ package dot.empire.myris.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import dot.empire.myris.BaseEngine;
+import dot.empire.myris.Myris;
 import org.oxbow.swingbits.dialog.task.TaskDialogs;
 
 import java.awt.*;
@@ -11,7 +11,7 @@ import java.awt.*;
  * For testing. Created 07/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
- * @see dot.empire.myris.BaseEngine
+ * @see Myris
  */
 public final class DesktopLauncher {
 
@@ -44,7 +44,7 @@ public final class DesktopLauncher {
         cfg.a = 24;
 
         try {
-            new LwjglApplication(new BaseEngine(), cfg);
+            new LwjglApplication(new Myris(), cfg);
         } catch (Throwable t) {
             t.printStackTrace(System.err);
             Toolkit.getDefaultToolkit().beep();

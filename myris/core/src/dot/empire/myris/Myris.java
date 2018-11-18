@@ -32,7 +32,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public final class BaseEngine extends ApplicationAdapter {
+public final class Myris extends ApplicationAdapter {
 
     /**
      *
@@ -73,7 +73,7 @@ public final class BaseEngine extends ApplicationAdapter {
         this.batch.setBlendFunction(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         this.batch.setBrightness(preferences.getBrightness());
         this.batch.setContrast(preferences.getContrast());
-        Gdx.app.debug(BaseEngine.TAG, "Sprite batch = " + batch.toString());
+        Gdx.app.debug(Myris.TAG, "Sprite batch = " + batch.toString());
 
         final int width = Gdx.graphics.getWidth();
         final int height = Gdx.graphics.getHeight();
@@ -142,7 +142,7 @@ public final class BaseEngine extends ApplicationAdapter {
 
         this.uiLayer.dispose();
         VisUI.dispose();
-        Gdx.app.log(BaseEngine.TAG, "Goodbye(:");
+        Gdx.app.log(Myris.TAG, "Goodbye(:");
     }
 
     public void setScreen(Screen screen) {
@@ -165,7 +165,7 @@ public final class BaseEngine extends ApplicationAdapter {
         this.input.addProcessor(uiLayer);
         this.input.addProcessor(new SimpleDirectionGestureDetector(this.screen));
 
-        Gdx.app.log(BaseEngine.TAG, "Screen = " + this.screen.getName());
+        Gdx.app.log(Myris.TAG, "Screen = " + this.screen.getName());
         this.screen.show(assetManager);
     }
 
@@ -182,7 +182,7 @@ public final class BaseEngine extends ApplicationAdapter {
             contrast /= 100;
         }
 
-        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Contrast = %.2f", contrast));
+        Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Contrast = %.2f", contrast));
         this.batch.setContrast(contrast);
         this.preferences.setContrast(batch.getContrast());
     }
@@ -192,7 +192,7 @@ public final class BaseEngine extends ApplicationAdapter {
             brightness /= 100;
         }
 
-        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Brightness = %.2f", brightness));
+        Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Brightness = %.2f", brightness));
         this.batch.setBrightness(brightness);
         this.preferences.setBrightness(batch.getBrightness());
     }

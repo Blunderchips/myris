@@ -27,6 +27,6 @@ public final class IOSLauncher extends IOSApplication.Delegate {
         cfg.useCompass = false;
         cfg.useAccelerometer = false;
 
-        return new IOSApplication(new BaseEngine(), cfg);
+        return new IOSApplication(new Myris(), cfg);
     }
 }

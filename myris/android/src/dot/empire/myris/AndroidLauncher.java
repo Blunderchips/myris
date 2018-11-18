@@ -14,7 +14,7 @@ import static dot.empire.myris.Defines.Messages.AD_SHOW;
  * Android Launcher. Should be the main {@link android.app.Activity}.
  *
  * @author Matthew 'siD' Van der Bijl
- * @see dot.empire.myris.BaseEngine
+ * @see Myris
  */
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
 
@@ -43,7 +43,7 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         cfg.useCompass = false;
         cfg.useAccelerometer = false;
 
-        super.initialize(new BaseEngine(), cfg);
+        super.initialize(new Myris(), cfg);
     }
 
     @Override

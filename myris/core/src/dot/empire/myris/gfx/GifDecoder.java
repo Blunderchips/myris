@@ -1,7 +1,7 @@
-/* Copyright by Johannes Borchardt */
-/* LibGdx conversion 2014 by Anton Persson */
-/* Released under Apache 2.0 */
-/* https://code.google.com/p/animated-gifs-in-android/ */
+// Copyright by Johannes Borchardt
+// LibGdx conversion 2014 by Anton Persson
+// Released under Apache 2.0
+// https://code.google.com/p/animated-gifs-in-android/
 package dot.empire.myris.gfx;
 
 import com.badlogic.gdx.Gdx;
@@ -17,7 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Graphical Interchange Format decoder for libGDX.
+ * Graphical Interchange Format (GIF) decoder for libGDX.
  */
 // FIXME: 11 Nov 2018 Clean up, get block comments from source, check all collections
 public class GifDecoder {
@@ -110,9 +110,18 @@ public class GifDecoder {
     private int blockSize = 0;
     private int dispose = 0; // 0=no action; 1=leave in place; 2=restore to bg; 3=restore to prev
     private int lastDispose = 0;
-    private boolean transparency = false; // use transparent colour
-    private int delay = 0; // delay in milliseconds
-    private int transIndex; // transparent colour index
+    /**
+     * Use transparent colour.
+     */
+    private boolean transparency = false;
+    /**
+     * Delay in milliseconds.
+     */
+    private int delay = 0;
+    /**
+     * Transparent colour index.
+     */
+    private int transIndex;
     // LZW decoder working arrays
     private short[] prefix;
     private byte[] suffix;

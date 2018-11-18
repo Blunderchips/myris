@@ -20,7 +20,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * Main game engine.
      */
-    private BaseEngine engine;
+    private Myris engine;
 
     public Screen() {
         super(true);
@@ -31,7 +31,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     }
 
     /**
-     * @param mngr {@link BaseEngine#assetManager}
+     * @param mngr {@link Myris#assetManager}
      * @see net.dermetfan.gdx.assets.AnnotationAssetManager
      */
     public void show(AssetManager mngr) {
@@ -52,8 +52,8 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      * @param renderer Used to render shapes to the screen
      * @param batch    Used to render textures to the screen
      *
-     * @see dot.empire.myris.BaseEngine#renderer
-     * @see dot.empire.myris.BaseEngine#batch
+     * @see Myris#renderer
+     * @see Myris#batch
      */
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
     }
@@ -61,7 +61,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * Removes {@link VisTable} from the UI layer.
      *
-     * @see BaseEngine#uiLayer
+     * @see Myris#uiLayer
      */
     @Override
     public void dispose() {
@@ -117,15 +117,15 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         try {
             changeScreen(screen.getConstructor().newInstance());
         } catch (Exception ex) { // TODO: 11 Nov 2018 Get specific exceptions
-            Gdx.app.error(BaseEngine.TAG, "Cannot change next", ex);
+            Gdx.app.error(Myris.TAG, "Cannot change next", ex);
         }
     }
 
-    public BaseEngine getEngine() {
+    public Myris getEngine() {
         return this.engine;
     }
 
-    public void setEngine(BaseEngine engine) {
+    public void setEngine(Myris engine) {
         this.engine = engine;
     }
 }

@@ -25,7 +25,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Field;
 import com.badlogic.gdx.utils.reflect.Method;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
-import dot.empire.myris.BaseEngine;
+import dot.empire.myris.Myris;
 
 import java.lang.annotation.*;
 
@@ -257,14 +257,14 @@ public class AnnotationAssetManager extends AssetManager {
 
     public synchronized <T> void load(String fileName, Class<T> type, AssetLoaderParameters<T> parameter) {
         if (!isLoaded(fileName, type)) {
-            Gdx.app.debug(BaseEngine.TAG, String.format("Loading %s = %s", type.getSimpleName(), fileName));
+            Gdx.app.debug(Myris.TAG, String.format("Loading %s = %s", type.getSimpleName(), fileName));
             super.load(fileName, type, parameter);
         }
     }
 
     @Override
     public synchronized <T> T get(String fileName, Class<T> type) {
-        Gdx.app.debug(BaseEngine.TAG, String.format("Getting %s = %s", type.getSimpleName(), fileName));
+        Gdx.app.debug(Myris.TAG, String.format("Getting %s = %s", type.getSimpleName(), fileName));
         return super.get(fileName, type);
     }
 

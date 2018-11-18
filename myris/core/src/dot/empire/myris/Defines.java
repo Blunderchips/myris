@@ -12,13 +12,8 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
  */
 public final class Defines {
 
-    /**
-     * @see com.badlogic.gdx.ai.msg.MessageManager
-     */
-    public interface Messages {
-        int AD_SHOW = 0x0;
-        int AD_HIDE = 0x1;
-    }
+    @AnnotationAssetManager.Asset(Texture.class)
+    public static final String GAME_OVERLAY = "gfx/game-overlay.png";
 
     public static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
@@ -41,6 +36,16 @@ public final class Defines {
     public static final String IMG_LOGO = "gfx/logo.png";
     @AnnotationAssetManager.Asset(Music.class)
     public static final String SFX_INTRO = "sfx/intro.ogg";
+
+    /**
+     * @see com.badlogic.gdx.ai.msg.MessageManager
+     */
+    public interface Messages {
+
+        int AD_SHOW = 0x0;
+        int AD_HIDE = 0x1;
+        int MSG_MUTE = 0x2;
+    }
 
     /**
      * Sound effect to be played when a block is collected.

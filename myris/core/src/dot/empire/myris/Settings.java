@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 /**
- * Preferences. Created 16/11/2018.
+ * General settings and preferences. Created 16/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see com.badlogic.gdx.Preferences
@@ -18,7 +18,7 @@ public final class Settings {
     private final Preferences preferences;
 
     public Settings() {
-        this.preferences = Gdx.app.getPreferences(BaseEngine.TAG);
+        this.preferences = Gdx.app.getPreferences(Myris.TAG);
     }
 
     public float getBrightness() {
@@ -27,7 +27,7 @@ public final class Settings {
 
     public void setBrightness(float brightness) {
         this.preferences.putFloat(BRIGHTNESS, brightness);
-        flush();
+        this.preferences.flush();
     }
 
     public float getContrast() {
@@ -36,15 +36,15 @@ public final class Settings {
 
     public void setContrast(float contrast) {
         this.preferences.putFloat(CONTRAST, contrast);
-        flush();
-    }
-
-    private void flush() {
-        // Gdx.app.debug(BaseEngine.TAG, "saving preferences");
         this.preferences.flush();
     }
 
     public boolean isMuted() {
         return preferences.getBoolean(IS_MUTED, false);
+    }
+
+    public void setIsMuted(boolean isMuted) {
+        this.preferences.putBoolean(IS_MUTED, isMuted);
+        this.preferences.flush();
     }
 }

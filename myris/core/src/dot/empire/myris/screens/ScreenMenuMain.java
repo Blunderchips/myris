@@ -3,18 +3,17 @@ package dot.empire.myris.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
+import dot.empire.myris.buttons.BtnInfo;
 import dot.empire.myris.buttons.BtnPlay;
+import dot.empire.myris.buttons.BtnScore;
+import dot.empire.myris.buttons.BtnSettings;
 
-import static dot.empire.myris.Defines.*;
+import static dot.empire.myris.Defines.BG_MUSIC;
+import static dot.empire.myris.Defines.IMG_TITLE;
 
 public final class ScreenMenuMain extends Screen {
 
@@ -30,58 +29,21 @@ public final class ScreenMenuMain extends Screen {
         VisTable tblButtons = new VisTable(true);
 
         tblButtons.add(new BtnPlay(mngr, this));
-        createButton(ICO_SCORE, new BtnScore(), mngr, tblButtons);
+        tblButtons.add(new BtnScore(mngr, this));
 
         tblButtons.row();
 
-        createButton(ICO_SETTINGS, new BtnSettings(), mngr, tblButtons);
-        createButton(ICO_INFO, new BtnInfo(), mngr, tblButtons);
+        tblButtons.add(new BtnSettings(mngr, this));
+        tblButtons.add(new BtnInfo(mngr, this));
 
         super.add(tblButtons);
     }
 
-    private void createButton(String img, ChangeListener listener, AssetManager mngr, VisTable tbl) {
-        VisImageButton btn = new VisImageButton(new TextureRegionDrawable(new TextureRegion(mngr.get(img, Texture.class))));
-        btn.addListener(listener);
-        tbl.add(btn);
-    }
-
-
-//    @Override
-//    public void update(float dt) {
-//        if (Gdx.input.isTouched()) {
-//            changeScreen(ScreenGame.class);
-//        }
-//    }
-
-
     @Override
-    public void dispose() {
-        this.bgMusic.stop();
-        super.dispose();
-    }
-
-    private class BtnSettings extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-            changeScreen(ScreenSettings.class);
+    public void changeScreen(Screen screen) {
+        if (screen instanceof ScreenGame) {
+            this.bgMusic.stop();
         }
-    }
-
-    private class BtnScore extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-
-        }
-    }
-
-    private class BtnInfo extends ChangeListener {
-
-        @Override
-        public void changed(ChangeEvent evt, Actor actor) {
-
-        }
+        super.changeScreen(screen);
     }
 }

@@ -18,9 +18,10 @@ public abstract class Button extends VisImageButton {
 
     /**
      * @param icon     Path to {@link Texture}
-     * @param mngr     {@link BaseEngine#assetManager}
+     * @param mngr     {@link Myris#assetManager}
      * @param listener Invoked on click
      */
+    @SuppressWarnings("LeakingThisInConstructor")
     public Button(String icon, AssetManager mngr, ChangeListener listener) {
         super(new SpriteDrawable(new Sprite(mngr.get(icon, Texture.class))));
         super.addListener(listener);

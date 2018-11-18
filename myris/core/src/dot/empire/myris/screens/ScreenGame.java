@@ -4,10 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import dot.empire.myris.BaseEngine;
+import com.kotcrab.vis.ui.widget.VisImage;
+import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import dot.empire.myris.gfx.Score;
@@ -27,12 +30,11 @@ public final class ScreenGame extends Screen {
      * Block colours.
      */
     private static final Color[] COLOURS = {
-            Color.SKY, Color.CHARTREUSE, /*Color.GOLD,*/
+            Color.SKY, /*Color.CHARTREUSE,*/ Color.GOLD,
             /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
 
     private int[][] blocks;
-    private int[][] _blocks;
     private SequenceGenerator seqn;
     private Sound sfxCollect;
     private Sound sfxDeath;
@@ -44,13 +46,16 @@ public final class ScreenGame extends Screen {
         this.numCollected = new AtomicInteger();
         this.seqn = new SequenceGenerator(COLOURS.length);
         this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
-        this._blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
 
-        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
+        Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
     }
 
     @Override
     public void show(AssetManager mngr) {
+        Sprite overlay = new Sprite(mngr.get(GAME_OVERLAY, Texture.class));
+        overlay.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        add(new VisImage(overlay));
+
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
@@ -83,7 +88,6 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void onUp() {
-        System.arraycopy(blocks, 0, _blocks, 0, blocks.length);
         for (int x = 0; x < blocks.length; x++) {
             for (int y = blocks[x].length - 1; y >= 0; y--) {
                 if (blocks[x][y] != -1) {
@@ -96,7 +100,6 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void onDown() {
-        System.arraycopy(blocks, 0, _blocks, 0, blocks.length);
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -109,7 +112,6 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void onLeft() {
-        System.arraycopy(blocks, 0, _blocks, 0, blocks.length);
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -122,7 +124,6 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void onRight() {
-        System.arraycopy(blocks, 0, _blocks, 0, blocks.length);
         for (int x = blocks.length - 1; x >= 0; x--) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -221,7 +222,7 @@ public final class ScreenGame extends Screen {
         }
 
         getEngine().setAlpha(0);
-        Gdx.app.log(BaseEngine.TAG, "GAME OVER!");
+        Gdx.app.log(Myris.TAG, "GAME OVER!");
         this.sfxDeath.play();
 
         reset_();

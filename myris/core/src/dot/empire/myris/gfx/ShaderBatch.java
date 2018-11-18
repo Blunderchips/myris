@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
-import dot.empire.myris.BaseEngine;
+import dot.empire.myris.Myris;
 
 /**
  * Brightness/Contrast {@link SpriteBatch}. Modify the brightness/contrast of sprites and images rendered in libGDX.
@@ -73,10 +73,10 @@ public final class ShaderBatch extends SpriteBatch {
             this.shader.end();
         }
 
-        Gdx.app.debug(BaseEngine.TAG, "Shader batch Compiled = " + Boolean.toString(isCompiled));
+        Gdx.app.debug(Myris.TAG, "Shader batch Compiled = " + Boolean.toString(isCompiled));
         String log = shader.getLog().trim();
         if (!log.isEmpty()) {
-            Gdx.app.debug(BaseEngine.TAG, "Shader batch Log = " + log);
+            Gdx.app.debug(Myris.TAG, "Shader batch Log = " + log);
         }
     }
 
@@ -117,9 +117,8 @@ public final class ShaderBatch extends SpriteBatch {
 
     @Override
     public String toString() {
-        String sb = "ShaderBatch{" + "brightness=" + brightness +
+        return "ShaderBatch{" + "brightness=" + brightness +
                 ", contrast=" + contrast +
                 '}';
-        return sb;
     }
 }

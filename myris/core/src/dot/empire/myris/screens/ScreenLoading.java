@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import dot.empire.myris.BaseEngine;
+import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.gfx.GifDecoder;
 
@@ -33,7 +33,7 @@ public final class ScreenLoading extends Screen {
     @Override
     public void update(float dt) {
         this.elasped += dt;
-        Gdx.app.log(BaseEngine.TAG, String.format(Locale.ENGLISH, "Loading %.2f", mngr.getProgress() * 100) + "%");
+        Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Loading %.2f", mngr.getProgress() * 100) + "%");
         if (mngr.update()) {
             changeScreen(target);
         }
