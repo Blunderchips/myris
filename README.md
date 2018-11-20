@@ -12,7 +12,7 @@
 ##### Everyone who's created or contributed to issues and pull requests have made the project better!
 
 ### General Info
-* Made using LibGDX (https://libgdx.badlogicgames.com/)
+* Made using libGDX (https://libgdx.badlogicgames.com/)
 * All icons came from http://game-icons.net/
 
 ### License
