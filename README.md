@@ -1,7 +1,21 @@
-# myris
-#### libGDX Android Game
+# myris libGDX Android Game
 
-###
+* [GitHub - Blunderchips/myris](https://github.com/Blunderchips/myris)
+
+**Watch/star to follow along with progress!**
+
+### Report Issues
+
+- **[Report New Issue](https://github.com/Blunderchips/myris/issues/new)**
+- **[View Open Issues](https://github.com/Blunderchips/myris/issues)**
+
+##### Everyone who's created or contributed to issues and pull requests have made the project better!
+
+### General Info
+* Made using LibGDX (https://libgdx.badlogicgames.com/)
+* All icons came from http://game-icons.net/
+
+### License
 MIT License
 
 Copyright (c) 2018 Matthew 'siD' Van der Bijl
