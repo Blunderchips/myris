@@ -9,6 +9,13 @@ import dot.empire.myris.screens.ScreenGame;
 
 import static dot.empire.myris.Defines.ICO_PLAY;
 
+/**
+ * Button to start a new game.
+ *
+ * @author Matthew 'siD' Van der Bijl
+ * @see dot.empire.myris.screens.ScreenGame
+ * @see dot.empire.myris.Defines#ICO_PLAY
+ */
 public final class BtnPlay extends Button {
 
     public BtnPlay(AssetManager mngr, final Screen parent) {

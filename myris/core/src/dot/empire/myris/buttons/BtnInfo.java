@@ -13,6 +13,7 @@ import static dot.empire.myris.Defines.ICO_INFO;
  * Button to the Information Screen.
  *
  * @see dot.empire.myris.screens.ScreenInfo
+ * @see dot.empire.myris.Defines#ICO_INFO
  */
 public final class BtnInfo extends Button {
 

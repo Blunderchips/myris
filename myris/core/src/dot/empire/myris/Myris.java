@@ -37,7 +37,7 @@ import static com.badlogic.gdx.graphics.GL20.*;
 public final class Myris extends ApplicationAdapter {
 
     /**
-     *
+     * For logging.
      */
     public static final String TAG = "myris";
 
@@ -53,13 +53,6 @@ public final class Myris extends ApplicationAdapter {
     private FrameBuffer fbo;
     private Sprite display;
     private float alpha;
-
-    /**
-     * Default constructor. Most code will be place in the {@link #create()} method.
-     */
-    public Myris() {
-        MathUtils.random = new RandomXS128(new SecureRandom().nextLong());
-    }
 
     @Override
     public void create() {

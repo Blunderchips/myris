@@ -12,6 +12,8 @@ import static dot.empire.myris.Defines.ICO_SCORE;
 /**
  * Button to the score screen.
  *
+ * @author Matthew 'siD' Van der Bijl
+ *
  * @see dot.empire.myris.screens.ScreenScore
  * @see dot.empire.myris.Defines#ICO_SCORE
  */
