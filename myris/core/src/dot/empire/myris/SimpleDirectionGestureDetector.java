@@ -1,5 +1,6 @@
 package dot.empire.myris;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 
 // https://stackoverflow.com/questions/15185799/libgdx-get-swipe-up-or-swipe-right-etc
@@ -47,14 +48,18 @@ public class SimpleDirectionGestureDetector extends GestureDetector {
         public boolean fling(float xvel, float yvel, int btn) {
             if (Math.abs(xvel) > Math.abs(yvel)) {
                 if (xvel > 0) {
+                    Gdx.app.debug("Direction Listener", "RIGHT");
                     listener.onRight();
                 } else {
+                    Gdx.app.debug("Direction Listener", "LEFT");
                     listener.onLeft();
                 }
             } else {
                 if (yvel > 0) {
+                    Gdx.app.debug("Direction Listener", "DOWN");
                     listener.onDown();
                 } else {
+                    Gdx.app.debug("Direction Listener", "UP");
                     listener.onUp();
                 }
             }

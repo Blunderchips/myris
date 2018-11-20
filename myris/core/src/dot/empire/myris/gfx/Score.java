@@ -7,6 +7,9 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+/**
+ * Score Label.
+ */
 public class Score extends VisTable {
 
     private final AtomicLong score;
@@ -25,6 +28,7 @@ public class Score extends VisTable {
         // --
 
         this.lblScore = new VisLabel(score.toString(), Color.BLACK);
+        this.lblScore.setFontScale(2); // FIXME: 18 Nov 2018
         super.align(Align.center).add(lblScore).row();
 
         // super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
@@ -55,8 +59,10 @@ public class Score extends VisTable {
     }
 
     public void updateScore(int delta) {
+        // TODO: 18 Nov 2018
         // this.tmp.addAndGet(delta);
         // this.valid = false;
+        // --
         this.score.addAndGet(delta);
     }
 

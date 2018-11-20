@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.RandomXS128;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.kotcrab.vis.ui.VisUI;
 import dot.empire.myris.gfx.ShaderBatch;
@@ -22,6 +23,7 @@ import dot.empire.myris.screens.ScreenLoading;
 import dot.empire.myris.screens.ScreenSplash;
 import net.dermetfan.gdx.assets.AnnotationAssetManager;
 
+import java.security.SecureRandom;
 import java.util.Locale;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
@@ -51,6 +53,13 @@ public final class Myris extends ApplicationAdapter {
     private FrameBuffer fbo;
     private Sprite display;
     private float alpha;
+
+    /**
+     * Default constructor. Most code will be place in the {@link #create()} method.
+     */
+    public Myris() {
+        MathUtils.random = new RandomXS128(new SecureRandom().nextLong());
+    }
 
     @Override
     public void create() {

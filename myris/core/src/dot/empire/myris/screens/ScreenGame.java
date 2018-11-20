@@ -25,7 +25,7 @@ public final class ScreenGame extends Screen {
     /**
      * Default block size.
      */
-    private static final int BLOCK_SIZE = 120;
+    private static final int BLOCK_SIZE = 160;
     /**
      * Block colours.
      */
@@ -62,6 +62,12 @@ public final class ScreenGame extends Screen {
 
         addActor(score = new Score());
         reset_();
+
+
+//        blocks[1][1] = 1;
+//        blocks[1][0] = 1;
+//        blocks[0][0] = 2;
+//        Gdx.app.log("" + children(1, 1, 1, LEFT), "");
     }
 
     @Override
@@ -163,6 +169,9 @@ public final class ScreenGame extends Screen {
     }
 
     private void left(int colour, int x, int y) {
+//        if (!children(colour, x, y, LEFT)) {
+//            return;
+//        }
         this.blocks[x][y] = -1;
         if (x != 0 && blocks[x - 1][y] == colour) {
             if (blocks[x - 1][y] == colour) {
@@ -253,6 +262,101 @@ public final class ScreenGame extends Screen {
         }
         addBlock();
         addBlock();
+    }
+
+    // FIXME: 19 Nov 2018 
+    public boolean children(int colour, final int x, final int y, Direction direction) {
+        boolean rtn = true;
+        this.blocks[x][y] = -1;
+        Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Child %d (%d;%d)", colour, x, y));
+        if (rtn) {
+            try {
+                int x_ = x + 1, y_ = y;
+                rtn = canMove(colour, x_, y_, direction);
+                if (blocks[x_][y_] == colour) {
+                    if (rtn) {
+                        children(colour, x_, y_, direction);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignore) {
+            }
+        }
+        if (rtn) {
+            try {
+                int x_ = x - 1, y_ = y;
+                rtn = canMove(colour, x_, y_, direction);
+                if (blocks[x_][y_] == colour) {
+                    if (rtn) {
+                        children(colour, x_, y_, direction);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignore) {
+            }
+        }
+        if (rtn) {
+            try {
+                int x_ = x, y_ = y - 1;
+                rtn = canMove(colour, x_, y_, direction);
+                if (blocks[x_][y_] == colour) {
+                    if (rtn) {
+                        children(colour, x_, y_, direction);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignore) {
+            }
+        }
+        if (rtn) {
+            try {
+                int x_ = x + 1, y_ = y;
+                rtn = canMove(colour, x_, y_, direction);
+                if (blocks[x_][y_] == colour) {
+                    if (rtn) {
+                        children(colour, x_, y_, direction);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignore) {
+            }
+        }
+        if (rtn) {
+            try {
+                int x_ = x, y_ = y + 1;
+                rtn = canMove(colour, x_, y_, direction);
+                if (blocks[x_][y_] == colour) {
+                    if (rtn) {
+                        children(colour, x_, y_, direction);
+                    }
+                }
+            } catch (IndexOutOfBoundsException ignore) {
+            }
+        }
+        this.blocks[x][y] = colour;
+        return rtn;
+    }
+
+    private boolean canMove(int colour, int x, int y, Direction direction) {
+        switch (direction) {
+            case UP:
+                y++;
+                break;
+            case DOWN:
+                y--;
+                break;
+            case LEFT:
+                x--;
+                break;
+            case RIGHT:
+                x++;
+                break;
+        }
+        try {
+            return blocks[x][y] == colour || blocks[x][y] == -1;
+        } catch (IndexOutOfBoundsException ignore) {
+        }
+        return false;
+    }
+
+    protected enum Direction {
+        UP, DOWN, LEFT, RIGHT
     }
 }
 

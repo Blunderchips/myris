@@ -79,22 +79,22 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
 
     @Override
     public void onLeft() {
-        Gdx.app.debug("Direction Listener", "LEFT");
+        // Gdx.app.debug("Direction Listener", "LEFT");
     }
 
     @Override
     public void onRight() {
-        Gdx.app.debug("Direction Listener", "RIGHT");
+        // Gdx.app.debug("Direction Listener", "RIGHT");
     }
 
     @Override
     public void onUp() {
-        Gdx.app.debug("Direction Listener", "UP");
+        // Gdx.app.debug("Direction Listener", "UP");
     }
 
     @Override
     public void onDown() {
-        Gdx.app.debug("Direction Listener", "DOWN");
+        // Gdx.app.debug("Direction Listener", "DOWN");
     }
 
     /**
