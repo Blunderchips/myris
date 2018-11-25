@@ -36,17 +36,6 @@ public final class Defines {
     public static final String IMG_LOGO = "gfx/logo.png";
     @AnnotationAssetManager.Asset(Music.class)
     public static final String SFX_INTRO = "sfx/intro.ogg";
-
-    /**
-     * @see com.badlogic.gdx.ai.msg.MessageManager
-     */
-    public interface Messages {
-
-        int AD_SHOW = 0x0;
-        int AD_HIDE = 0x1;
-        int MSG_MUTE = 0x2;
-    }
-
     /**
      * Sound effect to be played when a block is collected.
      */
@@ -62,4 +51,13 @@ public final class Defines {
      */
     @AnnotationAssetManager.Asset(Sound.class)
     public static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
+    /**
+     * @see com.badlogic.gdx.ai.msg.MessageManager
+     */
+    public interface Messages {
+
+        int AD_SHOW = 0x0;
+        int AD_HIDE = 0x1;
+        int MSG_MUTE = 0x2;
+    }
 }

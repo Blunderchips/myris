@@ -130,17 +130,11 @@ public class GifDecoder {
     /**
      * Frames read from current file.
      */
-    private List<GifFrame> frames;
+    private final List<GifFrame> frames;
     /**
      * Frame count.
      */
     private int frameCnt;
-
-    public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode, InputStream is) {
-        GifDecoder gdec = new GifDecoder();
-        gdec.read(is);
-        return gdec.getAnimation(playMode);
-    }
 
     /**
      * Initializes.
@@ -151,6 +145,12 @@ public class GifDecoder {
         this.frames = new LinkedList<GifFrame>();
         this.gct = null;
         this.lct = null;
+    }
+
+    public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode, InputStream is) {
+        GifDecoder gdec = new GifDecoder();
+        gdec.read(is);
+        return gdec.getAnimation(playMode);
     }
 
     /**

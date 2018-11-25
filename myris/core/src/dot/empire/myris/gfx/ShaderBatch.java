@@ -73,7 +73,7 @@ public final class ShaderBatch extends SpriteBatch {
             this.shader.end();
         }
 
-        Gdx.app.debug(Myris.TAG, "Shader batch Compiled = " + Boolean.toString(isCompiled));
+        Gdx.app.debug(Myris.TAG, "Shader batch Compiled = " + isCompiled);
         String log = shader.getLog().trim();
         if (!log.isEmpty()) {
             Gdx.app.debug(Myris.TAG, "Shader batch Log = " + log);

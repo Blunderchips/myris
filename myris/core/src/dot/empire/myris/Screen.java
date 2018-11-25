@@ -31,7 +31,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     }
 
     /**
-     * @param mngr {@link Myris#assetManager}
+     * @param mngr {@code Base Engine Asset Manager}
      * @see net.dermetfan.gdx.assets.AnnotationAssetManager
      */
     public void show(AssetManager mngr) {
@@ -42,7 +42,6 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      *           processing/rendering for a single frame. It is dynamically updated, so it
      *           can fluctuate depending on what level of processing the last frame
      *           required
-     *
      * @see Graphics#getDeltaTime()
      */
     public void update(float dt) {
@@ -51,9 +50,6 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * @param renderer Used to render shapes to the screen
      * @param batch    Used to render textures to the screen
-     *
-     * @see Myris#renderer
-     * @see Myris#batch
      */
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
     }
@@ -61,7 +57,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * Removes {@link VisTable} from the UI layer.
      *
-     * @see Myris#uiLayer
+     * @see Myris#getUILayer()
      */
     @Override
     public void dispose() {

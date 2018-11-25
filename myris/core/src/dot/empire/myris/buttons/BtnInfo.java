@@ -14,15 +14,16 @@ import static dot.empire.myris.Defines.ICO_INFO;
  *
  * @see dot.empire.myris.screens.ScreenInfo
  * @see dot.empire.myris.Defines#ICO_INFO
+ *
  */
 public final class BtnInfo extends Button {
 
-    public BtnInfo(AssetManager mngr, final Screen parnet) {
+    public BtnInfo(AssetManager mngr, final Screen parent) {
         super(ICO_INFO, mngr, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
-                parnet.changeScreen(ScreenInfo.class);
+                parent.changeScreen(ScreenInfo.class);
             }
         });
     }

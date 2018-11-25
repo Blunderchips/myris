@@ -18,7 +18,7 @@ public abstract class Button extends VisImageButton {
 
     /**
      * @param icon     Path to {@link Texture}
-     * @param mngr     {@link Myris#assetManager}
+     * @param mngr     {@link net.dermetfan.gdx.assets.AnnotationAssetManager} from parameter
      * @param listener Invoked on click
      */
     @SuppressWarnings("LeakingThisInConstructor")

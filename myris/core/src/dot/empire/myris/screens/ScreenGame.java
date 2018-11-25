@@ -264,7 +264,8 @@ public final class ScreenGame extends Screen {
         addBlock();
     }
 
-    // FIXME: 19 Nov 2018 
+    // FIXME: 19 Nov 2018
+    @SuppressWarnings({"UnnecessaryLocalVariable", "ConstantConditions", "UnusedReturnValue", "WeakerAccess"})
     public boolean children(int colour, final int x, final int y, Direction direction) {
         boolean rtn = true;
         this.blocks[x][y] = -1;

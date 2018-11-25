@@ -13,7 +13,6 @@ import static dot.empire.myris.Defines.ICO_SETTINGS;
  * Button to the Settings Screen.
  *
  * @author Matthew 'siD' Van der Bijl
- *
  * @see dot.empire.myris.screens.ScreenSettings
  * @see dot.empire.myris.Defines#ICO_SETTINGS
  */
