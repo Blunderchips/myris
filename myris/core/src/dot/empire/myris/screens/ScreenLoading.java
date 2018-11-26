@@ -12,14 +12,14 @@ import dot.empire.myris.gfx.GifDecoder;
 
 import java.util.Locale;
 
-import static dot.empire.myris.Defines.LOADING_GIF;
+import static dot.empire.myris.Defines.*;
 
 public final class ScreenLoading extends Screen {
 
     private final Screen target;
     private final AssetManager mngr;
     private final Animation<TextureRegion> loadGif;
-    private float elasped; // TODO: 11 Nov 2018 Clamp/reset
+    private float elasped;
 
     public ScreenLoading(Screen target, AssetManager mngr) {
         this.mngr = mngr;
@@ -43,8 +43,8 @@ public final class ScreenLoading extends Screen {
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
         TextureRegion tex = loadGif.getKeyFrame(elasped, true);
         batch.draw(tex,
-                (Gdx.graphics.getWidth() - tex.getRegionWidth()) / 2f,
-                (Gdx.graphics.getHeight() - tex.getRegionHeight()) / 2f
+                (SCREEN_WIDTH - tex.getRegionWidth()) / 2f,
+                (SCREEN_HEIGHT - tex.getRegionHeight()) / 2f
         );
     }
 

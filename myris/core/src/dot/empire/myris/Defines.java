@@ -12,6 +12,15 @@ import net.dermetfan.gdx.assets.AnnotationAssetManager;
  */
 public final class Defines {
 
+    /**
+     * Width of the screen in pixels.
+     */
+    public static final int SCREEN_WIDTH = 480;
+    /**
+     * Height of the screen in pixels.
+     */
+    public static final int SCREEN_HEIGHT = 800;
+
     @AnnotationAssetManager.Asset(Texture.class)
     public static final String GAME_OVERLAY = "gfx/game-overlay.png";
 
@@ -51,6 +60,7 @@ public final class Defines {
      */
     @AnnotationAssetManager.Asset(Sound.class)
     public static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
+
     /**
      * @see com.badlogic.gdx.ai.msg.MessageManager
      */

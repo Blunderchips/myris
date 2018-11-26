@@ -14,8 +14,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
  * @author Matthew 'siD' Van der Bijl
  * @see com.badlogic.gdx.Screen
  */
-public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener,
-        Defines.Messages {
+public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener {
 
     /**
      * Main game engine.

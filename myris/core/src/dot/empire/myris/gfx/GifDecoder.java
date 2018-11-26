@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * Graphical Interchange Format (GIF) decoder for libGDX.
  */
-// FIXME: 11 Nov 2018 Clean up, get block comments from source, check all collections
 public class GifDecoder {
 
     /**
@@ -42,6 +41,10 @@ public class GifDecoder {
      * Current data block.
      */
     private final byte[] block = new byte[256];
+    /**
+     * Frames read from current file.
+     */
+    private final List<GifFrame> frames;
     private InputStream in;
     private int status;
     /**
@@ -127,10 +130,6 @@ public class GifDecoder {
     private byte[] suffix;
     private byte[] pixelStack;
     private byte[] pixels;
-    /**
-     * Frames read from current file.
-     */
-    private final List<GifFrame> frames;
     /**
      * Frame count.
      */
@@ -413,6 +412,8 @@ public class GifDecoder {
     }
 
     /**
+     * Error.
+     *
      * @return true if an error was encountered during reading/decoding
      */
     private boolean err() {

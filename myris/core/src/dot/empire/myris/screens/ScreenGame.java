@@ -45,7 +45,7 @@ public final class ScreenGame extends Screen {
     public ScreenGame() {
         this.numCollected = new AtomicInteger();
         this.seqn = new SequenceGenerator(COLOURS.length);
-        this.blocks = new int[Gdx.graphics.getWidth() / BLOCK_SIZE][Gdx.graphics.getHeight() / BLOCK_SIZE];
+        this.blocks = new int[SCREEN_WIDTH / BLOCK_SIZE][SCREEN_HEIGHT / BLOCK_SIZE];
 
         Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Blocks = %dx%d", blocks.length, blocks[0].length));
     }
@@ -53,7 +53,7 @@ public final class ScreenGame extends Screen {
     @Override
     public void show(AssetManager mngr) {
         Sprite overlay = new Sprite(mngr.get(GAME_OVERLAY, Texture.class));
-        overlay.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        overlay.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         add(new VisImage(overlay));
 
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
@@ -62,7 +62,6 @@ public final class ScreenGame extends Screen {
 
         addActor(score = new Score());
         reset_();
-
 
 //        blocks[1][1] = 1;
 //        blocks[1][0] = 1;

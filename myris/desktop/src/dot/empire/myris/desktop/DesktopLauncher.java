@@ -7,6 +7,9 @@ import org.oxbow.swingbits.dialog.task.TaskDialogs;
 
 import java.awt.*;
 
+import static dot.empire.myris.Defines.SCREEN_HEIGHT;
+import static dot.empire.myris.Defines.SCREEN_WIDTH;
+
 /**
  * For testing. Created 07/11/2018.
  *
@@ -35,8 +38,8 @@ public final class DesktopLauncher {
         cfg.samples = 8;
         cfg.resizable = false;
 
-        cfg.width = 480;
-        cfg.height = 800;
+        cfg.width = SCREEN_WIDTH;
+        cfg.height = SCREEN_HEIGHT;
 
         cfg.r = 24;
         cfg.g = 24;

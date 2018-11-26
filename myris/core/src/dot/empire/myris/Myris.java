@@ -10,12 +10,18 @@ package dot.empire.myris;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.kotcrab.vis.ui.VisUI;
 import dot.empire.myris.gfx.ShaderBatch;
 import dot.empire.myris.screens.ScreenLoading;
@@ -26,19 +32,24 @@ import java.util.Locale;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
 import static com.badlogic.gdx.graphics.GL20.*;
+import static dot.empire.myris.Defines.SCREEN_HEIGHT;
+import static dot.empire.myris.Defines.SCREEN_WIDTH;
 
 /**
  * Main game file. Created 07/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public final class Myris extends ApplicationAdapter {
+public final class Myris extends ApplicationAdapter implements Disposable {
 
     /**
-     * For logging.
+     * For logging. All other constants should be in {@link Defines}.
      */
     public static final String TAG = "myris";
 
+    /**
+     * Contains all VisUI components.
+     */
     private Stage uiLayer;
     private Screen screen;
     private InputMultiplexer input;
@@ -52,21 +63,25 @@ public final class Myris extends ApplicationAdapter {
     private Sprite display;
     private float alpha;
 
+    /**
+     * @see OrthographicCamera
+     */
+    private Camera camera;
+    /**
+     * @see StretchViewport
+     */
+    private Viewport viewPort;
+
     @Override
     public void create() {
         Gdx.app.setLogLevel(LOG_DEBUG);
+        Gdx.input.setInputProcessor(input = new InputMultiplexer());
 
-        VisUI.load(VisUI.SkinScale.X2);
-        this.uiLayer = new Stage(); // TODO: 12 Nov 2018 Set constructor values
-        this.assetManager = new AnnotationAssetManager();
         this.preferences = new Settings();
-
-        this.input = new InputMultiplexer();
-        Gdx.input.setInputProcessor(input);
-
-        this.renderer = new ShapeRenderer();
-        this.renderer.setAutoShapeType(true);
-        // this.renderer.setColor(Color.BLACK);
+        this.camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
+        this.viewPort = new StretchViewport(SCREEN_WIDTH, SCREEN_HEIGHT, camera);
+        this.viewPort.apply(true);
+        this.camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
 
         this.batch = new ShaderBatch(1);
         this.batch.enableBlending();
@@ -75,15 +90,16 @@ public final class Myris extends ApplicationAdapter {
         this.batch.setContrast(preferences.getContrast());
         Gdx.app.debug(Myris.TAG, "Sprite batch = " + batch.toString());
 
-        final int width = Gdx.graphics.getWidth();
-        final int height = Gdx.graphics.getHeight();
+        VisUI.load(VisUI.SkinScale.X2);
+        this.uiLayer = new Stage(new FitViewport(SCREEN_WIDTH, SCREEN_HEIGHT), batch);
+        this.assetManager = new AnnotationAssetManager();
 
-        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, width, height, false);
+        this.renderer = new ShapeRenderer();
+        this.renderer.setAutoShapeType(true);
+
+        this.fbo = new FrameBuffer(Pixmap.Format.RGBA8888, SCREEN_WIDTH, SCREEN_HEIGHT, false);
         this.display = new Sprite(fbo.getColorBufferTexture());
         this.display.flip(false, true);
-
-        // this.assetManager.load(ScreenMenuMain.class);
-        // this.assetManager.load(ScreenGame.class);
 
         // Do last
         assetManager.load(new Defines()); // siD 15/11/2018: hacky but works
@@ -93,9 +109,11 @@ public final class Myris extends ApplicationAdapter {
     @Override
     public void render() {
         final float dt = Gdx.graphics.getDeltaTime();
+        this.camera.update();
         this.uiLayer.act(dt);
         this.screen.update(dt);
         this.setAlpha(alpha + (dt * 8));
+
 
         this.fbo.begin();
         {
@@ -107,9 +125,12 @@ public final class Myris extends ApplicationAdapter {
             );
             Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
 
+            this.batch.setProjectionMatrix(camera.combined);
             this.batch.begin(false);
+            this.renderer.setProjectionMatrix(camera.combined);
             this.renderer.begin(ShapeRenderer.ShapeType.Filled);
             {
+                //viewPort.apply();
                 this.screen.render(renderer, batch);
             }
             this.renderer.end();
@@ -120,6 +141,7 @@ public final class Myris extends ApplicationAdapter {
         this.fbo.end();
 
         Gdx.gl.glClear(GL_COLOR_BUFFER_BIT);
+        this.batch.setProjectionMatrix(camera.combined);
         this.batch.begin(true);
         {
             this.display.draw(batch, alpha);
@@ -199,5 +221,11 @@ public final class Myris extends ApplicationAdapter {
 
     public Settings getPreferences() {
         return this.preferences;
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        this.viewPort.update(width, height, true);
+        this.camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
     }
 }

@@ -14,7 +14,7 @@ import static dot.empire.myris.Defines.Messages.AD_SHOW;
  * Android Launcher. Should be the main {@link android.app.Activity}.
  *
  * @author Matthew 'siD' Van der Bijl
- * @see Myris
+ * @see dot.empire.myris.Myris
  */
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
 
@@ -39,7 +39,7 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         // cfg.g = 24;
         // cfg.b = 24;
         // cfg.a = 24;
-        cfg.useImmersiveMode = true;
+        cfg.useImmersiveMode = false;
         cfg.useCompass = false;
         cfg.useAccelerometer = false;
 
