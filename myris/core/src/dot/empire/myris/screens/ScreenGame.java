@@ -252,8 +252,8 @@ public final class ScreenGame extends Screen {
         this.score.updateScore(1);
     }
 
-    private void reset_() {
-        this.score.reset();
+    private void reset() {
+        this.score.zeroScore();
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 this.blocks[x][y] = -1;
@@ -261,102 +261,6 @@ public final class ScreenGame extends Screen {
         }
         addBlock();
         addBlock();
-    }
-
-    // FIXME: 19 Nov 2018
-    @SuppressWarnings({"UnnecessaryLocalVariable", "ConstantConditions", "UnusedReturnValue", "WeakerAccess"})
-    public boolean children(int colour, final int x, final int y, Direction direction) {
-        boolean rtn = true;
-        this.blocks[x][y] = -1;
-        Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Child %d (%d;%d)", colour, x, y));
-        if (rtn) {
-            try {
-                int x_ = x + 1, y_ = y;
-                rtn = canMove(colour, x_, y_, direction);
-                if (blocks[x_][y_] == colour) {
-                    if (rtn) {
-                        children(colour, x_, y_, direction);
-                    }
-                }
-            } catch (IndexOutOfBoundsException ignore) {
-            }
-        }
-        if (rtn) {
-            try {
-                int x_ = x - 1, y_ = y;
-                rtn = canMove(colour, x_, y_, direction);
-                if (blocks[x_][y_] == colour) {
-                    if (rtn) {
-                        children(colour, x_, y_, direction);
-                    }
-                }
-            } catch (IndexOutOfBoundsException ignore) {
-            }
-        }
-        if (rtn) {
-            try {
-                int x_ = x, y_ = y - 1;
-                rtn = canMove(colour, x_, y_, direction);
-                if (blocks[x_][y_] == colour) {
-                    if (rtn) {
-                        children(colour, x_, y_, direction);
-                    }
-                }
-            } catch (IndexOutOfBoundsException ignore) {
-            }
-        }
-        if (rtn) {
-            try {
-                int x_ = x + 1, y_ = y;
-                rtn = canMove(colour, x_, y_, direction);
-                if (blocks[x_][y_] == colour) {
-                    if (rtn) {
-                        children(colour, x_, y_, direction);
-                    }
-                }
-            } catch (IndexOutOfBoundsException ignore) {
-            }
-        }
-        if (rtn) {
-            try {
-                int x_ = x, y_ = y + 1;
-                rtn = canMove(colour, x_, y_, direction);
-                if (blocks[x_][y_] == colour) {
-                    if (rtn) {
-                        children(colour, x_, y_, direction);
-                    }
-                }
-            } catch (IndexOutOfBoundsException ignore) {
-            }
-        }
-        this.blocks[x][y] = colour;
-        return rtn;
-    }
-
-    private boolean canMove(int colour, int x, int y, Direction direction) {
-        switch (direction) {
-            case UP:
-                y++;
-                break;
-            case DOWN:
-                y--;
-                break;
-            case LEFT:
-                x--;
-                break;
-            case RIGHT:
-                x++;
-                break;
-        }
-        try {
-            return blocks[x][y] == colour || blocks[x][y] == -1;
-        } catch (IndexOutOfBoundsException ignore) {
-        }
-        return false;
-    }
-
-    protected enum Direction {
-        UP, DOWN, LEFT, RIGHT
     }
 }
 
