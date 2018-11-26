@@ -22,6 +22,7 @@ public class Score extends VisTable {
         super(true);
         super.setFillParent(true);
 
+        this.valid = true;
         // They default to 1
         this.tmp = new AtomicLong(0);
         this.score = new AtomicLong(0);
