@@ -1,3 +1,10 @@
+/*                       _
+ *  _ __ ___  _   _ _ __(_)___
+ * | '_ ` _ \| | | | '__| / __|
+ * | | | | | | |_| | |  | \__ \
+ * |_| |_| |_|\__, |_|  |_|___/
+ *            |___/
+ */
 package dot.empire.myris;
 
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
@@ -6,7 +13,7 @@ import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
 
 /**
- * Apple launcher. Created 13/11/2018.
+ * Apple launcher. <strong>Not sure if this works.</strong> Created 13/11/2018.
  */
 public final class IOSLauncher extends IOSApplication.Delegate {
 

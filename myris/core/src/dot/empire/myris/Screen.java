@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 /**
  * Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
+ * Using VisUI default table spacing. Fills screen.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see com.badlogic.gdx.Screen
@@ -116,10 +117,16 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         }
     }
 
+    /**
+     * @return parent
+     */
     public Myris getEngine() {
         return this.engine;
     }
 
+    /**
+     * @param engine parent
+     */
     public void setEngine(Myris engine) {
         this.engine = engine;
     }

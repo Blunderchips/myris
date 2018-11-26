@@ -1,3 +1,10 @@
+/*                       _
+ *  _ __ ___  _   _ _ __(_)___
+ * | '_ ` _ \| | | | '__| / __|
+ * | | | | | | |_| | |  | \__ \
+ * |_| |_| |_|\__, |_|  |_|___/
+ *            |___/
+ */
 package dot.empire.myris.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -11,7 +18,7 @@ import static dot.empire.myris.Defines.SCREEN_HEIGHT;
 import static dot.empire.myris.Defines.SCREEN_WIDTH;
 
 /**
- * For testing. Created 07/11/2018.
+ * For testing. Window size from {@link dot.empire.myris.Defines}. Created 07/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see Myris

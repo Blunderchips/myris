@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Pseudo-random number distributor.
+ * Pseudo-random number distributor. From an old project.
  *
  * @author Matthew 'siD' Van der Bijl
  */
 public final class SequenceGenerator {
 
     private final int[][] sequences;
+    /**
+     * Cursor.
+     */
     private int index;
 
     public SequenceGenerator(int max) {

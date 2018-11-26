@@ -11,10 +11,22 @@ import com.badlogic.gdx.Preferences;
  */
 public final class Settings {
 
+    /**
+     * Location of brightness setting value in preference map (float).
+     */
     private static String BRIGHTNESS = "brightness";
+    /**
+     * Location of brightness setting value in preference map (float).
+     */
     private static String CONTRAST = "contrast";
+    /**
+     * Location of brightness setting value in preference map (bool).
+     */
     private static String IS_MUTED = "muted";
 
+    /**
+     * Preference map.
+     */
     private final Preferences preferences;
 
     public Settings() {
@@ -39,6 +51,9 @@ public final class Settings {
         this.preferences.flush();
     }
 
+    /**
+     * @return whether all sounds should be muted or not
+     */
     public boolean isMuted() {
         return preferences.getBoolean(IS_MUTED, false);
     }

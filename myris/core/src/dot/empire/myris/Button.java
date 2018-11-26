@@ -10,8 +10,9 @@ import com.kotcrab.vis.ui.util.TableUtils;
 import com.kotcrab.vis.ui.widget.VisImageButton;
 
 /**
- * Predefined {@code Button}.
+ * Predefined {@code Button}. Using VisUI default table spacing. All subclasses should be final.
  *
+ * @see dot.empire.myris.buttons
  * @see TableUtils#setSpacingDefaults(Table)
  */
 public abstract class Button extends VisImageButton {
@@ -25,7 +26,8 @@ public abstract class Button extends VisImageButton {
     public Button(String icon, AssetManager mngr, ChangeListener listener) {
         super(new SpriteDrawable(new Sprite(mngr.get(icon, Texture.class))));
         super.addListener(listener);
-        TableUtils.setSpacingDefaults(this);
+        TableUtils.setSpacingDefaults(this); // LeakingThisInConstructor
         // TODO: 16 Nov 2018 Tooltip text from parent class name
+        // TODO: 26 Nov 2018 Maybe
     }
 }

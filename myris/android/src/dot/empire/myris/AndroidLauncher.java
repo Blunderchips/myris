@@ -1,3 +1,10 @@
+/*                       _
+ *  _ __ ___  _   _ _ __(_)___
+ * | '_ ` _ \| | | | '__| / __|
+ * | | | | | | |_| | |  | \__ \
+ * |_| |_| |_|\__, |_|  |_|___/
+ *            |___/
+ */
 package dot.empire.myris;
 
 import android.os.Bundle;
@@ -11,7 +18,7 @@ import static dot.empire.myris.Defines.Messages.AD_HIDE;
 import static dot.empire.myris.Defines.Messages.AD_SHOW;
 
 /**
- * Android Launcher. Should be the main {@link android.app.Activity}.
+ * Android Launcher. Should be the main {@code android.app.Activity}.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see dot.empire.myris.Myris
@@ -24,6 +31,27 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         this.isShowing = false;
     }
 
+    /**
+     * Called when the activity is starting.  This is where most initialization
+     * should go: calling {@code setContentView(int)} to inflate the
+     * activity's UI, using {@code findViewById} to programmatically interact
+     * with widgets in the UI, calling
+     * {@code #managedQuery(android.net.Uri, String[], String, String[], String)} to retrieve
+     * cursors for data being displayed, etc.
+     *
+     * <p>You can call {@code finish} from within this function, in
+     * which case {@code onDestroy()} will be immediately called without any of the rest
+     * of the activity lifecycle ({@code onStart}, {@code onResume},
+     * {@code onPause}, etc) executing.
+     *
+     * <p><em>Derived classes must call through to the super class's
+     * implementation of this method.  If they do not, an exception will be
+     * thrown.</em></p>
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *                           previously being shut down then this Bundle contains the data it most
+     *                           recently supplied in {@code onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +74,11 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         super.initialize(new Myris(), cfg);
     }
 
+    /**
+     * @param telegram the incoming message
+     * @return whether the message has been handled or not
+     * @see dot.empire.myris.Defines.Messages
+     */
     @Override
     public boolean handleMessage(Telegram telegram) {
         switch (telegram.message) {
