@@ -2,6 +2,7 @@ package dot.empire.myris;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import dot.empire.myris.gfx.Score;
 
 /**
  * General settings and preferences. Created 16/11/2018.
@@ -14,15 +15,19 @@ public final class Settings {
     /**
      * Location of brightness setting value in preference map (float).
      */
-    private static String BRIGHTNESS = "brightness";
+    private static final String BRIGHTNESS = "brightness";
     /**
      * Location of brightness setting value in preference map (float).
      */
-    private static String CONTRAST = "contrast";
+    private static final String CONTRAST = "contrast";
     /**
      * Location of brightness setting value in preference map (bool).
      */
-    private static String IS_MUTED = "muted";
+    private static final String IS_MUTED = "muted";
+    /**
+     * Location of high score in preference map (long).
+     */
+    private static final String HIGH_SCORE = "high_score";
 
     /**
      * Preference map.
@@ -61,5 +66,9 @@ public final class Settings {
     public void setIsMuted(boolean isMuted) {
         this.preferences.putBoolean(IS_MUTED, isMuted);
         this.preferences.flush();
+    }
+
+    public void setHighScore(Score score){
+
     }
 }

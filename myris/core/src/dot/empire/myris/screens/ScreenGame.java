@@ -61,7 +61,7 @@ public final class ScreenGame extends Screen {
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
 
         addActor(score = new Score());
-        reset_();
+        clearBoard();
 
 //        blocks[1][1] = 1;
 //        blocks[1][0] = 1;
@@ -228,23 +228,8 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
-
-        getEngine().setAlpha(0);
-        Gdx.app.log(Myris.TAG, "GAME OVER!");
-        this.sfxDeath.play();
-
-        reset_();
-
+        death();
         return true;
-    }
-
-    @Override
-    public void dispose() {
-        // TODO: 11 Nov 2018 Check if needed
-        this.sfxCollect.dispose();
-        this.sfxDeath.dispose();
-        this.sfxClick.dispose();
-        super.dispose();
     }
 
     private void collect() {
@@ -252,7 +237,10 @@ public final class ScreenGame extends Screen {
         this.score.updateScore(1);
     }
 
-    private void reset() {
+    /**
+     * Reset playing field.
+     */
+    private void clearBoard() {
         this.score.zeroScore();
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
@@ -261,6 +249,16 @@ public final class ScreenGame extends Screen {
         }
         addBlock();
         addBlock();
+    }
+
+    /**
+     * Called when the board is fulled and the player has lost.
+     */
+    private void death() {
+        Gdx.app.log(Myris.TAG, "GAME OVER!"); // why not
+        this.sfxDeath.play();
+        changeScreen(new ScreenDeath(score));
+        // clearBoard();
     }
 }
 

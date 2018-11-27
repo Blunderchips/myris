@@ -10,10 +10,9 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 /**
  * Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
- * Using VisUI default table spacing. Fills screen.
+ * Using VisUI default table spacing. Fills screen. Similar framework to {@code com.badlogic.gdx.Screen}.
  *
  * @author Matthew 'siD' Van der Bijl
- * @see com.badlogic.gdx.Screen
  */
 public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener {
 

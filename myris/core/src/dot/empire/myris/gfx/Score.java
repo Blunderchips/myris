@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Score Label.
  */
-public class Score extends VisTable {
+public final class Score extends VisTable implements Comparable<Long> {
 
     private final AtomicLong score;
     private final AtomicLong tmp;
@@ -22,7 +22,7 @@ public class Score extends VisTable {
         super(true);
         super.setFillParent(true);
 
-        this.valid = true;
+        this.valid = true; // default score value to 0
         // They default to 1
         this.tmp = new AtomicLong(0);
         this.score = new AtomicLong(0);
@@ -34,7 +34,7 @@ public class Score extends VisTable {
 
         // super.align(Align.center).add(new VisLabel("Test score", Color.BLACK));
 
-        reset();
+        zeroScore();
         super.setVisible(true); // TODO: 13 Nov 2018 Really needed?
     }
 
@@ -59,6 +59,9 @@ public class Score extends VisTable {
         super.act(dt);
     }
 
+    /**
+     * @param delta change in score
+     */
     public void updateScore(int delta) {
         // TODO: 18 Nov 2018
         // this.tmp.addAndGet(delta);
@@ -67,9 +70,41 @@ public class Score extends VisTable {
         this.score.addAndGet(delta);
     }
 
-    public void reset() {
+    /**
+     * Reset the value of the score to zero. Former {@code reset()} method. Reset already in use by super class.
+     */
+    public void zeroScore() {
         this.tmp.set(0);
         this.score.set(0);
         this.lblScore.setText(0 + "");
+    }
+
+    /**
+     * Compares two {@code long} values numerically.
+     */
+    @Override
+    public int compareTo(final Long other) {
+        final Long score = this.score.get();
+        return (score < other) ? -1 : ((score == other) ? 0 : 1);
+    }
+
+    @Override
+    public String toString() {
+        return score.toString();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Score)) return false;
+
+        Score score1 = (Score) other;
+
+        return score.equals(score1.score);
+    }
+
+    @Override
+    public int hashCode() {
+        return score.hashCode();
     }
 }

@@ -18,7 +18,7 @@ import static dot.empire.myris.Defines.SCREEN_HEIGHT;
 import static dot.empire.myris.Defines.SCREEN_WIDTH;
 
 /**
- * For testing. Window size from {@link dot.empire.myris.Defines}. Created 07/11/2018.
+ * For testing. Window size from {@code dot.empire.myris.Defines}. Created 07/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see Myris
@@ -52,6 +52,8 @@ public final class DesktopLauncher {
         cfg.g = 24;
         cfg.b = 24;
         cfg.a = 24;
+
+        cfg.useGL30 = true;
 
         try {
             new LwjglApplication(new Myris(), cfg);

@@ -10,13 +10,13 @@ import dot.empire.myris.screens.ScreenMenuMain;
 import static dot.empire.myris.Defines.ICO_BTN_BACK;
 
 /**
- * Button to the {@link ScreenMenuMain}.
+ * Button to the {@link ScreenMenuMain}. Think 'home' button.
  *
  * @author Matthew 'siD' Van der Bijl
  * @see dot.empire.myris.screens.ScreenMenuMain
  * @see dot.empire.myris.Defines#ICO_BTN_BACK
  */
-public class BtnToMain extends Button {
+public final class BtnToMain extends Button {
 
     public BtnToMain(AssetManager mngr, final Screen parent) {
         super(ICO_BTN_BACK, mngr, new ChangeListener() {

@@ -3,6 +3,9 @@ package dot.empire.myris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 
+/**
+ * @see <a href="https://stackoverflow.com/questions/15185799/libgdx-get-swipe-up-or-swipe-right-etc">Stackoverflow (LibGDX - Get Swipe Up or swipe right etc.?)</a>
+ */
 // https://stackoverflow.com/questions/15185799/libgdx-get-swipe-up-or-swipe-right-etc
 public class SimpleDirectionGestureDetector extends GestureDetector {
 
