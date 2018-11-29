@@ -13,7 +13,7 @@ import com.kotcrab.vis.ui.widget.VisImage;
 import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
-import dot.empire.myris.gfx.Score;
+import dot.empire.myris.gfx.ScoreLabel;
 
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -40,7 +40,7 @@ public final class ScreenGame extends Screen {
     private Sound sfxDeath;
     private Sound sfxClick;
     private AtomicInteger numCollected;
-    private Score score;
+    private ScoreLabel score;
 
     public ScreenGame() {
         this.numCollected = new AtomicInteger();
@@ -60,7 +60,7 @@ public final class ScreenGame extends Screen {
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
         this.sfxClick = mngr.get(SFX_CLICK, Sound.class);
 
-        addActor(score = new Score());
+        addActor(score = new ScoreLabel());
         clearBoard();
 
 //        blocks[1][1] = 1;

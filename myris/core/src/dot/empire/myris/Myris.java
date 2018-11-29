@@ -102,7 +102,8 @@ public final class Myris extends ApplicationAdapter implements Disposable {
         this.display.flip(false, true);
 
         // Do last
-        assetManager.load(new Defines()); // siD 15/11/2018: hacky but works
+        //assetManager.load(new Defines()); // siD 15/11/2018: hacky but works
+        Defines.loadAllAssets(assetManager);
         this.setScreen(new ScreenSplash());
     }
 

@@ -2,7 +2,7 @@ package dot.empire.myris;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import dot.empire.myris.gfx.Score;
+import dot.empire.myris.gfx.ScoreLabel;
 
 /**
  * General settings and preferences. Created 16/11/2018.
@@ -68,7 +68,7 @@ public final class Settings {
         this.preferences.flush();
     }
 
-    public void setHighScore(Score score){
+    public void setHighScore(ScoreLabel score) {
 
     }
 }

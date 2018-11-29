@@ -8,9 +8,9 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * Score Label.
+ * In-game Score Label. Former {@code Score} class.
  */
-public final class Score extends VisTable implements Comparable<Long> {
+public final class ScoreLabel extends VisTable implements Comparable<Long> {
 
     private final AtomicLong score;
     private final AtomicLong tmp;
@@ -18,7 +18,7 @@ public final class Score extends VisTable implements Comparable<Long> {
     private boolean bool;
     private boolean valid;
 
-    public Score() {
+    public ScoreLabel() {
         super(true);
         super.setFillParent(true);
 
@@ -96,9 +96,9 @@ public final class Score extends VisTable implements Comparable<Long> {
     @Override
     public boolean equals(final Object other) {
         if (this == other) return true;
-        if (!(other instanceof Score)) return false;
+        if (!(other instanceof ScoreLabel)) return false;
 
-        Score score1 = (Score) other;
+        ScoreLabel score1 = (ScoreLabel) other;
 
         return score.equals(score1.score);
     }
@@ -106,5 +106,9 @@ public final class Score extends VisTable implements Comparable<Long> {
     @Override
     public int hashCode() {
         return score.hashCode();
+    }
+
+    public long getScore() {
+        return this.score.get();
     }
 }

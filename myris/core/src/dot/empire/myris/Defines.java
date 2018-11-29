@@ -105,4 +105,14 @@ public final class Defines {
         int AD_HIDE = 0x1;
         int MSG_MUTE = 0x2;
     }
+
+    /**
+     * @param mngr {@code Myris#assetManager}
+     */
+    public static void loadAllAssets(AnnotationAssetManager mngr) {
+        mngr.load(new Defines());
+        for (int i = 0; i < 10; i++) {
+            mngr.load("gfx/img_num_" + i + ".png", Texture.class);
+        }
+    }
 }
