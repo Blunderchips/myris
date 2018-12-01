@@ -75,6 +75,8 @@ public final class Myris extends ApplicationAdapter implements Disposable {
     @Override
     public void create() {
         Gdx.app.setLogLevel(LOG_DEBUG);
+        Gdx.app.log(Myris.TAG, String.format("Size = %dx%d",
+                Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(input = new InputMultiplexer());
 
         this.preferences = new Settings();

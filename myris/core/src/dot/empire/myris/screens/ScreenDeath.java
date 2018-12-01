@@ -1,6 +1,7 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
 import dot.empire.myris.buttons.BtnPlay;
@@ -18,25 +19,42 @@ public final class ScreenDeath extends Screen {
     /**
      * Current score.
      */
-    private ScoreLabel score;
+    private long score;
+    /**
+     * Old score.
+     */
+    private long old;
 
     /**
      * Defaults all attributes to null.
      */
     public ScreenDeath() {
-        this.score = null;
+        this(-1);
     }
 
     /**
      * @param score the score of the current game
      */
-    public ScreenDeath(ScoreLabel score) {
+    public ScreenDeath(ScoreLabel score, long old) {
+        this(score.getScore());
+        this.old = old;
+    }
+
+    /**
+     * @param score the score of the current game
+     */
+    public ScreenDeath(long score) {
         this.score = score;
+        this.old = Long.MIN_VALUE;
     }
 
     @Override
     public void show(AssetManager mngr) {
-        add(new HighScoreLabel(score.getScore(), mngr));
+        if (score == -1) {
+            this.score = getEngine().getPreferences().getHighScore();
+        }
+
+        add(new HighScoreLabel(score, mngr));
 
         row();
 
@@ -46,5 +64,11 @@ public final class ScreenDeath extends Screen {
         buttons.add(new BtnPlay(mngr, this));
         buttons.add(new BtnToMain(mngr, this));
         add(buttons);
+
+        row();
+
+//        if (old < score){
+            add(new VisLabel("New Highscore!"));
+//        }
     }
 }

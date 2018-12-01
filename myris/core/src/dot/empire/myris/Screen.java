@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.VisTable;
 
+import static dot.empire.myris.Defines.SCREEN_HEIGHT;
+import static dot.empire.myris.Defines.SCREEN_WIDTH;
+
 /**
  * Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
  * Using VisUI default table spacing. Fills screen. Similar framework to {@code com.badlogic.gdx.Screen}.
@@ -25,6 +28,8 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         super(true);
         super.setFillParent(true);
         // super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
+        // super.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        pad(SCREEN_WIDTH * 0.05f);
         super.setVisible(true);
         super.center();
     }
@@ -112,7 +117,8 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         try {
             changeScreen(screen.getConstructor().newInstance());
         } catch (Exception ex) { // TODO: 11 Nov 2018 Get specific exceptions
-            Gdx.app.error(Myris.TAG, "Cannot change next", ex);
+            Gdx.app.error(Myris.TAG, String.format("Cannot change next (%s => %s)",
+                    getName(), screen.getSimpleName()), ex);
         }
     }
 

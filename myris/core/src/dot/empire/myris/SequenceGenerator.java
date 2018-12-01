@@ -20,7 +20,7 @@ public final class SequenceGenerator {
 
     public SequenceGenerator(int max) {
         this.sequences = new int[max][max];
-        for (int[] sequence : sequences) {
+        for (int[] ignored : sequences) {
             this.index = sequences[0].length + 1;
             next();
         }

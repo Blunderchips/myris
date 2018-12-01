@@ -257,7 +257,8 @@ public final class ScreenGame extends Screen {
     private void death() {
         Gdx.app.log(Myris.TAG, "GAME OVER!"); // why not
         this.sfxDeath.play();
-        changeScreen(new ScreenDeath(score));
+        changeScreen(new ScreenDeath(score, getEngine().getPreferences().getHighScore()));
+        getEngine().getPreferences().setHighScore(score);
         // clearBoard();
     }
 }

@@ -38,6 +38,11 @@ public final class Settings {
         this.preferences = Gdx.app.getPreferences(Myris.TAG);
     }
 
+
+    /**
+     * @return overall brightness setting
+     * @see dot.empire.myris.gfx.ShaderBatch
+     */
     public float getBrightness() {
         return preferences.getFloat(BRIGHTNESS, 0);
     }
@@ -47,6 +52,10 @@ public final class Settings {
         this.preferences.flush();
     }
 
+    /**
+     * @return overall contrast setting
+     * @see dot.empire.myris.gfx.ShaderBatch
+     */
     public float getContrast() {
         return preferences.getFloat(CONTRAST, 1);
     }
@@ -68,7 +77,15 @@ public final class Settings {
         this.preferences.flush();
     }
 
-    public void setHighScore(ScoreLabel score) {
+    /**
+     * @return user's high score
+     */
+    public long getHighScore() {
+        return this.preferences.getLong(HIGH_SCORE, 0);
+    }
 
+    public void setHighScore(ScoreLabel score) {
+        this.preferences.putLong(HIGH_SCORE, score.getScore());
+        this.preferences.flush();
     }
 }
