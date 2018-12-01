@@ -29,7 +29,6 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         super.setFillParent(true);
         // super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
         // super.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        pad(SCREEN_WIDTH * 0.05f);
         super.setVisible(true);
         super.center();
     }
