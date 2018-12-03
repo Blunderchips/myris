@@ -7,12 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSlider;
 import dot.empire.myris.Screen;
+import dot.empire.myris.buttons.BtnReset;
 import dot.empire.myris.buttons.BtnToMain;
 
 /**
  * @author Matthew 'siD' Van der Bijl
  */
-public final class ScreenSettings extends Screen {
+public final class ScreenSettings extends Screen implements BtnReset.RestListener {
 
     /**
      * Contrast value.
@@ -54,5 +55,13 @@ public final class ScreenSettings extends Screen {
         add(sldBrightness).row();
 
         add(new BtnToMain(mngr, this));
+        add(new BtnReset(mngr, this));
+    }
+
+    @Override
+    public void reset_() {
+        getEngine().setBrightness(0);
+        getEngine().setContrast(1);
+        changeScreen(ScreenSettings.class);
     }
 }

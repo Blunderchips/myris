@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.VisTable;
 
-import static dot.empire.myris.Defines.SCREEN_HEIGHT;
-import static dot.empire.myris.Defines.SCREEN_WIDTH;
-
 /**
  * Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
  * Using VisUI default table spacing. Fills screen. Similar framework to {@code com.badlogic.gdx.Screen}.

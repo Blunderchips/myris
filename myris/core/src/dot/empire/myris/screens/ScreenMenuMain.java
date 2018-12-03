@@ -3,7 +3,6 @@ package dot.empire.myris.screens;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
@@ -24,7 +23,9 @@ public final class ScreenMenuMain extends Screen {
         this.bgMusic = mngr.get(BG_MUSIC);
         this.bgMusic.play();
 
-        align(Align.center).add(new VisImage(mngr.get(IMG_TITLE, Texture.class))).fillX().row();
+        add(new VisImage(mngr.get(IMG_TITLE, Texture.class)));
+
+        row();
 
         VisTable tblButtons = new VisTable(true);
 
@@ -36,7 +37,7 @@ public final class ScreenMenuMain extends Screen {
         tblButtons.add(new BtnSettings(mngr, this));
         tblButtons.add(new BtnInfo(mngr, this));
 
-        super.add(tblButtons);
+        add(tblButtons);
     }
 
     @Override

@@ -66,7 +66,12 @@ public final class Defines {
      * Return {@link Button} image.
      */
     @AnnotationAssetManager.Asset(Texture.class)
-    public static final String ICO_BTN_BACK = "gfx/anticlockwise-rotation.png";
+    public static final String ICO_BTN_BACK = "gfx/house.png";
+    /**
+     *
+     */
+    @AnnotationAssetManager.Asset(Texture.class)
+    public static final String ICO_BTN_RESET = "gfx/anticlockwise-rotation.png";
 
     /**
      * Logo image for splash screen.
@@ -95,6 +100,16 @@ public final class Defines {
     public static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
 
     /**
+     * @param mngr {@code Myris#assetManager}
+     */
+    public static void loadAllAssets(AnnotationAssetManager mngr) {
+        mngr.load(new Defines());
+        for (int i = 0; i < 10; i++) {
+            mngr.load("gfx/img_num_" + i + ".png", Texture.class);
+        }
+    }
+
+    /**
      * Message flags.
      *
      * @see com.badlogic.gdx.ai.msg.MessageManager
@@ -104,15 +119,5 @@ public final class Defines {
         int AD_SHOW = 0x0;
         int AD_HIDE = 0x1;
         int MSG_MUTE = 0x2;
-    }
-
-    /**
-     * @param mngr {@code Myris#assetManager}
-     */
-    public static void loadAllAssets(AnnotationAssetManager mngr) {
-        mngr.load(new Defines());
-        for (int i = 0; i < 10; i++) {
-            mngr.load("gfx/img_num_" + i + ".png", Texture.class);
-        }
     }
 }

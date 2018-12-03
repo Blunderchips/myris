@@ -35,7 +35,6 @@ import java.lang.annotation.*;
  *
  * @author dermetfan
  * @author Matthew 'siD' Van der Bijl
- *
  * @see <a href="https://bitbucket.org/dermetfan/libgdx-utils/src/default/src/main/net/dermetfan/gdx/assets/AnnotationAssetManager.java">dermetfan's Annotation Asset Manager</a>
  */
 // https://bitbucket.org/dermetfan/libgdx-utils/src/default/src/main/net/dermetfan/gdx/assets/AnnotationAssetManager.java

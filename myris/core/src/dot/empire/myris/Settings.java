@@ -88,4 +88,9 @@ public final class Settings {
         this.preferences.putLong(HIGH_SCORE, score.getScore());
         this.preferences.flush();
     }
+
+    public void setHighScore(long score) {
+        this.preferences.putLong(HIGH_SCORE, score);
+        this.preferences.flush();
+    }
 }

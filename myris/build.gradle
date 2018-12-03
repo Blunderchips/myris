@@ -39,7 +39,7 @@ allprojects {
 
 project(":desktop") {
     apply plugin: "java"
-    
+
     dependencies {
         implementation project(":core")
         implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"

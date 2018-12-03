@@ -75,7 +75,7 @@ public final class Myris extends ApplicationAdapter implements Disposable {
     @Override
     public void create() {
         Gdx.app.setLogLevel(LOG_DEBUG);
-        Gdx.app.log(Myris.TAG, String.format("Size = %dx%d",
+        Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Size = %dx%d",
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(input = new InputMultiplexer());
 
@@ -184,7 +184,7 @@ public final class Myris extends ApplicationAdapter implements Disposable {
             this.input.clear();
             this.screen.dispose();
         }
-        this.getUILayer().addActor(screen);
+        this.uiLayer.addActor(screen);
         this.screen = screen;
 
         this.input.addProcessor(uiLayer);
@@ -196,10 +196,6 @@ public final class Myris extends ApplicationAdapter implements Disposable {
 
     public void setAlpha(float alpha) {
         this.alpha = MathUtils.clamp(alpha, 0, 1);
-    }
-
-    public Stage getUILayer() {
-        return this.uiLayer;
     }
 
     public void setContrast(float contrast) {

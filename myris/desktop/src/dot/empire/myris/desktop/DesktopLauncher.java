@@ -43,7 +43,7 @@ public final class DesktopLauncher {
         cfg.title = "myris";
 
         cfg.samples = 8;
-        cfg.resizable = true;
+        cfg.resizable = false;
 
         cfg.width = SCREEN_WIDTH;
         cfg.height = SCREEN_HEIGHT;

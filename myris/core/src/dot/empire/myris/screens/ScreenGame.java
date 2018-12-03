@@ -4,12 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.kotcrab.vis.ui.widget.VisImage;
 import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
@@ -52,9 +49,9 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void show(AssetManager mngr) {
-        Sprite overlay = new Sprite(mngr.get(GAME_OVERLAY, Texture.class));
-        overlay.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-        add(new VisImage(overlay));
+        // Sprite overlay = new Sprite(mngr.get(GAME_OVERLAY, Texture.class));
+        // overlay.setBounds(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+        // add(new VisImage(overlay));
 
         this.sfxCollect = mngr.get(SFX_COLLECT, Sound.class);
         this.sfxDeath = mngr.get(SFX_DEATH, Sound.class);
