@@ -19,7 +19,7 @@ import static dot.empire.myris.Defines.ICO_PLAY;
 public final class BtnPlay extends Button {
 
     public BtnPlay(AssetManager mngr, final Screen parent) {
-        super(ICO_PLAY, mngr, new ChangeListener() {
+        super(ICO_PLAY, mngr, parent, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent event, Actor actor) {

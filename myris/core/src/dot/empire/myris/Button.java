@@ -19,17 +19,20 @@ import com.kotcrab.vis.ui.widget.VisImageButton;
  */
 public abstract class Button extends VisImageButton {
 
+    private final Screen parent;
+
     /**
      * @param icon     Path to {@link Texture}
      * @param mngr     {@link net.dermetfan.gdx.assets.AnnotationAssetManager} from parameter
      * @param listener Invoked on click
      */
     @SuppressWarnings("LeakingThisInConstructor")
-    public Button(String icon, AssetManager mngr, ChangeListener listener) {
+    public Button(String icon, AssetManager mngr, Screen parent, ChangeListener listener) {
         super(new SpriteDrawable(new Sprite(mngr.get(icon, Texture.class))));
         super.addListener(listener);
         super.addListener(new ClickOnPress(mngr));
         TableUtils.setSpacingDefaults(this); // LeakingThisInConstructor
+        this.parent = parent;
     }
 
     /**
@@ -37,7 +40,7 @@ public abstract class Button extends VisImageButton {
      *
      * @see Defines#SFX_CLICK
      */
-    private static class ClickOnPress extends ChangeListener {
+    private class ClickOnPress extends ChangeListener {
 
         /**
          * Sound to play.
@@ -50,7 +53,7 @@ public abstract class Button extends VisImageButton {
 
         @Override
         public void changed(ChangeEvent evt, Actor actor) {
-            this.click.play();
+            parent.play(click);
         }
     }
 }

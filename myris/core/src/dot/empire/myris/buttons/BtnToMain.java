@@ -19,7 +19,7 @@ import static dot.empire.myris.Defines.ICO_BTN_BACK;
 public final class BtnToMain extends Button {
 
     public BtnToMain(AssetManager mngr, final Screen parent) {
-        super(ICO_BTN_BACK, mngr, new ChangeListener() {
+        super(ICO_BTN_BACK, mngr, parent, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent event, Actor actor) {

@@ -10,6 +10,9 @@ package dot.empire.myris;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -32,6 +35,8 @@ import java.util.Locale;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
 import static com.badlogic.gdx.graphics.GL20.*;
+import static dot.empire.myris.Defines.Messages.MUTE;
+import static dot.empire.myris.Defines.Messages.UNMUTE;
 import static dot.empire.myris.Defines.SCREEN_HEIGHT;
 import static dot.empire.myris.Defines.SCREEN_WIDTH;
 
@@ -40,7 +45,7 @@ import static dot.empire.myris.Defines.SCREEN_WIDTH;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public final class Myris extends ApplicationAdapter implements Disposable {
+public final class Myris extends ApplicationAdapter implements Disposable, Telegraph {
 
     /**
      * For logging. All other constants should be in {@link Defines}.
@@ -78,6 +83,10 @@ public final class Myris extends ApplicationAdapter implements Disposable {
         Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Size = %dx%d",
                 Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         Gdx.input.setInputProcessor(input = new InputMultiplexer());
+
+        MessageManager.getInstance().addListener(this, MUTE);
+        MessageManager.getInstance().addListener(this, UNMUTE);
+
 
         this.preferences = new Settings();
         this.camera = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -226,5 +235,19 @@ public final class Myris extends ApplicationAdapter implements Disposable {
     public void resize(int width, int height) {
         this.viewPort.update(width, height, true);
         this.camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+        Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Message = %d", msg.message));
+        switch (msg.message) {
+            case MUTE:
+                this.preferences.setIsMuted(true);
+                return true;
+            case UNMUTE:
+                this.preferences.setIsMuted(false);
+                return true;
+        }
+        return false;
     }
 }

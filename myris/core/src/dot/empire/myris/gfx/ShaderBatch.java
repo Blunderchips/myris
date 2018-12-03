@@ -8,6 +8,8 @@ import dot.empire.myris.Myris;
 
 /**
  * Brightness/Contrast {@link SpriteBatch}. Modify the brightness/contrast of sprites and images rendered in libGDX.
+ *
+ * @see <a href="https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast">LibGDX Brightness & Contrast</a>
  */
 // https://github.com/mattdesl/lwjgl-basics/wiki/LibGDX-Brightness-&-Contrast
 public final class ShaderBatch extends SpriteBatch {
@@ -93,6 +95,10 @@ public final class ShaderBatch extends SpriteBatch {
         }
     }
 
+    /**
+     * @see ShaderBatch#begin(boolean)
+     * @deprecated Use overloaded method
+     */
     @Override
     @Deprecated
     public void begin() {
@@ -103,6 +109,9 @@ public final class ShaderBatch extends SpriteBatch {
         return this.brightness;
     }
 
+    /**
+     * @param brightness clamped
+     */
     public void setBrightness(float brightness) {
         this.brightness = MathUtils.clamp(brightness, -1, 1);
     }
@@ -111,6 +120,9 @@ public final class ShaderBatch extends SpriteBatch {
         return this.contrast;
     }
 
+    /**
+     * @param contrast clamped
+     */
     public void setContrast(float contrast) {
         this.contrast = Math.max(contrast, 0.1f);
     }

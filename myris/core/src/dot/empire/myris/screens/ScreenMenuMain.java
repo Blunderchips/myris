@@ -21,7 +21,7 @@ public final class ScreenMenuMain extends Screen {
     @Override
     public void show(AssetManager mngr) {
         this.bgMusic = mngr.get(BG_MUSIC);
-        this.bgMusic.play();
+        play(bgMusic);
 
         add(new VisImage(mngr.get(IMG_TITLE, Texture.class)));
 

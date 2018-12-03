@@ -3,6 +3,8 @@ package dot.empire.myris;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
@@ -56,8 +58,6 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
 
     /**
      * Removes {@link VisTable} from the UI layer.
-     *
-     * @see Myris#getUILayer()
      */
     @Override
     public void dispose() {
@@ -130,5 +130,17 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      */
     public void setEngine(Myris engine) {
         this.engine = engine;
+    }
+
+    public void play(Sound sfx) {
+        if (!getEngine().getPreferences().isMuted()) {
+            sfx.play();
+        }
+    }
+
+    public void play(Music sfx) {
+        if (!getEngine().getPreferences().isMuted()) {
+            sfx.play();
+        }
     }
 }

@@ -18,7 +18,7 @@ import static dot.empire.myris.Defines.ICO_INFO;
 public final class BtnInfo extends Button {
 
     public BtnInfo(AssetManager mngr, final Screen parent) {
-        super(ICO_INFO, mngr, new ChangeListener() {
+        super(ICO_INFO, mngr, parent, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {

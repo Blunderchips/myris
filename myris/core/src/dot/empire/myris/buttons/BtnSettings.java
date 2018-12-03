@@ -19,7 +19,7 @@ import static dot.empire.myris.Defines.ICO_SETTINGS;
 public final class BtnSettings extends Button {
 
     public BtnSettings(AssetManager mngr, final Screen parent) {
-        super(ICO_SETTINGS, mngr, new ChangeListener() {
+        super(ICO_SETTINGS, mngr, parent, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {

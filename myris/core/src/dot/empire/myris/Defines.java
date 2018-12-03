@@ -118,6 +118,7 @@ public final class Defines {
 
         int AD_SHOW = 0x0;
         int AD_HIDE = 0x1;
-        int MSG_MUTE = 0x2;
+        int MUTE = 0x2;
+        int UNMUTE = 0x3;
     }
 }

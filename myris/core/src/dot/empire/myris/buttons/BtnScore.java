@@ -19,7 +19,7 @@ import static dot.empire.myris.Defines.ICO_SCORE;
 public final class BtnScore extends Button {
 
     public BtnScore(AssetManager mngr, final Screen parent) {
-        super(ICO_SCORE, mngr, new ChangeListener() {
+        super(ICO_SCORE, mngr, parent, new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {

@@ -27,7 +27,7 @@ public final class ScreenSplash extends Screen {
         add(new VisImage(mngr.get(IMG_LOGO, Texture.class))).center().fillX();
 
         this.sfxIntro = mngr.get(SFX_INTRO, Music.class);
-        this.sfxIntro.play();
+        play(sfxIntro);
     }
 
     @Override

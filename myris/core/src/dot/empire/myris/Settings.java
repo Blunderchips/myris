@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import dot.empire.myris.gfx.ScoreLabel;
 
+import java.util.Locale;
+
 /**
  * General settings and preferences. Created 16/11/2018.
  *
@@ -73,6 +75,7 @@ public final class Settings {
     }
 
     public void setIsMuted(boolean isMuted) {
+        Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Muted = " + isMuted));
         this.preferences.putBoolean(IS_MUTED, isMuted);
         this.preferences.flush();
     }

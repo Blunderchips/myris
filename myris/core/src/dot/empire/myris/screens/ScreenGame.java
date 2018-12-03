@@ -71,7 +71,7 @@ public final class ScreenGame extends Screen {
         if (numCollected.get() != 0) {
             this.numCollected.decrementAndGet();
             if (numCollected.get() % 2 == 0) {
-                this.sfxCollect.play();
+                play(sfxCollect);
             }
         }
     }
@@ -212,7 +212,7 @@ public final class ScreenGame extends Screen {
 
     private void check() {
         getEngine().setAlpha(0);
-        this.sfxClick.play();
+        play(sfxClick);
         addBlock();
     }
 
@@ -245,7 +245,7 @@ public final class ScreenGame extends Screen {
             }
         }
         addBlock();
-        addBlock();
+        // addBlock();
     }
 
     /**
@@ -253,7 +253,7 @@ public final class ScreenGame extends Screen {
      */
     private void death() {
         Gdx.app.log(Myris.TAG, "GAME OVER!"); // why not
-        this.sfxDeath.play();
+        play(sfxDeath);
         changeScreen(new ScreenDeath(score, getEngine().getPreferences().getHighScore()));
         getEngine().getPreferences().setHighScore(score);
         // clearBoard();

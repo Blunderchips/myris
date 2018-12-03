@@ -8,14 +8,14 @@
 package dot.empire.myris;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import static dot.empire.myris.Defines.Messages.AD_HIDE;
-import static dot.empire.myris.Defines.Messages.AD_SHOW;
+import static dot.empire.myris.Defines.Messages.*;
 
 /**
  * Android Launcher. Should be the main {@code android.app.Activity}.
@@ -25,6 +25,7 @@ import static dot.empire.myris.Defines.Messages.AD_SHOW;
  */
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
 
+    private boolean isMuted;
     private boolean isShowing;
 
     public AndroidLauncher() {
@@ -90,5 +91,34 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
                 return true;
         }
         return false;
+    }
+
+    /**
+     * Called to process key events.  You can override this to intercept all
+     * key events before they are dispatched to the window.  Be sure to call
+     * this implementation for key events that should be handled normally.
+     *
+     * @param evt The key event
+     * @return boolean Return true if this event was consumed.
+     */
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent evt) {
+        switch (evt.getKeyCode()) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                MessageManager.getInstance().dispatchMessage(UNMUTE);
+                if (isMuted) {
+                    this.isMuted = false;
+                    return true;
+                }
+                break;
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                MessageManager.getInstance().dispatchMessage(MUTE);
+                if (!isMuted) {
+                    this.isMuted = true;
+                    return true;
+                }
+                break;
+        }
+        return super.dispatchKeyEvent(evt);
     }
 }
