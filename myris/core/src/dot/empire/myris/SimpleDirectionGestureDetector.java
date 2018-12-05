@@ -1,6 +1,5 @@
 package dot.empire.myris;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
 
 /**
@@ -47,22 +46,23 @@ public class SimpleDirectionGestureDetector extends GestureDetector {
             this.listener = listener;
         }
 
+        // siD 05/12/2018: Comments got annoying
         @Override
         public boolean fling(float xvel, float yvel, int btn) {
             if (Math.abs(xvel) > Math.abs(yvel)) {
                 if (xvel > 0) {
-                    Gdx.app.debug("Direction Listener", "RIGHT");
+                    // Gdx.app.debug("Direction Listener", "RIGHT");
                     listener.onRight();
                 } else {
-                    Gdx.app.debug("Direction Listener", "LEFT");
+                    // Gdx.app.debug("Direction Listener", "LEFT");
                     listener.onLeft();
                 }
             } else {
                 if (yvel > 0) {
-                    Gdx.app.debug("Direction Listener", "DOWN");
+                    // Gdx.app.debug("Direction Listener", "DOWN");
                     listener.onDown();
                 } else {
-                    Gdx.app.debug("Direction Listener", "UP");
+                    // Gdx.app.debug("Direction Listener", "UP");
                     listener.onUp();
                 }
             }

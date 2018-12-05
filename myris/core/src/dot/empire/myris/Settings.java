@@ -87,13 +87,23 @@ public final class Settings {
         return this.preferences.getLong(HIGH_SCORE, 0);
     }
 
+    /**
+     * @param score in-game score
+     * @see #setHighScore(long)
+     */
     public void setHighScore(ScoreLabel score) {
-        this.preferences.putLong(HIGH_SCORE, score.getScore());
-        this.preferences.flush();
+        this.setHighScore(score.getScore());
     }
 
     public void setHighScore(long score) {
-        this.preferences.putLong(HIGH_SCORE, score);
-        this.preferences.flush();
+        final long current = getHighScore(); // current high score saved
+        if (current >= score) {
+            Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Highscore not set (%s > %s)",
+                    Long.toString(current), Long.toString(score)));
+        } else {
+            Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Highscore set (%s)", Long.toString(score)));
+            this.preferences.putLong(HIGH_SCORE, score);
+            this.preferences.flush();
+        }
     }
 }

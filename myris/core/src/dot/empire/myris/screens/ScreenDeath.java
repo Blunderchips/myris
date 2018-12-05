@@ -2,6 +2,8 @@ package dot.empire.myris.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
+import com.kotcrab.vis.ui.util.dialog.Dialogs;
+import com.kotcrab.vis.ui.util.dialog.OptionDialogListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import dot.empire.myris.Screen;
@@ -16,7 +18,7 @@ import dot.empire.myris.gfx.ScoreLabel;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public final class ScreenDeath extends Screen implements BtnReset.RestListener {
+public final class ScreenDeath extends Screen implements BtnReset.RestListener, OptionDialogListener {
 
     /**
      * Current score.
@@ -86,7 +88,24 @@ public final class ScreenDeath extends Screen implements BtnReset.RestListener {
 
     @Override
     public void reset_() {
+        Dialogs.showOptionDialog(getStage(), "Are you sure?", "This action cannot be undone.",
+                Dialogs.OptionDialogType.YES_NO, this);
+    }
+
+    /**
+     * Resets score.
+     */
+    @Override
+    public void yes() {
         getEngine().getPreferences().setHighScore(0);
         changeScreen(ScreenDeath.class);
+    }
+
+    @Override
+    public void no() {
+    }
+
+    @Override
+    public void cancel() {
     }
 }

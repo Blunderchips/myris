@@ -6,7 +6,7 @@
  *            |___/
  */
 /**
- * Main game package.
+ * Main game package for myris.
  *
  * @author Matthew 'siD' Van der Bijl
  */

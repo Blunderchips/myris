@@ -85,7 +85,7 @@ public final class ScoreLabel extends VisTable implements Comparable<Long> {
     @Override
     public int compareTo(final Long other) {
         final Long score = this.score.get();
-        return (score < other) ? -1 : ((score == other) ? 0 : 1);
+        return (score < other) ? -1 : ((score.equals(other)) ? 0 : 1);
     }
 
     @Override
