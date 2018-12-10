@@ -20,6 +20,8 @@
 
 ### YouTube Videos
 * [myris - libGDX Prototype](https://youtu.be/PbrYlPwth1A)
+* [myris - gource 4k - 2018-12-07](https://youtu.be/8PK6TImEKQQ)
+* [myris - Android Game Development Log](https://youtu.be/gy6mCSZwWPM)
 
 ### License
 MIT License
