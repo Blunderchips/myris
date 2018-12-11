@@ -2,7 +2,6 @@ package dot.empire.myris.screens;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
-import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -14,11 +13,11 @@ import dot.empire.myris.gfx.HighScoreLabel;
 import dot.empire.myris.gfx.ScoreLabel;
 
 /**
- * Shows current score & current high score to the user. Created 26/11/2018.
+ * Shows current score & current high score to the user. Former {@code ScreenDeath} class. Created 26/11/2018.
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public final class ScreenDeath extends Screen implements BtnReset.RestListener, OptionDialogListener {
+public final class ScreenScore extends Screen implements BtnReset.RestListener, OptionDialogListener {
 
     /**
      * Current score.
@@ -32,19 +31,19 @@ public final class ScreenDeath extends Screen implements BtnReset.RestListener, 
     /**
      * Defaults all attributes to null.
      */
-    public ScreenDeath() {
+    public ScreenScore() {
         this(-1);
     }
 
     /**
      * @param score the score of the current game
      */
-    public ScreenDeath(ScoreLabel score, long old) {
+    public ScreenScore(ScoreLabel score, long old) {
         this(score.getScore());
         this.old = old;
     }
 
-    public ScreenDeath(long score, long old) {
+    public ScreenScore(long score, long old) {
         this.score = score;
         this.old = old;
     }
@@ -52,7 +51,7 @@ public final class ScreenDeath extends Screen implements BtnReset.RestListener, 
     /**
      * @param score the score of the current game
      */
-    public ScreenDeath(long score) {
+    public ScreenScore(long score) {
         this(score, Long.MIN_VALUE);
     }
 
@@ -88,8 +87,9 @@ public final class ScreenDeath extends Screen implements BtnReset.RestListener, 
 
     @Override
     public void reset_() {
-        Dialogs.showOptionDialog(getStage(), "Are you sure?", "This action cannot be undone.",
-                Dialogs.OptionDialogType.YES_NO, this);
+        // Dialogs.showOptionDialog(getStage(), "Are you sure?", "This action cannot be undone.",
+        //        Dialogs.OptionDialogType.YES_NO, this);
+        yes();
     }
 
     /**
@@ -98,7 +98,7 @@ public final class ScreenDeath extends Screen implements BtnReset.RestListener, 
     @Override
     public void yes() {
         getEngine().getPreferences().setHighScore(0);
-        changeScreen(ScreenDeath.class);
+        changeScreen(ScreenScore.class);
     }
 
     @Override
