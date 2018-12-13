@@ -27,7 +27,7 @@ public final class ScreenGame extends Screen {
      * Block colours.
      */
     private static final Color[] COLOURS = {
-            Color.SKY, /*Color.CHARTREUSE,*/ Color.GOLD,
+            Color.SKY, Color.CHARTREUSE, Color.GOLD,
             /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
 

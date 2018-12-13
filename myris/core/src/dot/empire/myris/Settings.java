@@ -75,7 +75,7 @@ public final class Settings {
     }
 
     public void setIsMuted(boolean isMuted) {
-        Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Muted = " + isMuted));
+        Gdx.app.debug(Myris.TAG, "Muted = " + isMuted);
         this.preferences.putBoolean(IS_MUTED, isMuted);
         this.preferences.flush();
     }

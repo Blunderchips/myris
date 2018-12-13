@@ -1,5 +1,8 @@
 package dot.empire.myris.screens;
 
+import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,13 +16,18 @@ import dot.empire.myris.buttons.BtnSettings;
 
 import static dot.empire.myris.Defines.BG_MUSIC;
 import static dot.empire.myris.Defines.IMG_TITLE;
+import static dot.empire.myris.Defines.Messages.MUTE;
+import static dot.empire.myris.Defines.Messages.UNMUTE;
 
-public final class ScreenMenuMain extends Screen {
+public final class ScreenMenuMain extends Screen implements Telegraph {
 
     private Music bgMusic;
 
     @Override
     public void show(AssetManager mngr) {
+        MessageManager.getInstance().addListener(this, MUTE);
+        MessageManager.getInstance().addListener(this, UNMUTE);
+
         this.bgMusic = mngr.get(BG_MUSIC);
         play(bgMusic);
 
@@ -46,5 +54,29 @@ public final class ScreenMenuMain extends Screen {
             this.bgMusic.stop();
         }
         super.changeScreen(screen);
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+        switch (msg.message) {
+            case MUTE:
+                if (bgMusic.isPlaying()) {
+                    this.bgMusic.pause();
+                }
+                return true;
+            case UNMUTE:
+                if (!bgMusic.isPlaying()) {
+                    this.bgMusic.play();
+                }
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void dispose() {
+        MessageManager.getInstance().removeListener(this, MUTE);
+        MessageManager.getInstance().removeListener(this, UNMUTE);
+        super.dispose();
     }
 }

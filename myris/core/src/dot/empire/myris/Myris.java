@@ -68,6 +68,9 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
     private Sprite display;
     private float alpha;
 
+//    private float muteAlpha;
+//    private Sprite icoMute;
+
     /**
      * @see OrthographicCamera
      */
@@ -76,6 +79,11 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
      * @see StretchViewport
      */
     private Viewport viewPort;
+
+    public Myris() {
+        this.alpha = 0;
+//        this.muteAlpha = 1;
+    }
 
     @Override
     public void create() {
@@ -112,6 +120,12 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
         this.display = new Sprite(fbo.getColorBufferTexture());
         this.display.flip(false, true);
 
+//        this.icoMute = new Sprite();
+//        this.icoMute.setPosition(
+//                (SCREEN_WIDTH - icoMute.getWidth()) / 2,
+//                (SCREEN_HEIGHT - icoMute.getHeight()) / 2
+//        );
+
         // Do last
         //assetManager.load(new Defines()); // siD 15/11/2018: hacky but works
         Defines.loadAllAssets(assetManager);
@@ -124,8 +138,9 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
         this.camera.update();
         this.uiLayer.act(dt);
         this.screen.update(dt);
-        this.setAlpha(alpha + (dt * 8));
 
+        this.setAlpha(alpha + (dt * 8));
+//        this.setMuteAlpha(muteAlpha - dt);
 
         this.fbo.begin();
         {
@@ -142,13 +157,22 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
             this.renderer.setProjectionMatrix(camera.combined);
             this.renderer.begin(ShapeRenderer.ShapeType.Filled);
             {
-                //viewPort.apply();
+                // viewPort.apply();
                 this.screen.render(renderer, batch);
             }
             this.renderer.end();
             this.batch.end();
 
-            this.uiLayer.draw(); // render last
+            this.uiLayer.draw();
+
+//            if (muteAlpha != 0 && icoMute != null) {
+//                this.batch.begin(false);
+//                {
+//                    Gdx.app.debug(Myris.TAG, "Render mute icon " + muteAlpha);
+//                    this.icoMute.draw(batch, muteAlpha == 0 ? 0 : 1);
+//                }
+//                this.batch.end();
+//            }
         }
         this.fbo.end();
 
@@ -166,6 +190,9 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
      */
     @Override
     public void dispose() {
+        MessageManager.getInstance().removeListener(this, MUTE);
+        MessageManager.getInstance().removeListener(this, UNMUTE);
+
         this.fbo.dispose();
         this.display.getTexture().dispose();
 
@@ -207,6 +234,10 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
         this.alpha = MathUtils.clamp(alpha, 0, 1);
     }
 
+//    public void setMuteAlpha(float alpha) {
+//        this.muteAlpha = MathUtils.clamp(alpha, 0, 1);
+//    }
+
     public void setContrast(float contrast) {
         if (contrast > 1) {
             contrast /= 100;
@@ -242,9 +273,25 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
         Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Message = %d", msg.message));
         switch (msg.message) {
             case MUTE:
+//                Gdx.app.postRunnable(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        setMuteAlpha(1);
+//                        icoMute.setTexture(assetManager.get(ICO_MUTE, Texture.class));
+//                    }
+//                });
                 this.preferences.setIsMuted(true);
                 return true;
             case UNMUTE:
+//                Gdx.app.postRunnable(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        setMuteAlpha(1);
+//                        icoMute.setTexture(assetManager.get(ICO_UNMUTE, Texture.class));
+//                    }
+//                });
                 this.preferences.setIsMuted(false);
                 return true;
         }

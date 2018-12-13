@@ -282,7 +282,7 @@ public class AnnotationAssetManager extends AssetManager {
     public @interface Asset {
 
         /**
-         * @return Whether this field or method should be loaded by {@link AnnotationAssetManager#load(Class, Object)}.
+         * @return Whether this field or method should be loaded by {@code AnnotationAssetManager#load(Class, Object)}.
          * Default is {@code true}.
          */
         boolean load() default true;
@@ -293,7 +293,7 @@ public class AnnotationAssetManager extends AssetManager {
         Class<?> value() default void.class;
 
         /**
-         * Methods referenced by this can either have no parameters or take a {@link Class}, {@link String} and
+         * Methods referenced by this can either have no parameters or take a {@code Class}, {@code String} and
          * {@link Object} in this order. The Class is the type of the asset, the String is the path of the asset and the
          * Object is the value of the field or return value of the method from which the asset is being loaded.
          *

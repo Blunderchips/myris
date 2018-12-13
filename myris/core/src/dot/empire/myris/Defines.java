@@ -99,6 +99,11 @@ public final class Defines {
     @AnnotationAssetManager.Asset(Sound.class)
     public static final String SFX_CLICK = "sfx/275152__bird-man__click.ogg";
 
+//    @AnnotationAssetManager.Asset(Texture.class)
+//    public static final String ICO_MUTE = "gfx/speaker-off.png";
+//    @AnnotationAssetManager.Asset(Texture.class)
+//    public static final String ICO_UNMUTE = "gfx/speaker.png";
+
     /**
      * @param mngr {@code Myris#assetManager}
      */
