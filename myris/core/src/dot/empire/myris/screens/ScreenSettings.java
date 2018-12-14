@@ -36,7 +36,7 @@ public final class ScreenSettings extends Screen implements BtnReset.RestListene
             }
         });
 
-        this.sldBrightness = new VisSlider(0, 1, 0.1f, false);
+        this.sldBrightness = new VisSlider(0, 0.5f, 0.05f, false);
         this.sldBrightness.setValue(getEngine().getPreferences().getBrightness());
         this.sldBrightness.addListener(new ChangeListener() {
 
