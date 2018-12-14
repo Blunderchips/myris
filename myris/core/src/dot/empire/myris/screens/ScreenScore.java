@@ -83,6 +83,7 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
         add(buttons);
 
         row();
+        super.show(mngr);
     }
 
     @Override

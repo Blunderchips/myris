@@ -1,13 +1,14 @@
 package dot.empire.myris.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
-import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.kotcrab.vis.ui.widget.VisImage;
 import com.kotcrab.vis.ui.widget.VisTable;
+import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.buttons.BtnInfo;
 import dot.empire.myris.buttons.BtnPlay;
@@ -16,11 +17,13 @@ import dot.empire.myris.buttons.BtnSettings;
 
 import static dot.empire.myris.Defines.BG_MUSIC;
 import static dot.empire.myris.Defines.IMG_TITLE;
-import static dot.empire.myris.Defines.Messages.MUTE;
-import static dot.empire.myris.Defines.Messages.UNMUTE;
+import static dot.empire.myris.Defines.Messages.*;
 
-public final class ScreenMenuMain extends Screen implements Telegraph {
+public final class ScreenMenuMain extends Screen {
 
+    /**
+     * Music to be played while not in a game.
+     */
     private Music bgMusic;
 
     @Override
@@ -46,6 +49,7 @@ public final class ScreenMenuMain extends Screen implements Telegraph {
         tblButtons.add(new BtnInfo(mngr, this));
 
         add(tblButtons);
+        super.show(mngr);
     }
 
     @Override
@@ -69,8 +73,12 @@ public final class ScreenMenuMain extends Screen implements Telegraph {
                     this.bgMusic.play();
                 }
                 return true;
+            case BACK_KEY_PRESSED:
+                Gdx.app.debug(Myris.TAG, "Back button exit");
+                Gdx.app.exit();
+                return true;
         }
-        return false;
+        return super.handleMessage(msg);
     }
 
     @Override

@@ -2,6 +2,9 @@ package dot.empire.myris;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.ai.msg.MessageManager;
+import com.badlogic.gdx.ai.msg.Telegram;
+import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -9,6 +12,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Disposable;
 import com.kotcrab.vis.ui.widget.VisTable;
+import dot.empire.myris.screens.ScreenMenuMain;
+
+import static dot.empire.myris.Defines.Messages.BACK_KEY_PRESSED;
 
 /**
  * Represents one of many application screens, such as a main menu, a settings menu, the game screen and so on.
@@ -16,7 +22,8 @@ import com.kotcrab.vis.ui.widget.VisTable;
  *
  * @author Matthew 'siD' Van der Bijl
  */
-public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener {
+public abstract class Screen extends VisTable implements Disposable, SimpleDirectionGestureDetector.DirectionListener,
+        Telegraph {
 
     /**
      * Main game engine.
@@ -37,6 +44,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      * @see net.dermetfan.gdx.assets.AnnotationAssetManager
      */
     public void show(AssetManager mngr) {
+        MessageManager.getInstance().addListener(this, BACK_KEY_PRESSED);
     }
 
     /**
@@ -61,6 +69,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      */
     @Override
     public void dispose() {
+        MessageManager.getInstance().removeListener(this, BACK_KEY_PRESSED);
         super.remove();
     }
 
@@ -142,5 +151,16 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         if (!getEngine().getPreferences().isMuted()) {
             sfx.play();
         }
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+        switch (msg.message) {
+            case BACK_KEY_PRESSED:
+                Gdx.app.debug(Myris.TAG, "Back to main menu");
+                changeScreen(ScreenMenuMain.class);
+                return true;
+        }
+        return false;
     }
 }

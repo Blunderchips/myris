@@ -63,7 +63,8 @@ public final class ScreenGame extends Screen {
 //        blocks[1][1] = 1;
 //        blocks[1][0] = 1;
 //        blocks[0][0] = 2;
-//        Gdx.app.log("" + children(1, 1, 1, LEFT), "");
+//        Gdx.app.log("" + child ren(1, 1, 1, LEFT), "");
+        super.show(mngr);
     }
 
     @Override

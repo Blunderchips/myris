@@ -121,4 +121,43 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         }
         return super.dispatchKeyEvent(evt);
     }
+
+    /**
+     * Called when a key was pressed down and not handled by any of the views
+     * inside of the activity. So, for example, key presses while the cursor
+     * is inside a TextView will not trigger the event (unless it is a navigation
+     * to another object) because TextView handles its own key presses.
+     *
+     * <p>If the focused view didn't want this event, this method is called.
+     *
+     * <p>The default implementation takes care of {@code KeyEvent#KEYCODE_BACK}
+     * by calling {@code onBackPressed()}, though the behavior varies based
+     * on the application compatibility mode: for
+     * {@code android.os.Build.VERSION_CODES#ECLAIR} or later applications,
+     * it will set up the dispatch to call {@code onKeyUp} where the action
+     * will be performed; for earlier applications, it will perform the
+     * action immediately in on-down, as those versions of the platform
+     * behaved.
+     *
+     * <p>Other additional default key handling may be performed
+     * if configured with {@code setDefaultKeyMode}.
+     *
+     * @return Return <code>true</code> to prevent this event from being propagated
+     * further, or <code>false</code> to indicate that you have not handled
+     * this event and it should continue to be propagated.
+     */
+    // https://stackoverflow.com/questions/11182703/check-if-back-key-was-pressed-in-android
+    @Override
+    public boolean onKeyDown(int key, KeyEvent evt) {
+        if (key == KeyEvent.KEYCODE_BACK) {
+            MessageManager.getInstance().dispatchMessage(BACK_KEY_PRESSED);
+            return true;
+        }
+        return super.onKeyDown(key, evt);
+    }
+
+    @Override
+    public void onBackPressed() {
+        MessageManager.getInstance().dispatchMessage(BACK_KEY_PRESSED);
+    }
 }

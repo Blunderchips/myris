@@ -119,11 +119,13 @@ public final class Defines {
      *
      * @see com.badlogic.gdx.ai.msg.MessageManager
      */
+    // TODO: 14 Dec 2018 Make enum?
     public interface Messages {
 
         int AD_SHOW = 0x0;
         int AD_HIDE = 0x1;
         int MUTE = 0x2;
         int UNMUTE = 0x3;
+        int BACK_KEY_PRESSED = 0x4;
     }
 }

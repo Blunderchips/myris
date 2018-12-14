@@ -28,6 +28,7 @@ public final class ScreenSplash extends Screen {
 
         this.sfxIntro = mngr.get(SFX_INTRO, Music.class);
         play(sfxIntro);
+        super.show(mngr);
     }
 
     @Override

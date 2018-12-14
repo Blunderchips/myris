@@ -20,5 +20,6 @@ public final class ScreenInfo extends Screen {
         row();
 
         add(new BtnToMain(mngr, this));
+        super.show(mngr);
     }
 }

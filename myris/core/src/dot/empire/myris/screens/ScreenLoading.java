@@ -1,6 +1,7 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,6 +14,7 @@ import dot.empire.myris.gfx.GifDecoder;
 import java.util.Locale;
 
 import static dot.empire.myris.Defines.*;
+import static dot.empire.myris.Defines.Messages.BACK_KEY_PRESSED;
 
 public final class ScreenLoading extends Screen {
 
@@ -51,5 +53,14 @@ public final class ScreenLoading extends Screen {
     @Override
     public String getName() {
         return String.format("Loading => %s", target.getName());
+    }
+
+    @Override
+    public boolean handleMessage(Telegram msg) {
+        switch (msg.message) {
+            case BACK_KEY_PRESSED:
+                return true;
+        }
+        return super.handleMessage(msg);
     }
 }

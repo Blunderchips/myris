@@ -56,6 +56,7 @@ public final class ScreenSettings extends Screen implements BtnReset.RestListene
 
         add(new BtnToMain(mngr, this));
         add(new BtnReset(mngr, this));
+        super.show(mngr);
     }
 
     @Override
