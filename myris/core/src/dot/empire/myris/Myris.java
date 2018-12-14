@@ -35,8 +35,7 @@ import java.util.Locale;
 
 import static com.badlogic.gdx.Application.LOG_DEBUG;
 import static com.badlogic.gdx.graphics.GL20.*;
-import static dot.empire.myris.Defines.Messages.MUTE;
-import static dot.empire.myris.Defines.Messages.UNMUTE;
+import static dot.empire.myris.Defines.Messages.*;
 import static dot.empire.myris.Defines.SCREEN_HEIGHT;
 import static dot.empire.myris.Defines.SCREEN_WIDTH;
 
@@ -94,6 +93,7 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
 
         MessageManager.getInstance().addListener(this, MUTE);
         MessageManager.getInstance().addListener(this, UNMUTE);
+        MessageManager.getInstance().addListener(this, OPEN_ABOUT);
 
 
         this.preferences = new Settings();
@@ -190,8 +190,11 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
      */
     @Override
     public void dispose() {
+        // FIXME: 14 Dec 2018 Really needed?
         MessageManager.getInstance().removeListener(this, MUTE);
         MessageManager.getInstance().removeListener(this, UNMUTE);
+        MessageManager.getInstance().removeListener(this, OPEN_ABOUT);
+        // --
 
         this.fbo.dispose();
         this.display.getTexture().dispose();
@@ -293,6 +296,9 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
 //                    }
 //                });
                 this.preferences.setIsMuted(false);
+                return true;
+            case OPEN_ABOUT:
+                Gdx.app.log(Myris.TAG, "Open about");
                 return true;
         }
         return false;

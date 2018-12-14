@@ -127,5 +127,6 @@ public final class Defines {
         int MUTE = 0x2;
         int UNMUTE = 0x3;
         int BACK_KEY_PRESSED = 0x4;
+        int OPEN_ABOUT = 0x5;
     }
 }

@@ -2,41 +2,76 @@
 <instant-run
     abi="x86"
     api-level="26"
-    build-mode="COLD"
+    build-mode="FULL"
     density="xxhdpi"
     format="10"
-    ir-eligibility="METHOD_ADDED"
     plugin-version="3.2.1"
-    timestamp="1544778126255"
+    timestamp="1544787652039"
     token="3366974748180269330"
-    verifier="COLD_SWAP_REQUESTED" >
+    verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="135" />
+        duration="557" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="41" />
+        duration="636" />
     <task
         name="verifier"
-        duration="24" />
+        duration="62" />
 
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\resources\instant-run\debug\resources-debug.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
     <artifact
         location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_1.apk"
         type="SPLIT" />
     <artifact
         location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_6.apk"
         type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\instant-run-apk\debug\android-debug.apk"
+        type="SPLIT_MAIN" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1544777788376"
+        timestamp="1544787652039"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\resources\instant-run\debug\resources-debug.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_1.apk"
@@ -44,6 +79,9 @@
         <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
+        <artifact
+            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\instant-run-apk\debug\android-debug.apk"
+            type="SPLIT_MAIN" />
         <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
@@ -54,37 +92,19 @@
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
+            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            type="SPLIT" />
+        <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\resources\instant-run\debug\resources-debug.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\instant-run-apk\debug\android-debug.apk"
-            type="SPLIT_MAIN" />
-    </build>
-    <build
-        build-mode="COLD"
-        ir-eligibility="METHOD_ADDED"
-        timestamp="1544778126255"
-        verifier="COLD_SWAP_REQUESTED" >
-        <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\siD\Desktop\ghp\myris\android\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
     </build>
 

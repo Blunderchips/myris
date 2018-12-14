@@ -1,19 +1,20 @@
 package dot.empire.myris.buttons;
 
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dot.empire.myris.Button;
 import dot.empire.myris.Screen;
-import dot.empire.myris.screens.ScreenInfo;
 
 import static dot.empire.myris.Defines.ICO_INFO;
+import static dot.empire.myris.Defines.Messages.OPEN_ABOUT;
 
 /**
- * Button to the Information Screen.
+ * Opens GitHub page.
  *
- * @see dot.empire.myris.screens.ScreenInfo
  * @see dot.empire.myris.Defines#ICO_INFO
+ * @see dot.empire.myris.Defines.Messages#OPEN_ABOUT
  */
 public final class BtnInfo extends Button {
 
@@ -22,7 +23,7 @@ public final class BtnInfo extends Button {
 
             @Override
             public void changed(ChangeEvent evt, Actor actor) {
-                parent.changeScreen(ScreenInfo.class);
+                MessageManager.getInstance().dispatchMessage(OPEN_ABOUT);
             }
         });
     }

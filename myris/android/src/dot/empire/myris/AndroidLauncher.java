@@ -7,6 +7,8 @@
  */
 package dot.empire.myris;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import com.badlogic.gdx.ai.msg.MessageManager;
@@ -24,6 +26,11 @@ import static dot.empire.myris.Defines.Messages.*;
  * @see dot.empire.myris.Myris
  */
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
+
+    /**
+     * Link to GitHub repository.
+     */
+    private static final String GITHUB_REPO_URL = "https://github.com/Blunderchips/myris/";
 
     private boolean isMuted;
     private boolean isShowing;
@@ -59,6 +66,7 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
 
         MessageManager.getInstance().addListener(this, AD_SHOW);
         MessageManager.getInstance().addListener(this, AD_HIDE);
+        MessageManager.getInstance().addListener(this, OPEN_ABOUT);
 
         final AndroidApplicationConfiguration cfg
                 = new AndroidApplicationConfiguration();
@@ -88,6 +96,9 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
                 return true;
             case AD_SHOW:
                 // TODO: 14 Nov 2018
+                return true;
+            case OPEN_ABOUT:
+                openAbout();
                 return true;
         }
         return false;
@@ -159,5 +170,12 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
     @Override
     public void onBackPressed() {
         MessageManager.getInstance().dispatchMessage(BACK_KEY_PRESSED);
+    }
+
+    /**
+     * Opens git repo in native web browser.
+     */
+    private void openAbout() {
+        super.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_REPO_URL)));
     }
 }
