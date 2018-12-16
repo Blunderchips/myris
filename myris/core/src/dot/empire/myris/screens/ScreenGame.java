@@ -12,6 +12,7 @@ import dot.empire.myris.Screen;
 import dot.empire.myris.SequenceGenerator;
 import dot.empire.myris.gfx.ScoreLabel;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -91,6 +92,11 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void onUp() {
+        int[][] last = new int[blocks.length][blocks[0].length];
+        for (int x = 0; x < blocks.length; x++) {
+            System.arraycopy(blocks[x], 0, last[x], 0, blocks[x].length);
+        }
+
         for (int x = 0; x < blocks.length; x++) {
             for (int y = blocks[x].length - 1; y >= 0; y--) {
                 if (blocks[x][y] != -1) {
@@ -98,11 +104,16 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
-        check();
+        check(last);
     }
 
     @Override
     public void onDown() {
+        int[][] last = new int[blocks.length][blocks[0].length];
+        for (int x = 0; x < blocks.length; x++) {
+            System.arraycopy(blocks[x], 0, last[x], 0, blocks[x].length);
+        }
+
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -110,11 +121,16 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
-        check();
+        check(last);
     }
 
     @Override
     public void onLeft() {
+        int[][] last = new int[blocks.length][blocks[0].length];
+        for (int x = 0; x < blocks.length; x++) {
+            System.arraycopy(blocks[x], 0, last[x], 0, blocks[x].length);
+        }
+
         for (int x = 0; x < blocks.length; x++) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -122,11 +138,16 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
-        check();
+        check(last);
     }
 
     @Override
     public void onRight() {
+        int[][] last = new int[blocks.length][blocks[0].length];
+        for (int x = 0; x < blocks.length; x++) {
+            System.arraycopy(blocks[x], 0, last[x], 0, blocks[x].length);
+        }
+
         for (int x = blocks.length - 1; x >= 0; x--) {
             for (int y = 0; y < blocks[x].length; y++) {
                 if (blocks[x][y] != -1) {
@@ -134,7 +155,7 @@ public final class ScreenGame extends Screen {
                 }
             }
         }
-        check();
+        check(last);
     }
 
     private void up(int colour, int x, int y) {
@@ -211,7 +232,10 @@ public final class ScreenGame extends Screen {
         this.blocks[x][y] = seqn.next() - 1;
     }
 
-    private void check() {
+    private void check(int[][] last) {
+        if (Arrays.deepEquals(last, blocks)) {
+            return;
+        }
         getEngine().setAlpha(0);
         play(sfxClick);
         addBlock();
