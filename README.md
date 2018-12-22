@@ -1,5 +1,7 @@
 # myris - libGDX Android Game
 
+myris is a colour matching mobile game made using [libGDX](https://libgdx.badlogicgames.com/) similar to 2048. Swipe colours into each other to combine them and earn points. When the board is full the game is lost. libGDX does support iOS and the iOS module has been included though myris will only be published to Android. Some useful links can be found below:
+
 * [GitHub - Blunderchips/myris](https://github.com/Blunderchips/myris)
 * [JavaDoc - https://blunderchips.github.io/myris/](https://blunderchips.github.io/myris/)
 
@@ -13,9 +15,11 @@
 ##### Everyone who's created or contributed to issues and pull requests have made the project better!
 
 ### General Info
-* Made using libGDX (https://libgdx.badlogicgames.com/)
+* Made using [libGDX](https://libgdx.badlogicgames.com/)
 * All icons came from http://game-icons.net/
 * Android app icon generated [here](https://romannurik.github.io/AndroidAssetStudio/icons-launcher.html#foreground.type=clipart&foreground.clipart=filter_4&foreground.space.trim=1&foreground.space.pad=0.2&foreColor=rgba(96%2C%20125%2C%20139%2C%200)&backColor=rgb(255%2C%20152%2C%200)&crop=0&backgroundShape=square&effects=elevate&name=ic_launcher)
+* Music - [Brand New World](http://freemusicarchive.org/music/Kai_Engel/Sustains/Kai_Engel_-_Sustains_-_01_Brand_New_World) by [Kai Engel](http://freemusicarchive.org/music/Kai_Engel/) is licensed under a [Attribution License](https://creativecommons.org/licenses/by/4.0/). 
+
 
 
 ### YouTube Videos
