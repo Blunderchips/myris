@@ -11,12 +11,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 
 import static dot.empire.myris.Defines.Messages.*;
 
@@ -27,6 +33,7 @@ import static dot.empire.myris.Defines.Messages.*;
  * @see dot.empire.myris.Myris
  */
 // https://github.com/libgdx/libgdx/wiki/Admob-in-libgdx
+// https://github.com/Blunderchips/dot_Juggle/blob/master/juggle-libgdx/android/src/dot/empire/juggle/AndroidLauncher.java
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
 
     /**
@@ -35,7 +42,10 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
     private static final String GITHUB_REPO_URL = "https://github.com/Blunderchips/myris/";
 
     private boolean isMuted;
+
+    protected AdView adView;
     private boolean isShowing;
+
 
     public AndroidLauncher() {
         this.isShowing = false;
@@ -66,41 +76,6 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        // Create the layout
-//        RelativeLayout layout = new RelativeLayout(this);
-//
-//        // Do the stuff that initialize() would do for you
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
-//
-//        // Create the libgdx View
-//        View gameView = initializeForView(new HelloWorld(this), false);
-//
-//        // Create and setup the AdMob view
-//        AdView adView = new AdView(this);
-//        adView.setAdSize(AdSize.BANNER);
-//        adView.setAdUnitId("xxxxxxxx"); // Put in your secret key here
-//
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        adView.loadAd(adRequest);
-//
-//        // Add the libgdx view
-//        layout.addView(gameView);
-//
-//        // Add the AdMob view
-//        RelativeLayout.LayoutParams adParams =
-//                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-//                        RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-//        adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-//
-//        layout.addView(adView, adParams);
-//
-//        // Hook it all up
-//        setContentView(layout);
-
         MessageManager.getInstance().addListener(this, AD_SHOW);
         MessageManager.getInstance().addListener(this, AD_HIDE);
         MessageManager.getInstance().addListener(this, OPEN_ABOUT);
@@ -108,16 +83,46 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         final AndroidApplicationConfiguration cfg
                 = new AndroidApplicationConfiguration();
 
-        cfg.numSamples = 8;
-        // cfg.r = 24;
-        // cfg.g = 24;
-        // cfg.b = 24;
-        // cfg.a = 24;
-        cfg.useImmersiveMode = false;
+        cfg.numSamples = 16;
+        //cfg.r = 24;
+        //cfg.g = 24;
+        //cfg.b = 24;
+        //cfg.a = 24;
+        cfg.useImmersiveMode = true;
         cfg.useCompass = false;
         cfg.useAccelerometer = false;
 
-        super.initialize(new Myris(), cfg);
+        RelativeLayout layout = new RelativeLayout(this);
+
+        View gameView = super.initializeForView(new Myris(), cfg);
+        layout.addView(gameView);
+
+        this.adView = new AdView(this);
+        this.adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                int visiblity = adView.getVisibility();
+                adView.setVisibility(AdView.GONE);
+                adView.setVisibility(visiblity);
+            }
+        });
+        this.adView.setAdSize(AdSize.SMART_BANNER);
+        // http://www.google.com/admob
+        this.adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111"); // https://developers.google.com/admob/android/test-ads
+
+        AdRequest.Builder builder = new AdRequest.Builder();
+        //run once before uncommenting the following line. Get TEST device ID from the logcat logs.
+//        builder.addTestDevice("INSERT TEST DEVICE ID HERE");
+        RelativeLayout.LayoutParams adParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        layout.addView(adView, adParams);
+        this.adView.loadAd(builder.build());
+        this.adView.setVisibility(View.GONE);
+
+        setContentView(layout);
     }
 
     /**
@@ -130,9 +135,27 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         switch (telegram.message) {
             case AD_HIDE:
                 Gdx.app.log(Myris.TAG, "Hide ad");
+                if (isShowing) {
+                    this.isShowing = false;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adView.setVisibility(View.GONE);
+                        }
+                    });
+                }
                 return true;
             case AD_SHOW:
                 Gdx.app.log(Myris.TAG, "Show ad");
+                if (!isShowing) {
+                    this.isShowing = true;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
                 return true;
             case OPEN_ABOUT:
                 openAbout();
@@ -190,7 +213,7 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
      * <p>Other additional default key handling may be performed
      * if configured with {@code setDefaultKeyMode}.
      *
-     * @return Return <code>true</code> to prevent this event from being propagated
+     * @return <code>true</code> to prevent this event from being propagated
      * further, or <code>false</code> to indicate that you have not handled
      * this event and it should continue to be propagated.
      */
