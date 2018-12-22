@@ -97,12 +97,12 @@ public final class Settings {
 
     public void setHighScore(long score) {
         final long current = getHighScore(); // current high score saved
-        if (current >= score) {
+        if (current >= score && score != -1) {
             Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Highscore not set (%s > %s)",
                     Long.toString(current), Long.toString(score)));
         } else {
             Gdx.app.log(Myris.TAG, String.format(Locale.ENGLISH, "Highscore set (%s)", Long.toString(score)));
-            this.preferences.putLong(HIGH_SCORE, score);
+            this.preferences.putLong(HIGH_SCORE, score == -1 ? 0 : score);
             this.preferences.flush();
         }
     }

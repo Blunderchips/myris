@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.ai.msg.Telegraph;
@@ -25,6 +26,7 @@ import static dot.empire.myris.Defines.Messages.*;
  * @author Matthew 'siD' Van der Bijl
  * @see dot.empire.myris.Myris
  */
+// https://github.com/libgdx/libgdx/wiki/Admob-in-libgdx
 public final class AndroidLauncher extends AndroidApplication implements Telegraph {
 
     /**
@@ -64,6 +66,41 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+//        // Create the layout
+//        RelativeLayout layout = new RelativeLayout(this);
+//
+//        // Do the stuff that initialize() would do for you
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+//
+//        // Create the libgdx View
+//        View gameView = initializeForView(new HelloWorld(this), false);
+//
+//        // Create and setup the AdMob view
+//        AdView adView = new AdView(this);
+//        adView.setAdSize(AdSize.BANNER);
+//        adView.setAdUnitId("xxxxxxxx"); // Put in your secret key here
+//
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
+//
+//        // Add the libgdx view
+//        layout.addView(gameView);
+//
+//        // Add the AdMob view
+//        RelativeLayout.LayoutParams adParams =
+//                new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+//                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        adParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//        adParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//
+//        layout.addView(adView, adParams);
+//
+//        // Hook it all up
+//        setContentView(layout);
+
         MessageManager.getInstance().addListener(this, AD_SHOW);
         MessageManager.getInstance().addListener(this, AD_HIDE);
         MessageManager.getInstance().addListener(this, OPEN_ABOUT);
@@ -92,10 +129,10 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
     public boolean handleMessage(Telegram telegram) {
         switch (telegram.message) {
             case AD_HIDE:
-                // TODO: 14 Nov 2018  
+                Gdx.app.log(Myris.TAG, "Hide ad");
                 return true;
             case AD_SHOW:
-                // TODO: 14 Nov 2018
+                Gdx.app.log(Myris.TAG, "Show ad");
                 return true;
             case OPEN_ABOUT:
                 openAbout();
@@ -167,6 +204,9 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         return super.onKeyDown(key, evt);
     }
 
+    /**
+     * Call on back button pressed.
+     */
     @Override
     public void onBackPressed() {
         MessageManager.getInstance().dispatchMessage(BACK_KEY_PRESSED);

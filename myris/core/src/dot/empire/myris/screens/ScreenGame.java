@@ -1,6 +1,7 @@
 package dot.empire.myris.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.Telegram;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -16,6 +17,7 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static dot.empire.myris.Defines.Messages.BACK_KEY_PRESSED;
 import static dot.empire.myris.Defines.*;
 
 public final class ScreenGame extends Screen {
@@ -61,10 +63,6 @@ public final class ScreenGame extends Screen {
         addActor(score = new ScoreLabel());
         clearBoard();
 
-//        blocks[1][1] = 1;
-//        blocks[1][0] = 1;
-//        blocks[0][0] = 2;
-//        Gdx.app.log("" + child ren(1, 1, 1, LEFT), "");
         super.show(mngr);
     }
 
@@ -221,9 +219,9 @@ public final class ScreenGame extends Screen {
      * Add new block to the game world.
      */
     private void addBlock() {
-        if (isFull()) {
-            return;
-        }
+        // if (isFull()) {
+        //     return;
+        // }
         int x, y;
         do {
             x = MathUtils.random(blocks.length - 1);
@@ -233,7 +231,8 @@ public final class ScreenGame extends Screen {
     }
 
     private void check(int[][] last) {
-        if (Arrays.deepEquals(last, blocks)) {
+        if (Arrays.deepEquals(last, blocks) | isFull()) {
+            // play(sfxDeath);
             return;
         }
         getEngine().setAlpha(0);
@@ -277,11 +276,25 @@ public final class ScreenGame extends Screen {
      * Called when the board is fulled and the player has lost.
      */
     private void death() {
+        // Gdx.app.log(Myris.TAG, "All men must die");
         Gdx.app.log(Myris.TAG, "GAME OVER!"); // why not
         play(sfxDeath);
         changeScreen(new ScreenScore(score, getEngine().getPreferences().getHighScore()));
         getEngine().getPreferences().setHighScore(score);
         // clearBoard();
+    }
+
+    // siD 2018-12-22:
+    // Saves current score as a possible highscore.
+    // Easier to test for me & allows quite states.
+    @Override
+    public boolean handleMessage(Telegram msg) {
+        switch (msg.message) {
+            case BACK_KEY_PRESSED:
+                death();
+                break;
+        }
+        return super.handleMessage(msg);
     }
 }
 

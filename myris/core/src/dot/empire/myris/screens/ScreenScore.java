@@ -1,16 +1,22 @@
 package dot.empire.myris.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.msg.MessageManager;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.kotcrab.vis.ui.util.dialog.OptionDialogListener;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import dot.empire.myris.Myris;
 import dot.empire.myris.Screen;
 import dot.empire.myris.buttons.BtnPlay;
 import dot.empire.myris.buttons.BtnReset;
 import dot.empire.myris.buttons.BtnToMain;
 import dot.empire.myris.gfx.HighScoreLabel;
 import dot.empire.myris.gfx.ScoreLabel;
+
+import static dot.empire.myris.Defines.Messages.AD_HIDE;
+import static dot.empire.myris.Defines.Messages.AD_SHOW;
 
 /**
  * Shows current score & current high score to the user. Former {@code ScreenDeath} class. Created 26/11/2018.
@@ -65,7 +71,9 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
 
         row();
 
-        if (old < score) {
+        Gdx.app.debug(Myris.TAG, String.format("old = %s; score = %s", old + "", score + ""));
+
+        if (old < score && old != Long.MIN_VALUE) {
             add(new VisLabel("New Highscore!", Color.BLACK));
         }
 
@@ -76,6 +84,7 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
         VisTable buttons = new VisTable(true);
         buttons.add(new BtnToMain(mngr, this));
         if (old != Long.MIN_VALUE) {
+            MessageManager.getInstance().dispatchMessage(AD_SHOW);
             buttons.add(new BtnPlay(mngr, this));
         } else {
             buttons.add(new BtnReset(mngr, this));
@@ -98,7 +107,7 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
      */
     @Override
     public void yes() {
-        getEngine().getPreferences().setHighScore(0);
+        getEngine().getPreferences().setHighScore(-1);
         changeScreen(ScreenScore.class);
     }
 
@@ -108,5 +117,11 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
 
     @Override
     public void cancel() {
+    }
+
+    @Override
+    public void dispose() {
+        MessageManager.getInstance().dispatchMessage(AD_HIDE);
+        super.dispose();
     }
 }
