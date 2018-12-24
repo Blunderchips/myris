@@ -108,7 +108,9 @@ public final class AndroidLauncher extends AndroidApplication implements Telegra
         });
         this.adView.setAdSize(AdSize.SMART_BANNER);
         // http://www.google.com/admob
-        this.adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111"); // https://developers.google.com/admob/android/test-ads
+        // this.adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111"); // https://developers.google.com/admob/android/test-ads
+        this.adView.setAdUnitId(getString(R.string.ad_id));
+
 
         AdRequest.Builder builder = new AdRequest.Builder();
         //run once before uncommenting the following line. Get TEST device ID from the logcat logs.

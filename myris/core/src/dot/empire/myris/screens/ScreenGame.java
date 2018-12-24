@@ -30,16 +30,16 @@ public final class ScreenGame extends Screen {
      * Block colours.
      */
     private static final Color[] COLOURS = {
-            Color.SKY, Color.CHARTREUSE, Color.GOLD,
+            Color.SKY, /*Color.CHARTREUSE,*/ Color.GOLD,
             /*Color.TAN,*/ Color.SCARLET, Color.VIOLET
     };
 
-    private int[][] blocks;
-    private SequenceGenerator seqn;
+    private final int[][] blocks;
+    private final SequenceGenerator seqn;
     private Sound sfxCollect;
     private Sound sfxDeath;
     private Sound sfxClick;
-    private AtomicInteger numCollected;
+    private final AtomicInteger numCollected;
     private ScoreLabel score;
 
     public ScreenGame() {
@@ -242,9 +242,9 @@ public final class ScreenGame extends Screen {
 
 
     private boolean isFull() {
-        for (int x = 0; x < blocks.length; x++) {
-            for (int y = 0; y < blocks[x].length; y++) {
-                if (blocks[x][y] == -1) {
+        for (int[] row : blocks) {
+            for (int y = 0; y < row.length; y++) {
+                if (row[y] == -1) {
                     return false;
                 }
             }
@@ -288,6 +288,7 @@ public final class ScreenGame extends Screen {
     // Saves current score as a possible highscore.
     // Easier to test for me & allows quite states.
     @Override
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public boolean handleMessage(Telegram msg) {
         switch (msg.message) {
             case BACK_KEY_PRESSED:

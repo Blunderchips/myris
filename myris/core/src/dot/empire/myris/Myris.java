@@ -272,6 +272,7 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
     }
 
     @Override
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public boolean handleMessage(Telegram msg) {
         Gdx.app.debug(Myris.TAG, String.format(Locale.ENGLISH, "Message = %d", msg.message));
         switch (msg.message) {

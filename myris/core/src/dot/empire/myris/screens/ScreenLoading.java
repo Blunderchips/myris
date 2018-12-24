@@ -56,6 +56,7 @@ public final class ScreenLoading extends Screen {
     }
 
     @Override
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public boolean handleMessage(Telegram msg) {
         switch (msg.message) {
             case BACK_KEY_PRESSED:

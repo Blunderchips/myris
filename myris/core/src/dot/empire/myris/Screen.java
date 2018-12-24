@@ -30,7 +30,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
      */
     private Myris engine;
 
-    public Screen() {
+    protected Screen() {
         super(true);
         super.setFillParent(true);
         // super.setDebug(Gdx.app.getLogLevel() == Application.LOG_DEBUG, true);
@@ -130,7 +130,7 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
     /**
      * @return parent
      */
-    public Myris getEngine() {
+    protected Myris getEngine() {
         return this.engine;
     }
 
@@ -147,13 +147,14 @@ public abstract class Screen extends VisTable implements Disposable, SimpleDirec
         }
     }
 
-    public void play(Music sfx) {
+    protected void play(Music sfx) {
         if (!getEngine().getPreferences().isMuted()) {
             sfx.play();
         }
     }
 
     @Override
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public boolean handleMessage(Telegram msg) {
         switch (msg.message) {
             case BACK_KEY_PRESSED:

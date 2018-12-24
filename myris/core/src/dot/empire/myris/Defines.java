@@ -22,11 +22,11 @@ public final class Defines {
      */
     public static final int SCREEN_HEIGHT = 800;
 
-    /**
-     * Image overlay to be rendered on top of main game screen.
-     */
-    @AnnotationAssetManager.Asset(Texture.class)
-    public static final String GAME_OVERLAY = "gfx/game-overlay.png";
+    // /**
+    // * Image overlay to be rendered on top of main game screen.
+    // */
+    // @AnnotationAssetManager.Asset(Texture.class)
+    // public static final String GAME_OVERLAY = "gfx/game-overlay.png";
     /**
      * GIF played on loading screen.
      */
