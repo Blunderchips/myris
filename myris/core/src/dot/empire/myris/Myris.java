@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
@@ -234,7 +235,7 @@ public final class Myris extends ApplicationAdapter implements Disposable, Teleg
     }
 
     public void setAlpha(float alpha) {
-        this.alpha = MathUtils.clamp(alpha, 0, 1);
+        this.alpha = MathUtils.clamp(Interpolation.linear.apply(alpha), 0, 1);
     }
 
 //    public void setMuteAlpha(float alpha) {

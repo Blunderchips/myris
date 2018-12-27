@@ -33,7 +33,7 @@ public final class ScreenSplash extends Screen {
 
     @Override
     public void update(float dt) {
-        if (!sfxIntro.isPlaying() || Gdx.input.isTouched()) {
+        if (/*!sfxIntro.isPlaying() ||*/ Gdx.input.isTouched()) {
             changeScreen(ScreenMenuMain.class);
         }
     }

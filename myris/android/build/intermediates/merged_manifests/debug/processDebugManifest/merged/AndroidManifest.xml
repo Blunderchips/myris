@@ -22,7 +22,6 @@
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:testOnly="true"
         android:theme="@style/GdxTheme" >
 
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
