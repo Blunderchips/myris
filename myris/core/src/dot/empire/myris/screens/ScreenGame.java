@@ -400,5 +400,11 @@ public final class ScreenGame extends Screen {
         }
         return rtn;
     }
+
+    @Override
+    public void dispose() {
+        this.score.dispose();
+        super.dispose();
+    }
 }
 

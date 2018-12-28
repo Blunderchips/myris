@@ -64,4 +64,12 @@ public final class ScreenLoading extends Screen {
         }
         return super.handleMessage(msg);
     }
+
+    @Override
+    public void dispose() {
+//        for (TextureRegion texture : loadGif.getKeyFrames()) {
+//            texture.getTexture().dispose();
+//        }
+        super.dispose();
+    }
 }

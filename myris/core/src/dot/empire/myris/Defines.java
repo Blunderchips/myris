@@ -32,6 +32,8 @@ public final class Defines {
      */
     public static final String LOADING_GIF = "gfx/cube-1.3s-200px.gif";
 
+    public static final String TUTORIAL_GIF = "gfx/tutorial.gif";
+
     /**
      * Main menu music.
      */
