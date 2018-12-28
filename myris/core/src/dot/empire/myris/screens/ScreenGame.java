@@ -83,7 +83,7 @@ public final class ScreenGame extends Screen {
             }
         }
 
-        this.alpha = MathUtils.clamp(Interpolation.linear.apply(alpha + dt * 2), 0, 1);
+        this.alpha = MathUtils.clamp(Interpolation.linear.apply(alpha + dt * 1.75f), 0, 1);
         if (alpha == 1) {
             this.direction = 0;
         }
@@ -97,31 +97,39 @@ public final class ScreenGame extends Screen {
 
     @Override
     public void render(ShapeRenderer renderer, SpriteBatch batch) {
-        int[][] tmp = alpha == 1 ? blocks : blocks;
-        for (int x = 0; x < tmp.length; x++) {
-            for (int y = 0; y < tmp[x].length; y++) {
-                if (tmp[x][y] != -1) {
-                    int colour = tmp[x][y];
+        render(last, renderer, 1 - alpha, true);
+        render(blocks, renderer, alpha, false);
+    }
 
-                    int[] next = findNext(colour, x, y, direction);
+    private void render(int[][] blocks, ShapeRenderer renderer, float alpha, boolean flag) {
+        for (int x = 0; x < blocks.length; x++) {
+            for (int y = 0; y < blocks[x].length; y++) {
+                if (blocks[x][y] != -1) {
+                    int colour = blocks[x][y];
+
                     float xPos = (x * BLOCK_SIZE), yPos = (y * BLOCK_SIZE);
 
-                    switch (direction) {
-                        case 1: // up
-                            yPos = MathUtils.clamp(yPos - SCREEN_HEIGHT * (1 - alpha), 0, SCREEN_HEIGHT);
-                            break;
-                        case 2: // down
-                            yPos = MathUtils.clamp(yPos + SCREEN_HEIGHT * (1 - alpha), 0, SCREEN_HEIGHT);
-                            break;
-                        case 3: // left
-                            xPos = MathUtils.clamp(xPos + SCREEN_WIDTH * (1 - alpha), 0, SCREEN_WIDTH);
-                            break;
-                        case 4: // right
-                            xPos = MathUtils.clamp(xPos - SCREEN_WIDTH * (1 - alpha), 0, SCREEN_WIDTH);
-                            break;
+                    if (flag) {
+                        switch (direction) {
+                            case 1: // up
+                                yPos -= SCREEN_HEIGHT * alpha;
+                                break;
+                            case 2: // down
+                                yPos += SCREEN_HEIGHT * alpha;
+                                break;
+                            case 3: // left
+                                xPos += SCREEN_WIDTH * alpha;
+                                break;
+                            case 4: // right
+                                xPos -= SCREEN_WIDTH * alpha;
+                                break;
+                        }
                     }
 
-                    renderer.setColor(COLOURS[colour]);
+                    Color c = COLOURS[colour].cpy();
+                    c.a = alpha;
+
+                    renderer.setColor(c);
                     renderer.rect(
                             xPos,
                             yPos,
@@ -283,7 +291,7 @@ public final class ScreenGame extends Screen {
             // play(sfxDeath);
             return;
         }
-        getEngine().setAlpha(0);
+        // getEngine().setAlpha(0);
         play(sfxClick);
         addBlock();
         this.alpha = 0;
@@ -345,60 +353,6 @@ public final class ScreenGame extends Screen {
                 break;
         }
         return super.handleMessage(msg);
-    }
-
-    private int[] findNext(int colour, int xPos, int yPos, int direction) {
-        if (direction == 0) {
-            return new int[]{0, 0};
-        }
-        int[] rtn = new int[2];
-        switch (direction) {
-            case 1: // up
-                if (yPos == blocks[0].length) {
-                    return new int[]{0, 0};
-                }
-                for (int y = yPos + 1; y < blocks[0].length; y++) {
-                    if (blocks[xPos][y] == colour) {
-                        rtn[0] = xPos;
-                        rtn[1] = y;
-                    }
-                }
-                break;
-            case 2: // down
-                if (yPos == 0) {
-                    return new int[]{0, 0};
-                }
-                for (int y = yPos - 1; y < 0; y--) {
-                    if (blocks[xPos][y] == colour) {
-                        rtn[0] = xPos;
-                        rtn[1] = y;
-                    }
-                }
-                break;
-            case 3: // left
-                if (xPos == 0) {
-                    return new int[]{0, 0};
-                }
-                for (int x = xPos - 1; x < 0; x--) {
-                    if (blocks[x][yPos] == colour) {
-                        rtn[0] = x;
-                        rtn[1] = yPos;
-                    }
-                }
-                break;
-            case 4: // right
-                if (xPos == blocks.length) {
-                    return new int[]{0, 0};
-                }
-                for (int x = xPos + 1; x < blocks.length; x++) {
-                    if (blocks[x][yPos] == colour) {
-                        rtn[0] = x;
-                        rtn[1] = yPos;
-                    }
-                }
-                break;
-        }
-        return rtn;
     }
 
     @Override

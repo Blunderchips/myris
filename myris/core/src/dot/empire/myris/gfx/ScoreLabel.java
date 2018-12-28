@@ -59,7 +59,7 @@ public final class ScoreLabel extends VisTable implements Comparable<Long>, Disp
     @Override
     public void act(float dt) {
         // FIXME: 28 Dec 2018
-        this.elasped += dt;
+        this.elasped += dt / 2f;
         if (elasped > 1000) {
             this.elasped = 0;
         }

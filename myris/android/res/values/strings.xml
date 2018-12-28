@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">myris</string>
 
-    <!--https://developers.google.com/admob/android/quick-start?hl=en-US#import_the_mobile_ads_sdk-->
+    <!-- https://developers.google.com/admob/android/quick-start?hl=en-US#import_the_mobile_ads_sdk -->
     <string name="app_id">ca-app-pub-7186830154970754~6737431454</string>
     <string name="ad_id">ca-app-pub-7186830154970754/9910389704</string>
 </resources>
