@@ -77,19 +77,16 @@ public final class ScreenScore extends Screen implements BtnReset.RestListener, 
             add(new VisLabel("New Highscore!", Color.BLACK));
         }
 
-        row();
-
-        addSeparator();
-
-        VisTable buttons = new VisTable(true);
-        buttons.add(new BtnToMain(mngr, this));
         if (old != Long.MIN_VALUE) {
+            row();
+            addSeparator();
+
+            VisTable buttons = new VisTable(true);
+            buttons.add(new BtnToMain(mngr, this));
             MessageManager.getInstance().dispatchMessage(AD_SHOW);
             buttons.add(new BtnPlay(mngr, this));
-        } else {
-            buttons.add(new BtnReset(mngr, this));
+            add(buttons);
         }
-        add(buttons);
 
         row();
         super.show(mngr);
