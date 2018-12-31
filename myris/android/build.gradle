@@ -1,6 +1,7 @@
 android {
     buildToolsVersion "28.0.3"
     compileSdkVersion 27
+    
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -11,18 +12,20 @@ android {
             assets.srcDirs = ['assets']
             jniLibs.srcDirs = ['libs']
         }
-
     }
+    
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
+    
     defaultConfig {
         applicationId "dot.empire.myris"
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 2
-        versionName "1.0"
+        versionCode 3
+        versionName "2019.01.01"
     }
+    
     buildTypes {
         release {
             minifyEnabled false
