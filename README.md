@@ -28,6 +28,7 @@ myris is a colour matching mobile game made using [libGDX](https://libgdx.badlog
 * [myris - gource 4k - 2018-12-07](https://youtu.be/8PK6TImEKQQ)
 * [myris - Android Game Development Log (Part 1)](https://youtu.be/gy6mCSZwWPM)
 * [myris - Android Game Development Log (Part 2)](https://youtu.be/tzjxUmd5GfU)
+* [myris - Android Game Development Log (Part 3)](https://youtu.be/IL6MQA6QQts)
 
 ### License
 MIT License
